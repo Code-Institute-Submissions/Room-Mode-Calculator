@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+    <title>Drawing Template</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="row">
+                <div class="col">
+                    <h1 class="text-center">Room Mode Calculator</h1>
+                </div>
+            </div>
+        </div>
+
+
+        <main>
+            <!--Input Form  -->
+            <div class="row no-gutters align-items-center border border-info">
+                <div class="col">
+
+
+                    <form id="dimensionForm">
+                        <div class="form-row form-inline no-gutters justify-content-around">
+                            <div class="col-auto">
+                                <label for="xInput" class="sr-only">X-Axis</label>
+                                <input type="number" id="xInput" class="form-control" name="x_Input" placeholder="X-Axis" />
+                            </div>
+                            <div class="col-auto">
+                                <label for="yInput" class="sr-only">Y-Axis</label>
+                                <input type="number" id="yInput" class="form-control" name="y_Input" placeholder="Y-Axis" />
+                            </div>
+                            <div class="col-auto">
+                                <label for="zInput" class="sr-only">Z-Axis</label>
+                                <input type="number" id="zInput" class="form-control" name="z_Input" placeholder="Z-Axis" />
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" id="submitBtn" class="btn btn-success">Go!</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!--  Outputs and Drawing Area  -->
+            <div class="row">
+
+                <!-- Outputs  Display -->
+                <div class="col-2">
+
+                    <div class="outputs-wrapper d-flex flex-column justify-content-around">
+                        <div class="dim-box">
+                            <h2 id="paraLen" class="dim-title">Length</h2>
+                            <p class="para-dim">Frequency: </p>
+                            <p class="para-dim">Musical Note: </p>
+                        </div>
+                        <div class="dim-box">
+                            <h2 id="paraWid" class="dim-title">Width</h2>
+                            <p  class="para-dim">Frequency: </p>
+                            <p  class="para-dim">Musical Note: </p>
+                        </div>
+                        <div class="dim-box">
+                            <h2 id="paraHei" class="dim-title">Height</h2>
+                            <p class="para-dim">Frequency: </p>
+                            <p class="para-dim">Musical Note: </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-10">
+                    <div class="drawing-wrapper d-flex align-items-center justify-content-center">
+                        <svg id="drawingArea" class="drawing-area">
+                        
+                        <!-- JS will determine the position/dimensions of the lines  -->
+                        <line id="xAxis" class="d-none line line-main line-x"/>
+                        
+                        <line id="yAxis" class="d-none line line-main line-y"/>
+                        
+                        <line id="zAxis" class="d-none line line-main line-z"/>
+                        
+                        <!-- Path to draw the background axes  -->
+                        <path id="backPath" class="d-none line line-back"></path>
+                        
+                    </svg>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
