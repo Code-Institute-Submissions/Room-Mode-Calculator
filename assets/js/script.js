@@ -10,9 +10,10 @@ $(document).ready(function() {
 
     //---------------------Define Variables --------------//
 
-    
-    var dimensions = []; //Define test dimensions array - replace with user input
-    const speedOfSound = 344; // speed of sound in air in meters per second
+
+    const speedOfSound = 344; // speed of sound in air in meters per second (21 degrees celsius)
+    var dimensions = []; //dimensions array - replace with user input
+    var frequencies = [];
 
 
     //return the dimensions of drawing area for currently selected 
@@ -102,23 +103,35 @@ $(document).ready(function() {
 
 
     //calculate frequency based on dimension
-    function freqCalc(dim)  {
-        return Math.round(speedOfSound/dim);
+    function freqCalc(dimen) {
+        return Math.round(speedOfSound / dimen);
     }
-        
 
-    
+
+
     //function to display dimension outputs
     function dimensionOutputs(x, y, z) {
+
+        //Dimension outputs
+        //clear dimensions array and push user inputs to dimensions array 
+        dimensions.length = 0;
+        dimensions.push(x, y, z);
+
         $("#titleLen").text(`Length: ${x}m`);
         $("#titleWid").text(`Width: ${y}m`);
         $("#titleHei").text(`Height: ${z}m`);
-        
-        $("#freqLen").text(`Frequency: ${freqCalc(x)}Hz`);
-        $("#freqWid").text(`Frequency: ${freqCalc(y)}Hz`);
-        $("#freqHei").text(`Frequency: ${freqCalc(z)}Hz`);
-        
+
+
+
+        //Frequencies outputs
+        frequencies = dimensions.map(freqCalc);
+
+        $("#freqLen").text(`Frequency: ${frequencies[0]}Hz`);
+        $("#freqWid").text(`Frequency: ${frequencies[1]}Hz`);
+        $("#freqHei").text(`Frequency: ${frequencies[2]}Hz`);
+
     }
+
 
 
     //On submit the inputs will be assigned to the dimension boxes and [dimensions] array
@@ -138,25 +151,18 @@ $(document).ready(function() {
         }
 
         else {
-            //clear dimensions array
-            dimensions.length = 0;
-            dimensions.push(xIn, yIn, zIn);
 
             //Remove "d-none" class from svg elements"
             $(".line").removeClass("d-none"); //maybe change this to the SVG element
 
-            dimensionOutputs(xIn, yIn, zIn); // calll function to fill the output display on left
-            drawRoom(xIn, yIn, zIn);  //call function to draw the room
+            dimensionOutputs(xIn, yIn, zIn); // call function to fill the output display on left
+            drawRoom(xIn, yIn, zIn); //call function to draw the room
 
             $("#dimensionForm").trigger("reset");
+            
+            console.log($("#playBtn0"));
         }
     }
-
-
-
-
-
-
 
 
 
@@ -175,42 +181,26 @@ $(document).ready(function() {
     var volume = audioCtx.createGain();
     var playCheck = false; //check if audio is playing - initialise as false on page load
 
-    $("#play").click(playBtnActions);
-
+    $(".play-button").click(playBtnActions);
+    
+    
+    
 
     function playBtnActions() {
-        createChord();
+        var freqIndex = parseInt($(this).attr("id").slice(7));
+        createNote(frequencies[freqIndex]);
         connectToOutput();
     }
-
-    /* Not used currently
-    
-    function toggleButton() {
-        $("#play").toggleClass("btn-danger btn-success");
-
-        if (playCheck === false) {
-            $("#play").text("Stop");
-        }
-        else {
-            $("#play").text("Play");
-        }
-    }
-    
-    */
-
-
 
     function connectToOutput() {
 
         if (playCheck === false) {
             volume.connect(audioCtx.destination);
             playCheck = true;
-            console.log(playCheck);
         }
         else {
             volume.disconnect(audioCtx.destination);
             playCheck = false;
-            console.log(playCheck);
         }
     }
 
@@ -218,29 +208,20 @@ $(document).ready(function() {
 
 
 
-    function createChord() {
+    function createNote(frequency) {
         // Thee sine waves at different frequencies 
+        
+        var sound = audioCtx.createOscillator();
+        sound.frequency.value = frequency;
+        sound.type = "sine";
+        sound.start();
+        sound.connect(volume);
 
-        var sinea = audioCtx.createOscillator();
-        sinea.frequency.value = 440;
-        sinea.type = "sine";
-        sinea.start();
-        sinea.connect(volume);
-
-        var sineb = audioCtx.createOscillator();
-        sineb.frequency.value = 523.25;
-        sineb.type = "sine";
-        sineb.start();
-        sineb.connect(volume);
-
-        var sinec = audioCtx.createOscillator();
-        sinec.frequency.value = 698.46;
-        sinec.type = "sine";
-        sinec.start();
-        sinec.connect(volume);
 
         volume.gain.value = 0.2;
     }
+
+
 
 
 
