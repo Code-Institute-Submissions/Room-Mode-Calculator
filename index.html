@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container body-container">
         <div class="header">
             <div class="row">
                 <div class="col">
@@ -25,24 +25,25 @@
             <!--Input Form  -->
             <div class="row no-gutters align-items-center border border-info">
                 <div class="col">
-
-
                     <form id="dimensionForm">
                         <div class="form-row form-inline no-gutters justify-content-around py-2">
-                            <div class="col-auto">
+                            <div class="col-12 col-md-2 my-2">
+                                <h3 class="input-request">Enter dimensions: </h3>
+                            </div>
+                            <div class="col-4 col-md-3">
                                 <label for="xInput" class="sr-only">X-Axis</label>
-                                <input type="number" id="xInput" class="form-control" name="x_Input" placeholder="X-Axis" />
+                                <input type="number" id="xInput" class="form-control input-box" name="x_Input" placeholder="X-Axis"/>
                             </div>
-                            <div class="col-auto">
+                            <div class="col-4 col-md-3">
                                 <label for="yInput" class="sr-only">Y-Axis</label>
-                                <input type="number" id="yInput" class="form-control" name="y_Input" placeholder="Y-Axis" />
+                                <input type="number" id="yInput" class="form-control input-box" name="y_Input" placeholder="Y-Axis"/>
                             </div>
-                            <div class="col-auto">
+                            <div class="col-4 col-md-3">
                                 <label for="zInput" class="sr-only">Z-Axis</label>
-                                <input type="number" id="zInput" class="form-control" name="z_Input" placeholder="Z-Axis" />
+                                <input type="number" id="zInput" class="form-control input-box" name="z_Input" placeholder="Z-Axis"/>
                             </div>
-                            <div class="col-auto">
-                                <button type="button" id="submitBtn" class="btn btn-success">Go!</button>
+                            <div class="col-12 col-md-1">
+                                <button type="button" id="submitBtn" class="btn btn-success w-100">Go!</button>
                             </div>
                         </div>
                     </form>
@@ -51,39 +52,39 @@
 
             <!--  Outputs and Drawing Area  -->
             <div class="row">
-
                 <!-- Outputs  Display -->
-                <div class="col-2">
+                <div class="col-12 col-md-2 outputs-display">
 
                     <div class="outputs-wrapper d-flex flex-column justify-content-around">
                         <div class="dim-box">
-                            <button type="button" class="btn-primary w-100">
+                            <button type="button" id="lenBtn"class="btn btn-primary btn-sm dim-button">
                                 <h2 id="titleLen" class="dim-title">Length: </h2>
                             </button>
                             <p id="freqLen" class="para-dim my-1">Frequency: </p>
                             <p class="para-dim my-1">Musical Note: </p>
-                            <button type="button" id="playBtn0" class="btn btn-success w-100 play-button">Play</button>
+                            <button type="button" id="playBtn0" class="btn btn-success btn-sm play-button">Play</button>
                         </div>
                         <div class="dim-box">
-                            <button type="button" class="btn-primary w-100">
+                            <button type="button" id="widBtn" class="btn-primary btn-sm dim-button">
                                 <h2 id="titleWid" class="dim-title">Width: </h2>
                             </button>
                             <p id="freqWid" class="para-dim my-1">Frequency: </p>
                             <p class="para-dim my-1">Musical Note: </p>
-                            <button type="button" id="playBtn1" class="btn btn-success w-100 play-button">Play</button>
+                            <button type="button" id="playBtn1" class="btn btn-success btn-sm play-button">Play</button>
                         </div>
                         <div class="dim-box">
-                            <button type="button" class="btn-primary w-100">
+                            <button type="button" id="heiBtn" class="btn-primary btn-sm dim-button">
                                 <h2 id="titleHei" class="dim-title">Height: </h2>
                             </button>
                             <p id="freqHei" class="para-dim my-1">Frequency: </p>
                             <p class="para-dim my-1">Musical Note: </p>
-                            <button type="button" id="playBtn2" class="btn btn-success w-100 play-button">Play</button>
+                            <button type="button" id="playBtn2" class="btn btn-success btn-sm play-button">Play</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="col-10">
+                
+                <!-- Graphics  -->
+                <div class="col-12 col-md-10 graphics">
                     <div class="drawing-wrapper d-flex align-items-center justify-content-center">
                         <svg id="drawingArea" class="drawing-area">
                         

@@ -97,6 +97,8 @@ $(document).ready(function() {
 
 
         // Animate --------------------------- //
+
+        //Main axes
         xAxisDraw();
         yAxisDraw();
         zAxisDraw();
@@ -153,13 +155,43 @@ $(document).ready(function() {
                 }
             }
         }
-
-
     }
 
 
 
 
+    /////???????????????????????????????????????????????????????
+    
+    ///?????????????????????????????????????????????????????????
+
+
+    //Animate on axis focus
+    $("#lenBtn").click(drop);
+
+    function xFocus() {
+        console.log($("#xAxis").attr("x1"));
+        console.log($("#xAxis").attr("y1"));
+    }
+
+
+    function drop() {
+        var elem = document.getElementById("xAxis");
+        var dur = 500; //duration in miliseconds
+        var id = setInterval(frame, 10);
+
+        function frame() {
+
+            if (dur == 500) {
+                clearInterval(id);
+            }
+            else {
+                dur += 10;
+                $("#xAxis").attr("y1", function(n, v) {
+                    return v - 10;
+                });
+            }
+        }
+    }
 
 
 

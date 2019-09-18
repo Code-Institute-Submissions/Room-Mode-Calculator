@@ -1,21 +1,62 @@
-.outputs-wrapper  {
-    height:100%;
+body {
+    background-color: #d1d1d1;
+    height: 100vh;
+}
+
+
+h1 {
+    background-color: #6620a7;
+    color: #fefefe;
+    margin: 0;
+}
+
+
+/* ---------------------------------- Input Form  --*/
+
+.input-request {
+    font-size: 1em;
+    margin: 0;
+}
+
+.input-box {
+    display: inline-block;
+    width: 100%;
+}
+
+
+
+
+/* ------------------------------ Outputs Display  --*/
+
+.outputs-display {
+    order: 0;
+}
+
+.outputs-wrapper {
+    height: 100%;
 }
 
 
 
 .dim-box {
-    background-color: #fafafa;
+    background-color: #fefefe;
     border: 1px solid #bababa;
     border-radius: 10%;
     box-sizing: border-box;
+    display: flex;
     margin: 0.5em 0;
     padding: 0.5em;
 }
 
 
-.dim-title  {
-    font-size:1.3em;
+.dim-button {
+    display: block;
+    width: 100%;
+}
+
+
+.dim-title {
+    font-size: 1.3em;
     margin: 0;
 }
 
@@ -25,16 +66,25 @@
     margin: 0;
 }
 
-
-.dimension-input  {
-    width:50%;
+.play-button {
+    display: block;
+    width: 100%;
 }
 
+
+/* -------------------------------Graphics Area  ----*/
+
+.graphics {
+    order: 1;
+}
+
+
 .drawing-wrapper {
+    background-color: #efefef;
     border: 1px solid #bababa;
     box-sizing: border-box;
-    height: 80vh;
-    position: relative; /*might need to remove this */
+    height: 100%;
+    position: relative;
     width: 100%
 }
 
@@ -59,7 +109,7 @@
     stroke-width: 5px;
 }
 
-.line-back  {
+.line-back {
     fill-opacity: 0;
     stroke: #bebebe;
     stroke-width: 1px;
@@ -75,4 +125,39 @@
 
 .line-z {
     stroke: #0000ff;
+}
+
+
+/*---------------------------- Media Queries  -- */
+
+@media (max-width:768px) {
+
+    body {
+        font-size: 75%;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .outputs-display {
+        order: 1;
+    }
+
+    .graphics {
+        order: 0;
+    }
+
+
+    .dim-button {
+        display: inline-block;
+        width: 40%;
+    }
+
+    .play-button {
+        display: inline-block;
+        width: 20%;
+    }
+
+
 }
