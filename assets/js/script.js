@@ -185,6 +185,7 @@ $(document).ready(function() {
     var audioCtx = new(window.AudioContext);
     var sound = audioCtx.createOscillator();
     var volume = audioCtx.createGain();
+    sound.start();
     var playCheck = false; //check if audio is playing - initialise as false on page load
 
     $(".play-button").click(playBtnActions);
@@ -199,7 +200,7 @@ $(document).ready(function() {
 
         
         createNote(frequencies[freqIndex]);
-        connectToOutput();
+        //connectToOutput();
         
     }
 
@@ -209,6 +210,7 @@ $(document).ready(function() {
             $(".play-button").removeClass("btn-danger").addClass("btn-success");
             $(".play-button").text("Play");
             $(`#${actBtn}`).addClass("btn-danger").removeClass("btn-success").text("Stop");
+            startPlayback();
         } else  {
             $(`#${actBtn}`).addClass("btn-success").removeClass("btn-danger").text("Play");
             stopPlayback();
@@ -222,25 +224,14 @@ $(document).ready(function() {
 
         sound.frequency.value = frequency;
         sound.type = "sine";
-        sound.start();
         sound.connect(volume);
-
-
         volume.gain.value = 0.2;
     }
 
 
 
-    function connectToOutput() {
-
-        if (playCheck === false) {
-            volume.connect(audioCtx.destination);
-            playCheck = true;
-        }
-        else {
-            volume.disconnect(audioCtx.destination);
-            playCheck = false;
-        }
+    function startPlayback() {
+        volume.connect(audioCtx.destination);
     }
     
     
