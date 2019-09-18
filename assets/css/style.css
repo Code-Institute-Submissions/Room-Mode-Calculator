@@ -41,6 +41,7 @@
 .drawing-area {
     box-sizing: border-box;
     height: 95%;
+    padding: 1%;
     width: 95%;
 }
 

@@ -30,8 +30,13 @@ $(document).ready(function() {
 
         //derive the  to maximise diagram size based on room x-axis and y-axis
         var scaleQ = xDim + yDim;
-        var baseProportion = Math.round(drawAreaWidth / scaleQ);
-        var posQ = drawAreaWidth / scaleQ * xDim; //x position of origin is based on length of x-axis (red)
+        if (Math.max(...dimensions) === zDim)  {
+            var baseProportion = Math.round(drawAreaHeight / scaleQ) *0.8;
+        } else  {
+            var baseProportion = Math.round(drawAreaWidth / scaleQ) *0.8;
+        }
+        
+        var posQ = drawAreaWidth / (xDim + yDim) * xDim; //x position of origin is based on length of x-axis (red)
 
 
         //lengths Are dimension * baseProportion * value in [dimensions] array
@@ -160,7 +165,6 @@ $(document).ready(function() {
 
             $("#dimensionForm").trigger("reset");
             
-            console.log($("#playBtn0"));
         }
     }
 
@@ -220,8 +224,6 @@ $(document).ready(function() {
 
         volume.gain.value = 0.2;
     }
-
-
 
 
 
