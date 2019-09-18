@@ -44,6 +44,7 @@ h1 {
     border-radius: 10%;
     box-sizing: border-box;
     display: flex;
+    flex-direction: column;
     margin: 0.5em 0;
     padding: 0.5em;
 }
@@ -157,6 +158,10 @@ h1 {
     .play-button {
         display: inline-block;
         width: 20%;
+    }
+    
+    .dim-box  {
+        flex-direction: row;
     }
 
 
