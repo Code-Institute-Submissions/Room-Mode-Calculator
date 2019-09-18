@@ -197,10 +197,10 @@ $(document).ready(function() {
         var thisPlayBtn = $(this).attr("id");
         playBtnDisplay(thisPlayBtn);
 
-        /*
+        
         createNote(frequencies[freqIndex]);
         connectToOutput();
-        */
+        
     }
 
     //Change the display of the play buttons     
@@ -211,7 +211,7 @@ $(document).ready(function() {
             $(`#${actBtn}`).addClass("btn-danger").removeClass("btn-success").text("Stop");
         } else  {
             $(`#${actBtn}`).addClass("btn-success").removeClass("btn-danger").text("Play");
-            
+            stopPlayback();
         }
     }
 
@@ -242,7 +242,11 @@ $(document).ready(function() {
             playCheck = false;
         }
     }
-
+    
+    
+    function stopPlayback()  {
+        volume.disconnect(audioCtx.destination);
+    }
 
 
 
