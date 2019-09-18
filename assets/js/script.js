@@ -30,12 +30,13 @@ $(document).ready(function() {
 
         //derive the  to maximise diagram size based on room x-axis and y-axis
         var scaleQ = xDim + yDim;
-        if (Math.max(...dimensions) === zDim)  {
-            var baseProportion = Math.round(drawAreaHeight / scaleQ) *0.8;
-        } else  {
-            var baseProportion = Math.round(drawAreaWidth / scaleQ) *0.8;
+        if (Math.max(...dimensions) === zDim) {
+            var baseProportion = Math.round(drawAreaHeight / scaleQ) * 0.8;
         }
-        
+        else {
+            var baseProportion = Math.round(drawAreaWidth / scaleQ) * 0.8;
+        }
+
         var posQ = drawAreaWidth / (xDim + yDim) * xDim; //x position of origin is based on length of x-axis (red)
 
 
@@ -164,7 +165,7 @@ $(document).ready(function() {
             drawRoom(xIn, yIn, zIn); //call function to draw the room
 
             $("#dimensionForm").trigger("reset");
-            
+
         }
     }
 
@@ -182,19 +183,53 @@ $(document).ready(function() {
 
     //Establish the audio context
     var audioCtx = new(window.AudioContext);
+    var sound = audioCtx.createOscillator();
     var volume = audioCtx.createGain();
     var playCheck = false; //check if audio is playing - initialise as false on page load
 
     $(".play-button").click(playBtnActions);
-    
-    
-    
+
+
+
 
     function playBtnActions() {
         var freqIndex = parseInt($(this).attr("id").slice(7));
+        var thisPlayBtn = $(this).attr("id");
+        playBtnDisplay(thisPlayBtn);
+
+        /*
         createNote(frequencies[freqIndex]);
         connectToOutput();
+        */
     }
+
+    //Change the display of the play buttons     
+    function playBtnDisplay(actBtn) {
+        if ($(`#${actBtn}`).text() === "Play") {
+            $(".play-button").removeClass("btn-danger").addClass("btn-success");
+            $(".play-button").text("Play");
+            $(`#${actBtn}`).addClass("btn-danger").removeClass("btn-success").text("Stop");
+        } else  {
+            $(`#${actBtn}`).addClass("btn-success").removeClass("btn-danger").text("Play");
+            
+        }
+    }
+
+
+    function createNote(frequency) {
+        // Thee sine waves at different frequencies 
+
+
+        sound.frequency.value = frequency;
+        sound.type = "sine";
+        sound.start();
+        sound.connect(volume);
+
+
+        volume.gain.value = 0.2;
+    }
+
+
 
     function connectToOutput() {
 
@@ -209,21 +244,6 @@ $(document).ready(function() {
     }
 
 
-
-
-
-    function createNote(frequency) {
-        // Thee sine waves at different frequencies 
-        
-        var sound = audioCtx.createOscillator();
-        sound.frequency.value = frequency;
-        sound.type = "sine";
-        sound.start();
-        sound.connect(volume);
-
-
-        volume.gain.value = 0.2;
-    }
 
 
 
