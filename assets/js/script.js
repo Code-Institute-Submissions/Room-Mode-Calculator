@@ -25,9 +25,6 @@ $(document).ready(function() {
     function drawRoom(xDim, yDim, zDim) {
         //If the z-axis is equal to or larger than other x-axes the room will be
         //too large for the drawing area. This derives a scale to reduce the overall size
-
-
-
         //derive the  to maximise diagram size based on room x-axis and y-axis
         var scaleQ = xDim + yDim;
         if (Math.max(...dimensions) === zDim) {
@@ -93,7 +90,78 @@ $(document).ready(function() {
                            l${-yLength}, ${angleUp}
                   
         `);
+
+
+
+
+
+
+        // Animate --------------------------- //
+        xAxisDraw();
+        yAxisDraw();
+        zAxisDraw();
+
+        //Animate drawing of x-axis
+        function xAxisDraw() {
+            var posX = originX;
+            var posY = originY;
+            var id = setInterval(frame, 0.1);
+
+            function frame() {
+                if (posX == originX - xLength) {
+                    clearInterval(id);
+                }
+                else {
+                    posX--;
+                    posY--;
+                    $("#xAxis").attr("x2", posX);
+                    //$("#xAxis").attr("y2", posY);
+                }
+            }
+        }
+
+
+        //Animate drawing of y-axis
+        function yAxisDraw() {
+            var pos = originX;
+            var id = setInterval(frame, 0.1);
+
+            function frame() {
+                if (pos == originX + yLength) {
+                    clearInterval(id);
+                }
+                else {
+                    pos++;
+                    $("#yAxis").attr("x2", pos);
+                }
+            }
+        }
+
+
+        //Animate drawing of z-axis
+        function zAxisDraw() {
+            var pos = originY;
+            var id = setInterval(frame, 0.1);
+
+            function frame() {
+                if (pos == originY + zLength) {
+                    clearInterval(id);
+                }
+                else {
+                    pos++;
+                    $("#zAxis").attr("y2", pos);
+                }
+            }
+        }
+
+
     }
+
+
+
+
+
+
 
 
 
@@ -179,7 +247,7 @@ $(document).ready(function() {
 
 
 
-    //---------------------------Audio Test Code  ---------------------//
+    //---------------------------Audio Code  ---------------------//
 
     //Establish the audio context
     var audioCtx = new(window.AudioContext);
@@ -198,10 +266,9 @@ $(document).ready(function() {
         var thisPlayBtn = $(this).attr("id");
         playBtnDisplay(thisPlayBtn);
 
-        
+
         createNote(frequencies[freqIndex]);
-        //connectToOutput();
-        
+
     }
 
     //Change the display of the play buttons     
@@ -211,7 +278,8 @@ $(document).ready(function() {
             $(".play-button").text("Play");
             $(`#${actBtn}`).addClass("btn-danger").removeClass("btn-success").text("Stop");
             startPlayback();
-        } else  {
+        }
+        else {
             $(`#${actBtn}`).addClass("btn-success").removeClass("btn-danger").text("Play");
             stopPlayback();
         }
@@ -219,8 +287,6 @@ $(document).ready(function() {
 
 
     function createNote(frequency) {
-        // Thee sine waves at different frequencies 
-
 
         sound.frequency.value = frequency;
         sound.type = "sine";
@@ -233,9 +299,9 @@ $(document).ready(function() {
     function startPlayback() {
         volume.connect(audioCtx.destination);
     }
-    
-    
-    function stopPlayback()  {
+
+
+    function stopPlayback() {
         volume.disconnect(audioCtx.destination);
     }
 
