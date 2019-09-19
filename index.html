@@ -28,7 +28,7 @@
                     <form id="dimensionForm">
                         <div class="form-row form-inline no-gutters justify-content-around py-2">
                             <div class="col-12 col-md-2 my-2">
-                                <h3 class="input-request">Enter dimensions: </h3>
+                                <h3 class="input-request px-3">Enter dimensions: </h3>
                             </div>
                             <div class="col-4 col-md-3">
                                 <label for="xInput" class="sr-only">X-Axis</label>
@@ -80,6 +80,9 @@
                             <p class="para-dim my-1">Musical Note: </p>
                             <button type="button" id="playBtn2" class="btn btn-success btn-sm play-button">Play</button>
                         </div>
+                        <div class="dim-box">
+                            <button type="button" id="roomBtn" class="btn-primary btn-sm dim-button">View Room</button>
+                        </div>
                     </div>
                 </div>
                 
@@ -97,6 +100,10 @@
                         
                         <!-- Path to draw the background axes  -->
                         <path id="backPath" class="d-none line line-back"></path>
+                        
+                        
+                        <!-- Secondary Axis for focus view -->
+                        <line id="secondaryAxis" class="d-none line-focus line-back"/>
                         
                     </svg>
 

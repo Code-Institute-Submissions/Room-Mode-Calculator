@@ -11,10 +11,15 @@ $(document).ready(function() {
     //---------------------Define Variables --------------//
 
 
-    const speedOfSound = 344; // speed of sound in air in meters per second (21 degrees celsius)
+    const speedOfSound = 344; //speed of sound in air in meters per second (21 degrees celsius)
+    const wavelengthConstant = 1.059463; //multiplier to be used for calculating frequencies/wavelengths relative to the next frequency/wavelength 
+    var baseWavelength = 24.94545455; // base wavelength to be used for wavelength array - this corresponds to the first "A note" below the threshold of human hearing  
+
+    var noteNames = ["A", "A#/Bb", "B", "C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab"];
     var dimensions = []; //dimensions array - replace with user input
     var frequencies = [];
-
+    var wavelengths = [baseWavelength];
+    var compareArray = []; //subtract the room dimension from [wavelengths]
 
     //return the dimensions of drawing area for currently selected 
     var drawAreaHeight = $("#drawingArea").height();
@@ -22,10 +27,71 @@ $(document).ready(function() {
 
 
 
+    //return the array of wavelengths corresponding to musical notes in range
+    function generateWavelengths() {
+        for (var i = 1; i < 100; i++) {
+            wavelengths.push(wavelengths[i - 1] / wavelengthConstant);
+        }
+    }
+    generateWavelengths();
+
+
+    //  NOT FINISHED  //////
+    ///// Note Identity code /////////////
+
+
+    //Generate array whoch subtracts the room dimension from the wavelengths array
+    //
+    function compareWavelengths(size) {
+        compareArray = wavelengths.map(x => x - size);
+    }
+
+    compareWavelengths(3);
+    console.log(compareArray);
+
+
+
+    function findNegative(n) {
+        return n <= 0;
+    }
+
+    // find first wavelength with a negative value and last wavelength with positive value in compareArray
+    // whichever of these wavelengths is closest to zero corresponds to the wavelngth of the closest musical note
+    var firstNegativeIndex = compareArray.indexOf(compareArray.find(findNegative)); //find the index of the first item in compareArray with a negative value 
+    var lastPositiveIndex = firstNegativeIndex - 1; //get last item in compareArray with positive value
+
+
+    var noteIndex = getClosest(compareArray[firstNegativeIndex], compareArray[lastPositiveIndex]);
+
+    function getClosest(val1, val2) {
+        if (Math.abs(val1) < Math.abs(val2)) {
+            return val1;
+        }
+        else {
+            return val2;
+        }
+    }
+
+    console.log(compareArray[lastPositiveIndex]);
+    console.log(compareArray[firstNegativeIndex]);
+    console.log(noteIndex);
+
+
+
+    ///////////////////////////////////////////////////////////////////////////
+
+
+
+
     function drawRoom(xDim, yDim, zDim) {
         //If the z-axis is equal to or larger than other x-axes the room will be
         //too large for the drawing area. This derives a scale to reduce the overall size
         //derive the  to maximise diagram size based on room x-axis and y-axis
+        
+        //Remove secondary axis used in axis focus view  
+        $("#secondaryAxis").addClass("d-none");
+        
+        
         var scaleQ = xDim + yDim;
         if (Math.max(...dimensions) === zDim) {
             var baseProportion = Math.round(drawAreaHeight / scaleQ) * 0.8;
@@ -160,41 +226,6 @@ $(document).ready(function() {
 
 
 
-    /////???????????????????????????????????????????????????????
-    
-    ///?????????????????????????????????????????????????????????
-
-
-    //Animate on axis focus
-    $("#lenBtn").click(drop);
-
-    function xFocus() {
-        console.log($("#xAxis").attr("x1"));
-        console.log($("#xAxis").attr("y1"));
-    }
-
-
-    function drop() {
-        var elem = document.getElementById("xAxis");
-        var dur = 500; //duration in miliseconds
-        var id = setInterval(frame, 10);
-
-        function frame() {
-
-            if (dur == 500) {
-                clearInterval(id);
-            }
-            else {
-                dur += 10;
-                $("#xAxis").attr("y1", function(n, v) {
-                    return v - 10;
-                });
-            }
-        }
-    }
-
-
-
 
 
     //--------------------------Input Functions-----------//
@@ -213,6 +244,10 @@ $(document).ready(function() {
         return Math.round(speedOfSound / dimen);
     }
 
+    //find the nearest musical note for the corresponding room node
+    function noteIdentify(waveLength) {
+
+    }
 
 
     //function to display dimension outputs
@@ -235,6 +270,11 @@ $(document).ready(function() {
         $("#freqLen").text(`Frequency: ${frequencies[0]}Hz`);
         $("#freqWid").text(`Frequency: ${frequencies[1]}Hz`);
         $("#freqHei").text(`Frequency: ${frequencies[2]}Hz`);
+
+        //Notes outputs
+
+
+
 
     }
 
@@ -259,7 +299,7 @@ $(document).ready(function() {
         else {
 
             //Remove "d-none" class from svg elements"
-            $(".line").removeClass("d-none"); //maybe change this to the SVG element
+            $(".line").removeClass("d-none");
 
             dimensionOutputs(xIn, yIn, zIn); // call function to fill the output display on left
             drawRoom(xIn, yIn, zIn); //call function to draw the room
@@ -267,6 +307,90 @@ $(document).ready(function() {
             $("#dimensionForm").trigger("reset");
 
         }
+    }
+
+
+
+
+    // -------------------------- Axes Focus ---------------------//
+
+    $("#lenBtn").on("click", xAxisFocus);
+    $("#widBtn").on("click", yAxisFocus);
+    $("#heiBtn").on("click", zAxisFocus);
+    
+    
+    //View the x-axis only
+    function xAxisFocus() {
+        $(".line").addClass("d-none");
+        $("#secondaryAxis").removeClass("d-none");
+
+        $("#xAxis").attr({
+            x1: drawAreaWidth * 0.1,
+            y1: drawAreaHeight * 0.1,
+            x2: drawAreaWidth * 0.1,
+            y2: drawAreaHeight * 0.9
+        });
+
+        $("#xAxis").removeClass("d-none");
+
+
+        $("#secondaryAxis").attr({
+            x1: drawAreaWidth * 0.1,
+            y1: drawAreaHeight * 0.5,
+            x2: drawAreaWidth * 0.9,
+            y2: drawAreaHeight * 0.5
+        });
+
+    }
+
+
+    //View the y-axis only
+    function yAxisFocus() {
+        $(".line").addClass("d-none");
+        $("#secondaryAxis").removeClass("d-none");
+
+        $("#yAxis").attr({
+            x1: drawAreaWidth * 0.1,
+            y1: drawAreaHeight * 0.1,
+            x2: drawAreaWidth * 0.1,
+            y2: drawAreaHeight * 0.9
+        });
+
+        $("#yAxis").removeClass("d-none");
+
+
+        $("#secondaryAxis").attr({
+            x1: drawAreaWidth * 0.1,
+            y1: drawAreaHeight * 0.5,
+            x2: drawAreaWidth * 0.9,
+            y2: drawAreaHeight * 0.5
+        });
+
+    }
+    
+    
+    //View the z-axis only
+    function zAxisFocus() {
+        $(".line").addClass("d-none");
+        $("#secondaryAxis").removeClass("d-none");
+
+        $("#zAxis").attr({
+            x1: drawAreaWidth * 0.1,
+            y1: drawAreaHeight * 0.1,
+            x2: drawAreaWidth * 0.9,
+            y2: drawAreaHeight * 0.1
+        });
+
+        $("#zAxis").removeClass("d-none");
+
+
+        $("#secondaryAxis").attr({
+            x1: drawAreaWidth * 0.5,
+            y1: drawAreaHeight * 0.1,
+            x2: drawAreaWidth * 0.5,
+            y2: drawAreaHeight * 0.9
+        });
+
     }
 
 
@@ -336,8 +460,6 @@ $(document).ready(function() {
     function stopPlayback() {
         volume.disconnect(audioCtx.destination);
     }
-
-
 
 
     //end of code
