@@ -18,8 +18,9 @@ $(document).ready(function() {
     var noteNames = ["A", "A#/Bb", "B", "C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab"];
     var dimensions = []; //dimensions array - replace with user input
     var frequencies = [];
+    var notes = [];
     var wavelengths = [baseWavelength];
-    var compareArray = []; //subtract the room dimension from [wavelengths]
+    //var compareArray = []; //subtract the room dimension from [wavelengths]
 
     //return the dimensions of drawing area for currently selected 
     var drawAreaHeight = $("#drawingArea").height();
@@ -36,49 +37,6 @@ $(document).ready(function() {
     generateWavelengths();
 
 
-    //  NOT FINISHED  //////
-    ///// Note Identity code /////////////
-
-
-    //Generate array whoch subtracts the room dimension from the wavelengths array
-    //
-    function compareWavelengths(size) {
-        compareArray = wavelengths.map(x => x - size);
-    }
-
-    compareWavelengths(3);
-    console.log(compareArray);
-
-
-
-    function findNegative(n) {
-        return n <= 0;
-    }
-
-    // find first wavelength with a negative value and last wavelength with positive value in compareArray
-    // whichever of these wavelengths is closest to zero corresponds to the wavelngth of the closest musical note
-    var firstNegativeIndex = compareArray.indexOf(compareArray.find(findNegative)); //find the index of the first item in compareArray with a negative value 
-    var lastPositiveIndex = firstNegativeIndex - 1; //get last item in compareArray with positive value
-
-
-    var noteIndex = getClosest(compareArray[firstNegativeIndex], compareArray[lastPositiveIndex]);
-
-    function getClosest(val1, val2) {
-        if (Math.abs(val1) < Math.abs(val2)) {
-            return val1;
-        }
-        else {
-            return val2;
-        }
-    }
-
-    console.log(compareArray[lastPositiveIndex]);
-    console.log(compareArray[firstNegativeIndex]);
-    console.log(noteIndex);
-
-
-
-    ///////////////////////////////////////////////////////////////////////////
 
 
 
@@ -87,11 +45,11 @@ $(document).ready(function() {
         //If the z-axis is equal to or larger than other x-axes the room will be
         //too large for the drawing area. This derives a scale to reduce the overall size
         //derive the  to maximise diagram size based on room x-axis and y-axis
-        
+
         //Remove secondary axis used in axis focus view  
         $("#secondaryAxis").addClass("d-none");
-        
-        
+
+
         var scaleQ = xDim + yDim;
         if (Math.max(...dimensions) === zDim) {
             var baseProportion = Math.round(drawAreaHeight / scaleQ) * 0.8;
@@ -244,11 +202,6 @@ $(document).ready(function() {
         return Math.round(speedOfSound / dimen);
     }
 
-    //find the nearest musical note for the corresponding room node
-    function noteIdentify(waveLength) {
-
-    }
-
 
     //function to display dimension outputs
     function dimensionOutputs(x, y, z) {
@@ -270,15 +223,57 @@ $(document).ready(function() {
         $("#freqLen").text(`Frequency: ${frequencies[0]}Hz`);
         $("#freqWid").text(`Frequency: ${frequencies[1]}Hz`);
         $("#freqHei").text(`Frequency: ${frequencies[2]}Hz`);
+        
 
         //Notes outputs
-
-
-
-
+        notes = dimensions.map(notesCalc);
+        $("#noteLen").text(`Note: ${notes[0]}`);
+        $("#noteWid").text(`Note: ${notes[1]}`);
+        $("#noteHei").text(`Note: ${notes[2]}`);
+        
+        console.log(notes);
     }
 
 
+    // Determine the closest musicalnote based on the room dimension (wavelength);
+    function notesCalc(dimen) {
+        //Generate array whoch subtracts the room dimension from the wavelengths array
+
+        var compareArray = wavelengths.map(n => n - dimen);
+     
+
+        // find first wavelength with a negative value and last wavelength with positive value in compareArray
+        // whichever of these wavelengths is closest to zero corresponds to the wavelngth of the closest musical note
+
+        var firstNegative = compareArray.find(findNegative);
+        var firstNegativeIndex = compareArray.indexOf(compareArray.find(findNegative)); //find the index of the first item in compareArray with a negative value 
+        var lastPositiveIndex = firstNegativeIndex - 1; //get last item in compareArray with positive value
+        var lastPositive = compareArray[lastPositiveIndex];
+        
+        
+        function findNegative(n) {
+            return n <= 0;
+        }
+        
+
+        var noteIndex;
+        if (Math.abs(firstNegative) < Math.abs(lastPositive)) {
+            noteIndex = firstNegativeIndex;
+        }
+        else {
+            noteIndex = lastPositiveIndex;
+        }
+        
+        //Lookup up the correct note from noteNames array 
+        if (noteIndex < 12)  {
+            var noteOutput = noteNames[noteIndex];
+        }  else  {
+            var noteOutput = noteNames[noteIndex % 12];
+        }
+        
+        return noteOutput;
+    }
+    
 
     //On submit the inputs will be assigned to the dimension boxes and [dimensions] array
 
@@ -302,10 +297,9 @@ $(document).ready(function() {
             $(".line").removeClass("d-none");
 
             dimensionOutputs(xIn, yIn, zIn); // call function to fill the output display on left
-            drawRoom(xIn, yIn, zIn); //call function to draw the room
+            drawRoom(xIn, yIn, zIn); // call function to draw the room
 
             $("#dimensionForm").trigger("reset");
-
         }
     }
 
@@ -317,8 +311,8 @@ $(document).ready(function() {
     $("#lenBtn").on("click", xAxisFocus);
     $("#widBtn").on("click", yAxisFocus);
     $("#heiBtn").on("click", zAxisFocus);
-    
-    
+
+
     //View the x-axis only
     function xAxisFocus() {
         $(".line").addClass("d-none");
@@ -367,8 +361,8 @@ $(document).ready(function() {
         });
 
     }
-    
-    
+
+
     //View the z-axis only
     function zAxisFocus() {
         $(".line").addClass("d-none");
@@ -394,6 +388,8 @@ $(document).ready(function() {
     }
 
 
+    //View Room button
+    //$("#roomBtn").on("click", console.log(dimensions));
 
 
 
