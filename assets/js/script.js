@@ -481,6 +481,7 @@ $(document).ready(function() {
 
     function startPlayback() {
         volume.connect(audioCtx.destination);
+        setTimeout(stopPlayback, 3000);
     }
 
 
