@@ -7,24 +7,23 @@ $(document).ready(function() {
 
     const speedOfSound = 344; //speed of sound in air in meters per second (21 degrees celsius)
     const wavelengthConstant = 1.059463; //multiplier to be used for calculating frequencies/wavelengths relative to the next frequency/wavelength 
-    var baseWavelength = 24.94545455; // base wavelength to be used to fill [wavelengths] array - this corresponds to the first "A note" below the threshold of human hearing  
+    const baseWavelength = 24.94545455; // base wavelength to be used to fill [wavelengths] array - this corresponds to the first "A note" below the threshold of human hearing  
 
-    var noteNames = ["A", "A#/Bb", "B", "C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab"];
-    var dimensions = []; //dimensions array - replace with user input
-    var frequencies = [];
-    var notes = [];
-    var wavelengths = [baseWavelength];
-    //var compareArray = []; //subtract the room dimension from [wavelengths]
+    const noteNames = ["A", "A#/Bb", "B", "C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab"];
+    let dimensions = []; //dimensions array - replace with user input
+    let frequencies = [];
+    let notes = [];
+    let wavelengths = [baseWavelength];
 
     //return the dimensions of drawing area for currently selected 
-    var drawAreaHeight = $("#drawingArea").height();
-    var drawAreaWidth = $("#drawingArea").width();
+    let drawAreaHeight = $("#drawingArea").height();
+    let drawAreaWidth = $("#drawingArea").width();
 
 
 
     //return the array of wavelengths corresponding to musical notes in range
     function generateWavelengths() {
-        for (var i = 1; i < 100; i++) {
+        for (i = 1; i < 100; i++) {
             wavelengths.push(wavelengths[i - 1] / wavelengthConstant);
         }
     }
@@ -45,9 +44,9 @@ $(document).ready(function() {
     function addDimensions() {
 
         //change input values to numbers
-        var xIn = parseFloat($("#xInput").val());
-        var yIn = parseFloat($("#yInput").val());
-        var zIn = parseFloat($("#zInput").val());
+        let xIn = parseFloat($("#xInput").val());
+        let yIn = parseFloat($("#yInput").val());
+        let zIn = parseFloat($("#zInput").val());
 
         if (isNaN(xIn) === true || isNaN(yIn) === true || isNaN(zIn) === true ||
             xIn <= 0 || yIn <= 0 || zIn <= 0) {
@@ -122,39 +121,36 @@ $(document).ready(function() {
     function notesCalc(dimen) {
         //Generate array whoch subtracts the room dimension from the wavelengths array
 
-        var compareArray = wavelengths.map(n => n - dimen);
+        let compareArray = wavelengths.map(n => n - dimen);
 
 
         // find first wavelength with a negative value and last wavelength with positive value in compareArray
         // whichever of these wavelengths is closest to zero corresponds to the wavelngth of the closest musical note
 
-        var firstNegative = compareArray.find(findNegative);
-        var firstNegativeIndex = compareArray.indexOf(compareArray.find(findNegative)); //find the index of the first item in compareArray with a negative value 
-        var lastPositiveIndex = firstNegativeIndex - 1; //get last item in compareArray with positive value
-        var lastPositive = compareArray[lastPositiveIndex];
+        let firstNegative = compareArray.find(findNegative);
+        let firstNegativeIndex = compareArray.indexOf(compareArray.find(findNegative)); //find the index of the first item in compareArray with a negative value 
+        let lastPositiveIndex = firstNegativeIndex - 1; //get last item in compareArray with positive value
+        let lastPositive = compareArray[lastPositiveIndex];
 
 
         function findNegative(n) {
             return n <= 0;
         }
-
-
-        var noteIndex;
+        let noteIndex;
         if (Math.abs(firstNegative) < Math.abs(lastPositive)) {
             noteIndex = firstNegativeIndex;
         }
         else {
             noteIndex = lastPositiveIndex;
         }
-
+        let noteOutput;
         //Lookup up the correct note from noteNames array 
         if (noteIndex < 12) {
-            var noteOutput = noteNames[noteIndex];
+            noteOutput = noteNames[noteIndex];
         }
         else {
-            var noteOutput = noteNames[noteIndex % 12];
+            noteOutput = noteNames[noteIndex % 12];
         }
-
         return noteOutput;
     }
 
@@ -179,32 +175,32 @@ $(document).ready(function() {
         //derive the  to maximise diagram size based on room x-axis and y-axis
 
         //Remove the sine wave if it was previously on screen  
-        $("#sineWave").attr({ d: "" });
+        $("#sineWave").attr({ d: ""});
 
-
-        var scaleQ = xDim + yDim;
+        let baseProportion;
+        let scaleQ = xDim + yDim;
         if (Math.max(...dimensions) === zDim) {
-            var baseProportion = Math.round(drawAreaHeight / scaleQ) * 0.8;
+            baseProportion = Math.round(drawAreaHeight / scaleQ) * 0.8;
         }
         else {
-            var baseProportion = Math.round(drawAreaWidth / scaleQ) * 0.8;
+            baseProportion = Math.round(drawAreaWidth / scaleQ) * 0.8;
         }
 
-        var posQ = drawAreaWidth / (xDim + yDim) * xDim; //x position of origin is based on length of x-axis (red)
+        let posQ = drawAreaWidth / (xDim + yDim) * xDim; //x position of origin is based on length of x-axis (red)
 
 
         //lengths Are dimension * baseProportion * value in [dimensions] array
-        var xLength = Math.round(baseProportion * xDim);
-        var yLength = Math.round(baseProportion * yDim);
-        var zLength = Math.round(baseProportion * zDim);
+        let xLength = Math.round(baseProportion * xDim);
+        let yLength = Math.round(baseProportion * yDim);
+        let zLength = Math.round(baseProportion * zDim);
 
 
 
         //set origin point - the point where the three main axes meet
         // Test with one third from left [x,y] and 90% from top
-        var originX = Math.round(posQ);
-        var originY = Math.round(drawAreaHeight) - zLength;
-        var angleUp = Math.round(drawAreaHeight * 0.1); //angle x and y axes up by 10% draw area height
+        let originX = Math.round(posQ);
+        let originY = Math.round(drawAreaHeight) - zLength;
+        let angleUp = Math.round(drawAreaHeight * 0.1); //angle x and y axes up by 10% draw area height
 
 
         //---------------------------------------------------------------------//
@@ -261,9 +257,9 @@ $(document).ready(function() {
 
         //Animate drawing of x-axis
         function xAxisDraw() {
-            var posX = originX;
-            var posY = originY;
-            var id = setInterval(frame, 0.1);
+            let posX = originX;
+            let posY = originY;
+            let id = setInterval(frame, 0.1);
 
             function frame() {
                 if (posX == originX - xLength) {
@@ -280,8 +276,8 @@ $(document).ready(function() {
 
         //Animate drawing of y-axis
         function yAxisDraw() {
-            var pos = originX;
-            var id = setInterval(frame, 0.1);
+            let pos = originX;
+            let id = setInterval(frame, 0.1);
 
             function frame() {
                 if (pos == originX + yLength) {
@@ -297,8 +293,8 @@ $(document).ready(function() {
 
         //Animate drawing of z-axis
         function zAxisDraw() {
-            var pos = originY;
-            var id = setInterval(frame, 0.1);
+            let pos = originY;
+            let id = setInterval(frame, 0.1);
 
             function frame() {
                 if (pos == originY + zLength) {
@@ -325,16 +321,16 @@ $(document).ready(function() {
         initialiseAxisFocus();
 
         //variables for drawing sine waves
-        var xStart = drawAreaWidth * 0.1;
-        var yStart = drawAreaHeight * 0.1;
-        var xEnd = drawAreaWidth * 0.9;
-        var yEnd = drawAreaHeight * 0.9;
-        var xSize = drawAreaWidth - (xStart * 2); // multiply by two so that is xStart changes length remains centered
-        var ySize = drawAreaHeight - (yStart * 2); // multiply by two so that is xStart changes length remains centered
-        var xHalf = xStart + xSize / 2;
-        var yHalf = yStart + ySize / 2;
-        var xControl = xSize / 4;
-        var yControl = ySize / 4;
+        let xStart = drawAreaWidth * 0.1;
+        let yStart = drawAreaHeight * 0.1;
+        let xEnd = drawAreaWidth * 0.9;
+        let yEnd = drawAreaHeight * 0.9;
+        let xSize = drawAreaWidth - (xStart * 2); // multiply by two so that is xStart changes length remains centered
+        let ySize = drawAreaHeight - (yStart * 2); // multiply by two so that is xStart changes length remains centered
+        let xHalf = xStart + xSize / 2;
+        let yHalf = yStart + ySize / 2;
+        let xControl = xSize / 4;
+        let yControl = ySize / 4;
 
         if ($(this).attr("id") === "lenBtn") {
             xAxisFocus();
@@ -428,11 +424,10 @@ $(document).ready(function() {
     //---------------------------Audio Code  ---------------------//
 
     //Establish the audio context
-    var audioCtx = new(window.AudioContext);
-    var sound = audioCtx.createOscillator();
-    var volume = audioCtx.createGain();
+    let audioCtx = new(window.AudioContext);
+    let sound = audioCtx.createOscillator();
+    let volume = audioCtx.createGain();
     sound.start();
-    var playCheck = false; //check if audio is playing - initialise as false on page load
 
     $(".play-button").click(playBtnActions);
 
@@ -440,8 +435,8 @@ $(document).ready(function() {
 
 
     function playBtnActions() {
-        var freqIndex = parseInt($(this).attr("id").slice(7));
-        var thisPlayBtn = $(this).attr("id");
+        let freqIndex = parseInt($(this).attr("id").slice(7));
+        let thisPlayBtn = $(this).attr("id");
         playBtnDisplay(thisPlayBtn);
 
         createNote(frequencies[freqIndex]);
