@@ -163,8 +163,20 @@ $(document).ready(function() {
     }
     
     
+    //------------------------------------- Modal -----------------------------//
+    $("#showExplainer").click(function()  {
+        $("#explainerModal").removeClass("d-none");
+        });
+    
+    
+    $("#modalDismiss").click(function()  {
+        $("#explainerModal").addClass("d-none");
+    });
 
-    //Draw the rooom
+    //------------------------------------- Display Functions -----------------//
+    
+    
+    
     function drawRoom(xDim, yDim, zDim) {
         //If the z-axis is equal to or larger than other x-axes the room will be
         //too large for the drawing area. This derives a scale to reduce the overall size

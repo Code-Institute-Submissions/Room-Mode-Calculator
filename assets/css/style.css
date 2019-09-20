@@ -7,7 +7,6 @@ body {
 h1 {
     background-color: #aa3070;
     border: 1px solid #dd50a9;
-    border-radius: 15%;
     color: #fefefe;
     margin: 0;
 }
@@ -22,7 +21,7 @@ h1 {
 
 
 .error-message {
-    display:none;
+    display: none;
 }
 
 
@@ -132,6 +131,40 @@ h1 {
 .line-z {
     stroke: #0000ff;
 }
+
+
+/*------------------------------- Modal ------------*/
+
+.explainer-modal {
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    left: 0;
+    height: 100vh;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+}
+
+.explainer-inner {
+    background-color: #f1f1f1;
+    height: 95%;
+    position: relative;
+    width: 80%;
+}
+
+
+.modal-exit {
+    background-color: #ff0000;
+    color: #fff;
+    height: 2em;
+    margin: 2%;
+    position: absolute;
+    right: 0;
+    width: 2em;
+}
+
 
 
 /*---------------------------- Media Queries  -- */

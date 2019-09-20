@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-12/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
     <title>Room Mode Calculator</title>
@@ -15,7 +16,10 @@
         <div class="header">
             <div class="row">
                 <div class="col">
-                    <h1 class="text-center">Room Mode Calculator</h1>
+                    <h1 class="d-flex justify-content-between align-items-center px-3">
+                        <span>Room Mode Calculator</span>
+                        <span id="showExplainer" class="far fa-question-circle"></span>
+                    </h1>
                 </div>
             </div>
         </div>
@@ -26,18 +30,20 @@
             <div class="row no-gutters align-items-center border border-info my-1">
                 <div class="col">
                     <form id="dimensionForm">
-                        <div class="form-row form-inline no-gutters justify-content-around py-2">
+                        <div class="form-row form-inline no-gutters justify-content-around p-2">
                             <div class="col-12 col-md-2 my-2">
-                                <h3 class="input-request px-3">Enter dimensions: </h3>
+                                <h3 class="input-request ml-3">Enter dimensions: </h3>
                             </div>
                             <div class="col-4 col-md-3">
                                 <label for="xInput" class="sr-only">X-Axis</label>
                                 <input type="number" id="xInput" class="form-control input-box" name="x_Input" placeholder="X-Axis" />
                             </div>
+
                             <div class="col-4 col-md-3">
                                 <label for="yInput" class="sr-only">Y-Axis</label>
                                 <input type="number" id="yInput" class="form-control input-box" name="y_Input" placeholder="Y-Axis" />
                             </div>
+
                             <div class="col-4 col-md-3">
                                 <label for="zInput" class="sr-only">Z-Axis</label>
                                 <input type="number" id="zInput" class="form-control input-box" name="z_Input" placeholder="Z-Axis" />
@@ -60,8 +66,6 @@
 
                 <!-- Outputs  Display -->
                 <div class="col-12 col-md-2 outputs-display">
-
-
 
                     <div class="outputs-wrapper d-flex flex-column justify-content-around">
                         <div class="dim-box">
@@ -129,15 +133,27 @@
                     </div>
                 </div>
             </div>
+
+            <div id="explainerModal" class="explainer-modal d-none">
+                <div class="explainer-inner">
+                    <button id="modalDismiss" class="modal-exit">X</button>
+                    <h2 class="modal-title ">Room Modes Explained</h2>
+                    <p>Text</p>
+                    Image
+                    <p>Text</p>
+                </div>
+
+
+
         </main>
-    </div>
+        </div>
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="assets/js/script.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="assets/js/script.js"></script>
 </body>
 
 </html>
