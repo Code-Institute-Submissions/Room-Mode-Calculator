@@ -7,7 +7,7 @@ $(document).ready(function() {
 
     const speedOfSound = 344; //speed of sound in air in meters per second (21 degrees celsius)
     const wavelengthConstant = 1.059463; //multiplier to be used for calculating frequencies/wavelengths relative to the next frequency/wavelength 
-    var baseWavelength = 24.94545455; // base wavelength to be used for wavelength array - this corresponds to the first "A note" below the threshold of human hearing  
+    var baseWavelength = 24.94545455; // base wavelength to be used to fill [wavelengths] array - this corresponds to the first "A note" below the threshold of human hearing  
 
     var noteNames = ["A", "A#/Bb", "B", "C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab"];
     var dimensions = []; //dimensions array - replace with user input
@@ -35,8 +35,6 @@ $(document).ready(function() {
 
 
 
-
-
     //--------------------------Input Functions-----------//
 
 
@@ -52,8 +50,7 @@ $(document).ready(function() {
         var zIn = parseFloat($("#zInput").val());
 
         if (isNaN(xIn) === true || isNaN(yIn) === true || isNaN(zIn) === true ||
-            xIn <= 0 || yIn <= 0 || zIn <= 0)
-        {
+            xIn <= 0 || yIn <= 0 || zIn <= 0) {
             invalidDimensionsError();
         }
 
@@ -75,13 +72,13 @@ $(document).ready(function() {
     function invalidDimensionsError() {
         $("#dimensionsError").show();
     }
-    
+
     //Dismiss error on click of X
-    $("#dismissError").click(function()  {
+    $("#dismissError").click(function() {
         $("#dimensionsError").hide();
     });
-    
-    
+
+
 
 
     //calculate frequency based on dimension
@@ -161,22 +158,22 @@ $(document).ready(function() {
 
         return noteOutput;
     }
-    
-    
+
+
     //------------------------------------- Modal -----------------------------//
-    $("#showExplainer").click(function()  {
+    $("#showExplainer").click(function() {
         $("#explainerModal").removeClass("d-none");
-        });
-    
-    
-    $("#modalDismiss").click(function()  {
+    });
+
+
+    $("#modalDismiss").click(function() {
         $("#explainerModal").addClass("d-none");
     });
 
     //------------------------------------- Display Functions -----------------//
-    
-    
-    
+
+
+
     function drawRoom(xDim, yDim, zDim) {
         //If the z-axis is equal to or larger than other x-axes the room will be
         //too large for the drawing area. This derives a scale to reduce the overall size
@@ -277,7 +274,6 @@ $(document).ready(function() {
                     posX--;
                     posY--;
                     $("#xAxis").attr("x2", posX);
-                    //$("#xAxis").attr("y2", posY);
                 }
             }
         }
@@ -341,8 +337,8 @@ $(document).ready(function() {
         var ySize = drawAreaHeight - (yStart * 2); // multiply by two so that is xStart changes length remains centered
         var xHalf = xStart + xSize / 2;
         var yHalf = yStart + ySize / 2;
-        var xControl = xSize / 5;
-        var yControl = ySize / 5;
+        var xControl = xSize / 4;
+        var yControl = ySize / 4;
 
         //Draw x-axis on left side  of screen
         $("#xAxis").attr({
@@ -358,8 +354,8 @@ $(document).ready(function() {
         //Draw Sine Wav
         $("#sineWave").attr({
             d: `M${xStart} ${yHalf}  
-                C ${xControl} ${yStart}, ${xHalf -xControl} ${yStart}, ${xHalf} ${yHalf} 
-                C ${xHalf + xControl} ${yEnd}, ${xSize - xControl} ${yEnd}, ${xStart+xSize} ${yHalf} Z`
+                Q ${xStart + xControl} ${yStart}, ${xHalf} ${yHalf} 
+                Q ${xHalf + xControl} ${yEnd}, ${xEnd} ${yHalf} Z`
         });
     }
 
@@ -394,10 +390,9 @@ $(document).ready(function() {
         //Draw Sine Wav
         $("#sineWave").attr({
             d: `M${xStart} ${yHalf}  
-                C ${xControl} ${yStart}, ${xHalf -xControl} ${yStart}, ${xHalf} ${yHalf} 
-                C ${xHalf + xControl} ${yEnd}, ${xSize - xControl} ${yEnd}, ${xStart+xSize} ${yHalf} Z`
+                Q ${xStart + xControl} ${yStart}, ${xHalf} ${yHalf} 
+                Q ${xHalf + xControl} ${yEnd}, ${xEnd} ${yHalf} Z`
         });
-
     }
 
 
@@ -432,8 +427,8 @@ $(document).ready(function() {
         //Draw Sine Wav
         $("#sineWave").attr({
             d: `M${xHalf} ${yStart}  
-                C ${xStart} ${yControl}, ${xStart} ${yHalf - yControl}, ${xHalf} ${yHalf} 
-                C ${xEnd} ${yHalf + yControl}, ${xEnd} ${ySize - yControl}, ${xHalf} ${yStart+ySize} Z`
+                Q ${xStart} ${yStart + yControl}, ${xHalf} ${yHalf} 
+                Q ${xEnd} ${yHalf + yControl}, ${xHalf} ${yEnd} Z`
         });
     }
 
@@ -463,9 +458,7 @@ $(document).ready(function() {
         var thisPlayBtn = $(this).attr("id");
         playBtnDisplay(thisPlayBtn);
 
-
         createNote(frequencies[freqIndex]);
-
     }
 
     //Change the display of the play buttons     
