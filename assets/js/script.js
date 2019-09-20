@@ -1,12 +1,6 @@
 $(document).ready(function() {
 
 
-    //Initialise popovers
-    $(function() {
-        $("#submitBtn").popover();
-    });
-
-
 
     //---------------------Define Variables --------------//
 
@@ -41,13 +35,143 @@ $(document).ready(function() {
 
 
 
+
+
+    //--------------------------Input Functions-----------//
+
+
+    //On submit the inputs will be assigned to the dimension boxes and [dimensions] array
+
+    $("#submitBtn").on("click", addDimensions);
+
+    function addDimensions() {
+
+        //change input values to numbers
+        var xIn = parseFloat($("#xInput").val());
+        var yIn = parseFloat($("#yInput").val());
+        var zIn = parseFloat($("#zInput").val());
+
+        if (isNaN(xIn) === true || isNaN(yIn) === true || isNaN(zIn) === true ||
+            xIn <= 0 || yIn <= 0 || zIn <= 0)
+        {
+            invalidDimensionsError();
+        }
+
+        else {
+
+            //Remove "d-none" class from svg elements"
+            $(".line").removeClass("d-none");
+
+            dimensionOutputs(xIn, yIn, zIn); // call function to fill the output display on left
+            drawRoom(xIn, yIn, zIn); // call function to draw the room
+
+            $("#dimensionForm").trigger("reset");
+        }
+    }
+
+
+
+    //Error to display if invalid dimensions are entered
+    function invalidDimensionsError() {
+        $("#dimensionsError").show();
+    }
+    
+    //Dismiss error on click of X
+    $("#dismissError").click(function()  {
+        $("#dimensionsError").hide();
+    });
+    
+    
+
+
+    //calculate frequency based on dimension
+    function freqCalc(dimen) {
+        return Math.round(speedOfSound / dimen);
+    }
+
+
+    //function to display dimension outputs
+    function dimensionOutputs(x, y, z) {
+
+        //Dimension outputs
+        //clear dimensions array and push user inputs to dimensions array 
+        dimensions.length = 0;
+        dimensions.push(x, y, z);
+
+        $("#titleLen").text(`Length: ${x}m`);
+        $("#titleWid").text(`Width: ${y}m`);
+        $("#titleHei").text(`Height: ${z}m`);
+
+
+
+        //Frequencies outputs
+        frequencies = dimensions.map(freqCalc);
+
+        $("#freqLen").text(`Frequency: ${frequencies[0]}Hz`);
+        $("#freqWid").text(`Frequency: ${frequencies[1]}Hz`);
+        $("#freqHei").text(`Frequency: ${frequencies[2]}Hz`);
+
+
+        //Notes outputs
+        notes = dimensions.map(notesCalc);
+        $("#noteLen").text(`Note: ${notes[0]}`);
+        $("#noteWid").text(`Note: ${notes[1]}`);
+        $("#noteHei").text(`Note: ${notes[2]}`);
+
+        console.log(notes);
+    }
+
+
+    // Determine the closest musicalnote based on the room dimension (wavelength);
+    function notesCalc(dimen) {
+        //Generate array whoch subtracts the room dimension from the wavelengths array
+
+        var compareArray = wavelengths.map(n => n - dimen);
+
+
+        // find first wavelength with a negative value and last wavelength with positive value in compareArray
+        // whichever of these wavelengths is closest to zero corresponds to the wavelngth of the closest musical note
+
+        var firstNegative = compareArray.find(findNegative);
+        var firstNegativeIndex = compareArray.indexOf(compareArray.find(findNegative)); //find the index of the first item in compareArray with a negative value 
+        var lastPositiveIndex = firstNegativeIndex - 1; //get last item in compareArray with positive value
+        var lastPositive = compareArray[lastPositiveIndex];
+
+
+        function findNegative(n) {
+            return n <= 0;
+        }
+
+
+        var noteIndex;
+        if (Math.abs(firstNegative) < Math.abs(lastPositive)) {
+            noteIndex = firstNegativeIndex;
+        }
+        else {
+            noteIndex = lastPositiveIndex;
+        }
+
+        //Lookup up the correct note from noteNames array 
+        if (noteIndex < 12) {
+            var noteOutput = noteNames[noteIndex];
+        }
+        else {
+            var noteOutput = noteNames[noteIndex % 12];
+        }
+
+        return noteOutput;
+    }
+    
+    
+
+    //Draw the rooom
     function drawRoom(xDim, yDim, zDim) {
         //If the z-axis is equal to or larger than other x-axes the room will be
         //too large for the drawing area. This derives a scale to reduce the overall size
         //derive the  to maximise diagram size based on room x-axis and y-axis
 
-        //Remove secondary axis used in axis focus view  
-        $("#secondaryAxis").addClass("d-none");
+        //Remove the sine wave if it was previously on screen  
+        $("#sineWave").attr({ d: "" });
 
 
         var scaleQ = xDim + yDim;
@@ -185,128 +309,6 @@ $(document).ready(function() {
 
 
 
-
-    //--------------------------Input Functions-----------//
-
-
-    //Error to display if invalid dimensions are entered
-
-    function invalidDimensionsError() {
-        $("#submitBtn").toggleClass("btn-success btn-danger").text("X");
-        $("#submitBtn").popover("show");
-    }
-
-
-    //calculate frequency based on dimension
-    function freqCalc(dimen) {
-        return Math.round(speedOfSound / dimen);
-    }
-
-
-    //function to display dimension outputs
-    function dimensionOutputs(x, y, z) {
-
-        //Dimension outputs
-        //clear dimensions array and push user inputs to dimensions array 
-        dimensions.length = 0;
-        dimensions.push(x, y, z);
-
-        $("#titleLen").text(`Length: ${x}m`);
-        $("#titleWid").text(`Width: ${y}m`);
-        $("#titleHei").text(`Height: ${z}m`);
-
-
-
-        //Frequencies outputs
-        frequencies = dimensions.map(freqCalc);
-
-        $("#freqLen").text(`Frequency: ${frequencies[0]}Hz`);
-        $("#freqWid").text(`Frequency: ${frequencies[1]}Hz`);
-        $("#freqHei").text(`Frequency: ${frequencies[2]}Hz`);
-
-
-        //Notes outputs
-        notes = dimensions.map(notesCalc);
-        $("#noteLen").text(`Note: ${notes[0]}`);
-        $("#noteWid").text(`Note: ${notes[1]}`);
-        $("#noteHei").text(`Note: ${notes[2]}`);
-
-        console.log(notes);
-    }
-
-
-    // Determine the closest musicalnote based on the room dimension (wavelength);
-    function notesCalc(dimen) {
-        //Generate array whoch subtracts the room dimension from the wavelengths array
-
-        var compareArray = wavelengths.map(n => n - dimen);
-
-
-        // find first wavelength with a negative value and last wavelength with positive value in compareArray
-        // whichever of these wavelengths is closest to zero corresponds to the wavelngth of the closest musical note
-
-        var firstNegative = compareArray.find(findNegative);
-        var firstNegativeIndex = compareArray.indexOf(compareArray.find(findNegative)); //find the index of the first item in compareArray with a negative value 
-        var lastPositiveIndex = firstNegativeIndex - 1; //get last item in compareArray with positive value
-        var lastPositive = compareArray[lastPositiveIndex];
-
-
-        function findNegative(n) {
-            return n <= 0;
-        }
-
-
-        var noteIndex;
-        if (Math.abs(firstNegative) < Math.abs(lastPositive)) {
-            noteIndex = firstNegativeIndex;
-        }
-        else {
-            noteIndex = lastPositiveIndex;
-        }
-
-        //Lookup up the correct note from noteNames array 
-        if (noteIndex < 12) {
-            var noteOutput = noteNames[noteIndex];
-        }
-        else {
-            var noteOutput = noteNames[noteIndex % 12];
-        }
-
-        return noteOutput;
-    }
-
-
-    //On submit the inputs will be assigned to the dimension boxes and [dimensions] array
-
-    $("#submitBtn").on("click", addDimensions);
-
-    function addDimensions() {
-
-        //change input values to numbers
-        var xIn = parseFloat($("#xInput").val());
-        var yIn = parseFloat($("#yInput").val());
-        var zIn = parseFloat($("#zInput").val());
-
-        if (isNaN(xIn) === true || isNaN(yIn) === true || isNaN(zIn) === true) {
-
-            invalidDimensionsError();
-        }
-
-        else {
-
-            //Remove "d-none" class from svg elements"
-            $(".line").removeClass("d-none");
-
-            dimensionOutputs(xIn, yIn, zIn); // call function to fill the output display on left
-            drawRoom(xIn, yIn, zIn); // call function to draw the room
-
-            $("#dimensionForm").trigger("reset");
-        }
-    }
-
-
-
-
     // -------------------------- Axes Focus ---------------------//
 
     $("#lenBtn").on("click", xAxisFocus);
@@ -421,8 +423,6 @@ $(document).ready(function() {
                 C ${xStart} ${yControl}, ${xStart} ${yHalf - yControl}, ${xHalf} ${yHalf} 
                 C ${xEnd} ${yHalf + yControl}, ${xEnd} ${ySize - yControl}, ${xHalf} ${yStart+ySize} Z`
         });
-
-
     }
 
 

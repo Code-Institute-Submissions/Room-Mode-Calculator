@@ -23,7 +23,7 @@
 
         <main>
             <!--Input Form  -->
-            <div class="row no-gutters align-items-center border border-info">
+            <div class="row no-gutters align-items-center border border-info my-1">
                 <div class="col">
                     <form id="dimensionForm">
                         <div class="form-row form-inline no-gutters justify-content-around py-2">
@@ -32,36 +32,44 @@
                             </div>
                             <div class="col-4 col-md-3">
                                 <label for="xInput" class="sr-only">X-Axis</label>
-                                <input type="number" id="xInput" class="form-control input-box" name="x_Input" placeholder="X-Axis"/>
+                                <input type="number" id="xInput" class="form-control input-box" name="x_Input" placeholder="X-Axis" />
                             </div>
                             <div class="col-4 col-md-3">
                                 <label for="yInput" class="sr-only">Y-Axis</label>
-                                <input type="number" id="yInput" class="form-control input-box" name="y_Input" placeholder="Y-Axis"/>
+                                <input type="number" id="yInput" class="form-control input-box" name="y_Input" placeholder="Y-Axis" />
                             </div>
                             <div class="col-4 col-md-3">
                                 <label for="zInput" class="sr-only">Z-Axis</label>
-                                <input type="number" id="zInput" class="form-control input-box" name="z_Input" placeholder="Z-Axis"/>
+                                <input type="number" id="zInput" class="form-control input-box" name="z_Input" placeholder="Z-Axis" />
                             </div>
                             <div class="col-12 col-md-1">
                                 <button type="button" id="submitBtn" class="btn btn-success w-100">Go!</button>
                             </div>
                         </div>
                     </form>
+
+                    <div id="dimensionsError" class="error-message">
+                        <span>Please enter valid room dimensions</span>
+                        <button type="button" id="dismissError">X</button>
+                    </div>
                 </div>
             </div>
 
-            <!--  Outputs and Drawing Area  -->
+            <!--  Outputs and Drawing Row  -->
             <div class="row">
+
                 <!-- Outputs  Display -->
                 <div class="col-12 col-md-2 outputs-display">
 
+
+
                     <div class="outputs-wrapper d-flex flex-column justify-content-around">
                         <div class="dim-box">
-                            <button type="button" id="lenBtn"class="btn btn-primary btn-sm dim-button">
+                            <button type="button" id="lenBtn" class="btn btn-primary btn-sm dim-button">
                                 <h2 id="titleLen" class="dim-title">Length: </h2>
                             </button>
                             <p id="freqLen" class="para-dim my-1">Frequency: </p>
-                            <p id ="noteLen" class="para-dim my-1">Note: </p>
+                            <p id="noteLen" class="para-dim my-1">Note: </p>
                             <button type="button" id="playBtn0" class="btn btn-success btn-sm play-button">Play</button>
                         </div>
                         <div class="dim-box">
@@ -69,7 +77,7 @@
                                 <h2 id="titleWid" class="dim-title">Width: </h2>
                             </button>
                             <p id="freqWid" class="para-dim my-1">Frequency: </p>
-                            <p id ="noteWid" class="para-dim my-1">Note: </p>
+                            <p id="noteWid" class="para-dim my-1">Note: </p>
                             <button type="button" id="playBtn1" class="btn btn-success btn-sm play-button">Play</button>
                         </div>
                         <div class="dim-box">
@@ -77,15 +85,21 @@
                                 <h2 id="titleHei" class="dim-title">Height: </h2>
                             </button>
                             <p id="freqHei" class="para-dim my-1">Frequency: </p>
-                            <p id ="noteHei" class="para-dim my-1">Note: </p>
+                            <p id="noteHei" class="para-dim my-1">Note: </p>
                             <button type="button" id="playBtn2" class="btn btn-success btn-sm play-button">Play</button>
                         </div>
+
+                        <!-- Add this only when it works
                         <div class="dim-box">
                             <button type="button" id="roomBtn" class="btn-primary btn-sm dim-button">View Room</button>
                         </div>
+                        -->
+
                     </div>
                 </div>
-                
+
+
+
                 <!-- Graphics  -->
                 <div class="col-12 col-md-10 graphics">
                     <div class="drawing-wrapper d-flex align-items-center justify-content-center">
@@ -102,8 +116,13 @@
                         <path id="backPath" class="d-none line line-back"></path>
                         
                         
-                        <!-- Secondary Axis for focus view -->
+                        <!-- Secondary Axis for focus view 
                         <line id="secondaryAxis" class="d-none line-focus line-back"/>
+                        -->
+                        
+                        <!-- Sine Wave -->
+                        <path id="sineWave" class="sine-wave"/>
+                          
                         
                     </svg>
 

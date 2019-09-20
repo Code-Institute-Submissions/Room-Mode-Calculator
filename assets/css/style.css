@@ -21,6 +21,11 @@ h1 {
 }
 
 
+.error-message {
+    display:none;
+}
+
+
 
 
 /* ------------------------------ Outputs Display  --*/
