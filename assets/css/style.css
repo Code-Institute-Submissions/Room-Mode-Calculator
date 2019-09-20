@@ -5,7 +5,9 @@ body {
 
 
 h1 {
-    background-color: #6620a7;
+    background-color: #aa3070;
+    border: 1px solid #dd50a9;
+    border-radius: 15%;
     color: #fefefe;
     margin: 0;
 }
@@ -16,11 +18,6 @@ h1 {
 .input-request {
     font-size: 1em;
     margin: 0;
-}
-
-.input-box {
-    display: inline-block;
-    width: 100%;
 }
 
 
@@ -98,7 +95,10 @@ h1 {
 
 
 
-
+.sine-wave {
+    fill-opacity: 0;
+    stroke: #000;
+}
 
 
 
@@ -150,17 +150,29 @@ h1 {
     }
 
 
+    .dim-box {
+        display: flex;
+        flex-direction: row;
+    }
+
     .dim-button {
         display: inline-block;
-        width: 40%;
+        order: 1;
+        width: 75%;
     }
 
     .play-button {
         display: inline-block;
-        width: 20%;
+        order: 2;
+        width: 25%;
     }
-    
-    .dim-box  {
-        flex-direction: row;
+
+    .para-dim {
+        order: 3;
+    }
+
+
+    .input-box {
+        margin: 0.5em 0;
     }
 }

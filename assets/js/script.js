@@ -223,14 +223,14 @@ $(document).ready(function() {
         $("#freqLen").text(`Frequency: ${frequencies[0]}Hz`);
         $("#freqWid").text(`Frequency: ${frequencies[1]}Hz`);
         $("#freqHei").text(`Frequency: ${frequencies[2]}Hz`);
-        
+
 
         //Notes outputs
         notes = dimensions.map(notesCalc);
         $("#noteLen").text(`Note: ${notes[0]}`);
         $("#noteWid").text(`Note: ${notes[1]}`);
         $("#noteHei").text(`Note: ${notes[2]}`);
-        
+
         console.log(notes);
     }
 
@@ -240,7 +240,7 @@ $(document).ready(function() {
         //Generate array whoch subtracts the room dimension from the wavelengths array
 
         var compareArray = wavelengths.map(n => n - dimen);
-     
+
 
         // find first wavelength with a negative value and last wavelength with positive value in compareArray
         // whichever of these wavelengths is closest to zero corresponds to the wavelngth of the closest musical note
@@ -249,12 +249,12 @@ $(document).ready(function() {
         var firstNegativeIndex = compareArray.indexOf(compareArray.find(findNegative)); //find the index of the first item in compareArray with a negative value 
         var lastPositiveIndex = firstNegativeIndex - 1; //get last item in compareArray with positive value
         var lastPositive = compareArray[lastPositiveIndex];
-        
-        
+
+
         function findNegative(n) {
             return n <= 0;
         }
-        
+
 
         var noteIndex;
         if (Math.abs(firstNegative) < Math.abs(lastPositive)) {
@@ -263,17 +263,18 @@ $(document).ready(function() {
         else {
             noteIndex = lastPositiveIndex;
         }
-        
+
         //Lookup up the correct note from noteNames array 
-        if (noteIndex < 12)  {
+        if (noteIndex < 12) {
             var noteOutput = noteNames[noteIndex];
-        }  else  {
+        }
+        else {
             var noteOutput = noteNames[noteIndex % 12];
         }
-        
+
         return noteOutput;
     }
-    
+
 
     //On submit the inputs will be assigned to the dimension boxes and [dimensions] array
 
@@ -316,8 +317,20 @@ $(document).ready(function() {
     //View the x-axis only
     function xAxisFocus() {
         $(".line").addClass("d-none");
-        $("#secondaryAxis").removeClass("d-none");
+        $("#sineWave").attr({ d: "" }); //clear the sine wav from screen
 
+        var xStart = drawAreaWidth * 0.1;
+        var yStart = drawAreaHeight * 0.1;
+        var xEnd = drawAreaWidth * 0.9;
+        var yEnd = drawAreaHeight * 0.9;
+        var xSize = drawAreaWidth - (xStart * 2); // multiply by two so that is xStart changes length remains centered
+        var ySize = drawAreaHeight - (yStart * 2); // multiply by two so that is xStart changes length remains centered
+        var xHalf = xStart + xSize / 2;
+        var yHalf = yStart + ySize / 2;
+        var xControl = xSize / 5;
+        var yControl = ySize / 5;
+
+        //Draw x-axis on left side  of screen
         $("#xAxis").attr({
             x1: drawAreaWidth * 0.1,
             y1: drawAreaHeight * 0.1,
@@ -328,45 +341,70 @@ $(document).ready(function() {
         $("#xAxis").removeClass("d-none");
 
 
-        $("#secondaryAxis").attr({
-            x1: drawAreaWidth * 0.1,
-            y1: drawAreaHeight * 0.5,
-            x2: drawAreaWidth * 0.9,
-            y2: drawAreaHeight * 0.5
+        //Draw Sine Wav
+        $("#sineWave").attr({
+            d: `M${xStart} ${yHalf}  
+                C ${xControl} ${yStart}, ${xHalf -xControl} ${yStart}, ${xHalf} ${yHalf} 
+                C ${xHalf + xControl} ${yEnd}, ${xSize - xControl} ${yEnd}, ${xStart+xSize} ${yHalf} Z`
         });
-
     }
 
 
     //View the y-axis only
     function yAxisFocus() {
         $(".line").addClass("d-none");
-        $("#secondaryAxis").removeClass("d-none");
+        $("#sineWave").attr({ d: "" }); //clear the sine wav from screen
 
+        var xStart = drawAreaWidth * 0.1;
+        var yStart = drawAreaHeight * 0.1;
+        var xEnd = drawAreaWidth * 0.9;
+        var yEnd = drawAreaHeight * 0.9;
+        var xSize = drawAreaWidth - (xStart * 2); // multiply by two so that is xStart changes length remains centered
+        var ySize = drawAreaHeight - (yStart * 2); // multiply by two so that is xStart changes length remains centered
+        var xHalf = xStart + xSize / 2;
+        var yHalf = yStart + ySize / 2;
+        var xControl = xSize / 5; //
+        var yControl = ySize / 5;
+
+        //Draw y-axis on right side of screen
         $("#yAxis").attr({
-            x1: drawAreaWidth * 0.1,
+            x1: drawAreaWidth * 0.9,
             y1: drawAreaHeight * 0.1,
-            x2: drawAreaWidth * 0.1,
+            x2: drawAreaWidth * 0.9,
             y2: drawAreaHeight * 0.9
         });
 
         $("#yAxis").removeClass("d-none");
 
 
-        $("#secondaryAxis").attr({
-            x1: drawAreaWidth * 0.1,
-            y1: drawAreaHeight * 0.5,
-            x2: drawAreaWidth * 0.9,
-            y2: drawAreaHeight * 0.5
+        //Draw Sine Wav
+        $("#sineWave").attr({
+            d: `M${xStart} ${yHalf}  
+                C ${xControl} ${yStart}, ${xHalf -xControl} ${yStart}, ${xHalf} ${yHalf} 
+                C ${xHalf + xControl} ${yEnd}, ${xSize - xControl} ${yEnd}, ${xStart+xSize} ${yHalf} Z`
         });
 
     }
 
 
+
+
     //View the z-axis only
     function zAxisFocus() {
         $(".line").addClass("d-none");
-        $("#secondaryAxis").removeClass("d-none");
+        $("#sineWave").attr({ d: "" }); //clear the sine wav from screen
+
+        var xStart = drawAreaWidth * 0.1;
+        var yStart = drawAreaHeight * 0.1;
+        var xEnd = drawAreaWidth * 0.9;
+        var yEnd = drawAreaHeight * 0.9;
+        var xSize = drawAreaWidth - (xStart * 2); // multiply by two so that is xStart changes length remains centered
+        var ySize = drawAreaHeight - (yStart * 2); // multiply by two so that is xStart changes length remains centered
+        var xHalf = xStart + xSize / 2;
+        var yHalf = yStart + ySize / 2;
+        var xControl = xSize / 5;
+        var yControl = ySize / 5;
+
 
         $("#zAxis").attr({
             x1: drawAreaWidth * 0.1,
@@ -375,22 +413,17 @@ $(document).ready(function() {
             y2: drawAreaHeight * 0.1
         });
 
-        $("#zAxis").removeClass("d-none");
+        $("#zAxis").removeClass("d-none"); // Show z-axis
 
-
-        $("#secondaryAxis").attr({
-            x1: drawAreaWidth * 0.5,
-            y1: drawAreaHeight * 0.1,
-            x2: drawAreaWidth * 0.5,
-            y2: drawAreaHeight * 0.9
+        //Draw Sine Wav
+        $("#sineWave").attr({
+            d: `M${xHalf} ${yStart}  
+                C ${xStart} ${yControl}, ${xStart} ${yHalf - yControl}, ${xHalf} ${yHalf} 
+                C ${xEnd} ${yHalf + yControl}, ${xEnd} ${ySize - yControl}, ${xHalf} ${yStart+ySize} Z`
         });
 
+
     }
-
-
-    //View Room button
-    //$("#roomBtn").on("click", console.log(dimensions));
-
 
 
 
