@@ -115,7 +115,6 @@ $(document).ready(function() {
         $("#noteWid").text(`Note: ${notes[1]}`);
         $("#noteHei").text(`Note: ${notes[2]}`);
 
-        console.log(notes);
     }
 
 
@@ -319,16 +318,13 @@ $(document).ready(function() {
 
     // -------------------------- Axes Focus ---------------------//
 
-    $("#lenBtn").on("click", xAxisFocus);
-    $("#widBtn").on("click", yAxisFocus);
-    $("#heiBtn").on("click", zAxisFocus);
+    $(".dim-button").on("click", axisFocus);
 
+    function axisFocus() {
 
-    //View the x-axis only
-    function xAxisFocus() {
-        $(".line").addClass("d-none");
-        $("#sineWave").attr({ d: "" }); //clear the sine wav from screen
+        initialiseAxisFocus();
 
+        //variables for drawing sine waves
         var xStart = drawAreaWidth * 0.1;
         var yStart = drawAreaHeight * 0.1;
         var xEnd = drawAreaWidth * 0.9;
@@ -340,99 +336,89 @@ $(document).ready(function() {
         var xControl = xSize / 4;
         var yControl = ySize / 4;
 
-        //Draw x-axis on left side  of screen
-        $("#xAxis").attr({
-            x1: drawAreaWidth * 0.1,
-            y1: drawAreaHeight * 0.1,
-            x2: drawAreaWidth * 0.1,
-            y2: drawAreaHeight * 0.9
-        });
+        if ($(this).attr("id") === "lenBtn") {
+            xAxisFocus();
+        }
+        else if ($(this).attr("id") === "widBtn") {
+            yAxisFocus();
+        }
+        else if ($(this).attr("id") === "heiBtn") {
+            zAxisFocus();
+        }
 
-        $("#xAxis").removeClass("d-none");
+
+        //View the x-axis only
+        function xAxisFocus() {
+
+            //Draw x-axis on left side  of screen
+            $("#xAxis").attr({
+                x1: drawAreaWidth * 0.1,
+                y1: drawAreaHeight * 0.1,
+                x2: drawAreaWidth * 0.1,
+                y2: drawAreaHeight * 0.9
+            });
+
+            $("#xAxis").removeClass("d-none");
 
 
-        //Draw Sine Wav
-        $("#sineWave").attr({
-            d: `M${xStart} ${yHalf}  
+            //Draw Sine Wav
+            $("#sineWave").attr({
+                d: `M${xStart} ${yHalf}  
                 Q ${xStart + xControl} ${yStart}, ${xHalf} ${yHalf} 
                 Q ${xHalf + xControl} ${yEnd}, ${xEnd} ${yHalf} Z`
-        });
-    }
+            });
+        }
 
 
-    //View the y-axis only
-    function yAxisFocus() {
-        $(".line").addClass("d-none");
-        $("#sineWave").attr({ d: "" }); //clear the sine wav from screen
-
-        var xStart = drawAreaWidth * 0.1;
-        var yStart = drawAreaHeight * 0.1;
-        var xEnd = drawAreaWidth * 0.9;
-        var yEnd = drawAreaHeight * 0.9;
-        var xSize = drawAreaWidth - (xStart * 2); // multiply by two so that is xStart changes length remains centered
-        var ySize = drawAreaHeight - (yStart * 2); // multiply by two so that is xStart changes length remains centered
-        var xHalf = xStart + xSize / 2;
-        var yHalf = yStart + ySize / 2;
-        var xControl = xSize / 5; //
-        var yControl = ySize / 5;
-
-        //Draw y-axis on right side of screen
-        $("#yAxis").attr({
-            x1: drawAreaWidth * 0.9,
-            y1: drawAreaHeight * 0.1,
-            x2: drawAreaWidth * 0.9,
-            y2: drawAreaHeight * 0.9
-        });
-
-        $("#yAxis").removeClass("d-none");
+        //View the y-axis only
+        function yAxisFocus() {
 
 
-        //Draw Sine Wav
-        $("#sineWave").attr({
-            d: `M${xStart} ${yHalf}  
+            //Draw y-axis on right side of screen
+            $("#yAxis").attr({
+                x1: drawAreaWidth * 0.9,
+                y1: drawAreaHeight * 0.1,
+                x2: drawAreaWidth * 0.9,
+                y2: drawAreaHeight * 0.9
+            });
+
+            $("#yAxis").removeClass("d-none");
+
+
+            //Draw Sine Wav
+            $("#sineWave").attr({
+                d: `M${xStart} ${yHalf}  
                 Q ${xStart + xControl} ${yStart}, ${xHalf} ${yHalf} 
                 Q ${xHalf + xControl} ${yEnd}, ${xEnd} ${yHalf} Z`
-        });
-    }
+            });
+        }
 
+        //View the z-axis only
+        function zAxisFocus() {
 
+            $("#zAxis").attr({
+                x1: drawAreaWidth * 0.1,
+                y1: drawAreaHeight * 0.1,
+                x2: drawAreaWidth * 0.9,
+                y2: drawAreaHeight * 0.1
+            });
 
+            $("#zAxis").removeClass("d-none"); // Show z-axis
 
-    //View the z-axis only
-    function zAxisFocus() {
-        $(".line").addClass("d-none");
-        $("#sineWave").attr({ d: "" }); //clear the sine wav from screen
-
-        var xStart = drawAreaWidth * 0.1;
-        var yStart = drawAreaHeight * 0.1;
-        var xEnd = drawAreaWidth * 0.9;
-        var yEnd = drawAreaHeight * 0.9;
-        var xSize = drawAreaWidth - (xStart * 2); // multiply by two so that is xStart changes length remains centered
-        var ySize = drawAreaHeight - (yStart * 2); // multiply by two so that is xStart changes length remains centered
-        var xHalf = xStart + xSize / 2;
-        var yHalf = yStart + ySize / 2;
-        var xControl = xSize / 5;
-        var yControl = ySize / 5;
-
-
-        $("#zAxis").attr({
-            x1: drawAreaWidth * 0.1,
-            y1: drawAreaHeight * 0.1,
-            x2: drawAreaWidth * 0.9,
-            y2: drawAreaHeight * 0.1
-        });
-
-        $("#zAxis").removeClass("d-none"); // Show z-axis
-
-        //Draw Sine Wav
-        $("#sineWave").attr({
-            d: `M${xHalf} ${yStart}  
+            //Draw Sine Wav
+            $("#sineWave").attr({
+                d: `M${xHalf} ${yStart}  
                 Q ${xStart} ${yStart + yControl}, ${xHalf} ${yHalf} 
                 Q ${xEnd} ${yHalf + yControl}, ${xHalf} ${yEnd} Z`
-        });
+            });
+        }
+
+        function initialiseAxisFocus() {
+            $(".line").addClass("d-none");
+            $("#sineWave").attr({ d: "" }); //clear the sine wav from screen
+        }
+
     }
-
-
 
 
 
