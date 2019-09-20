@@ -65,18 +65,30 @@ $(document).ready(function() {
         }
     }
 
+    //blur Function
+    $(".input-box").blur(blurFunc)
+
+    function blurFunc() {
+        if (isNaN($(this).val()) || $(this).val() <= 0) {
+            invalidDimensionsError();
+            $(".input-box").attr("disabled", true);
+            $("#dimensionForm").trigger("reset");
+        }
+    }
+
 
 
     //Error to display if invalid dimensions are entered
     function invalidDimensionsError() {
         $("#dimensionsError").show();
+        //Dismiss error on click of X
+        $("#dismissError").click(function() {
+            $("#dimensionsError").hide();
+            $(".input-box").attr("disabled", false);
+        });
+        
+        
     }
-
-    //Dismiss error on click of X
-    $("#dismissError").click(function() {
-        $("#dimensionsError").hide();
-    });
-
 
 
 
@@ -175,7 +187,7 @@ $(document).ready(function() {
         //derive the  to maximise diagram size based on room x-axis and y-axis
 
         //Remove the sine wave if it was previously on screen  
-        $("#sineWave").attr({ d: ""});
+        $("#sineWave").attr({ d: "" });
 
         let baseProportion;
         let scaleQ = xDim + yDim;
