@@ -460,9 +460,6 @@ $(document).ready(function() {
             $(".play-button").removeClass("btn-danger").addClass("btn-success");
             $(".play-button").text("Play");
             $(`#${actBtn}`).addClass("btn-danger").removeClass("btn-success").text("Stop");
-            let autoStopExp = new Date().getSeconds();
-            let autoStop = (new Date().getSeconds()) + 3;
-            console.log(autoStopExp, autoStop);
             startPlayback();
         }
         else {
@@ -484,7 +481,8 @@ $(document).ready(function() {
 
 
     function startPlayback() {
-        setTimeout(volume.connect(audioCtx.destination),3000);
+        volume.connect(audioCtx.destination);
+        setTimeout(stopPlayback,10000);
     }
 
 
