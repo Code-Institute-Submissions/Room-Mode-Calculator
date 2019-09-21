@@ -1,22 +1,41 @@
 body {
-    background-color: #d1d1d1;
+    background-color: #eeeeee;
+    font-family: Roboto, sans-serif;
     height: 100vh;
 }
 
 
 h1 {
-    background-color: #aa3070;
+    background-color: #ff3070;
     border: 1px solid #dd50a9;
+    border-radius: 10px;
     color: #fefefe;
+    font-size: 1.3rem;
+    height: 10vh;
     margin: 0;
 }
+
+
+h3 {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+p {
+    font-family: Roboto, sans-serif;
+}
+
 
 
 /* ---------------------------------- Input Form  --*/
 
 .input-request {
-    font-size: 1em;
-    margin: 0;
+   font-size: 1.2em;
+}
+
+
+.input-box {
+    margin: 0.5em 0;
 }
 
 
@@ -30,11 +49,14 @@ h1 {
 /* ------------------------------ Outputs Display  --*/
 
 .outputs-display {
-    order: 0;
+    position: absolute;
+    bottom: 0;
+
 }
 
 .outputs-wrapper {
-    height: 100%;
+    order: 1;
+    height: 30vh;
 }
 
 
@@ -42,42 +64,23 @@ h1 {
 .dim-box {
     background-color: #fefefe;
     border: 1px solid #bababa;
-    border-radius: 10%;
+    border-radius: 5px;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    margin: 0.5em 0;
+    margin: 0.1em 0;
     padding: 0.5em;
 }
 
 
-.dim-button {
-    display: block;
-    width: 100%;
-}
 
 
-.dim-title {
-    font-size: 1.3em;
-    margin: 0;
-}
 
 
-.para-dim {
-    font-size: 0.8em;
-    margin: 0;
-}
-
-.play-button {
-    display: block;
-    width: 100%;
-}
 
 
 /* -------------------------------Graphics Area  ----*/
 
 .graphics {
-    order: 1;
+    max-height: 60vh;
 }
 
 
@@ -169,48 +172,26 @@ h1 {
 
 /*---------------------------- Media Queries  -- */
 
-@media (max-width:768px) {
-
-    body {
-        font-size: 75%;
-    }
-
+@media (min-width:992px) {
+    
     h1 {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
-
-    .outputs-display {
-        order: 1;
-    }
+    
 
     .graphics {
+        min-height: 70vh;
+        max-height: 70vh;
+    }
+    
+
+    .outputs-wrapper {
         order: 0;
     }
 
-
-    .dim-box {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .dim-button {
-        display: inline-block;
-        order: 1;
-        width: 75%;
-    }
-
-    .play-button {
-        display: inline-block;
-        order: 2;
-        width: 25%;
-    }
-
+    
     .para-dim {
-        order: 3;
+        font-size: 0.8em;
     }
 
-
-    .input-box {
-        margin: 0.5em 0;
-    }
 }

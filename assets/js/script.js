@@ -86,8 +86,8 @@ $(document).ready(function() {
             $("#dimensionsError").hide();
             $(".input-box").attr("disabled", false);
         });
-        
-        
+
+
     }
 
 
@@ -460,10 +460,14 @@ $(document).ready(function() {
             $(".play-button").removeClass("btn-danger").addClass("btn-success");
             $(".play-button").text("Play");
             $(`#${actBtn}`).addClass("btn-danger").removeClass("btn-success").text("Stop");
+            let autoStopExp = new Date().getSeconds();
+            let autoStop = (new Date().getSeconds()) + 3;
+            console.log(autoStopExp, autoStop);
             startPlayback();
         }
         else {
             $(`#${actBtn}`).addClass("btn-success").removeClass("btn-danger").text("Play");
+
             stopPlayback();
         }
     }
@@ -480,7 +484,7 @@ $(document).ready(function() {
 
 
     function startPlayback() {
-        volume.connect(audioCtx.destination);
+        setTimeout(volume.connect(audioCtx.destination),3000);
     }
 
 
