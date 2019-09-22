@@ -511,7 +511,11 @@ $(document).ready(function() {
 
     function startPlayback() {
         volume.connect(audioCtx.destination);
+<<<<<<< HEAD
         setTimeout(stopPlayback, 10000);
+=======
+        setTimeout(stopPlayback, 3000);
+>>>>>>> 20fa11028c6fc7b63971851e6b3668a7f751bfad
     }
 
 
