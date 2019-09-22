@@ -76,7 +76,7 @@ p {
 }
 
 .dim-selected {
-    background-color: #f00;
+    background-color: rgba(220,0,100,0.3);
     color: white;
     font-weight: 700;
 }
@@ -170,16 +170,15 @@ p {
     width: 80%;
 }
 
-
-.modal-exit {
-    background-color: #ff0000;
-    color: #fff;
-    height: 2em;
-    margin: 2%;
-    position: absolute;
-    right: 0;
-    width: 2em;
+.modes-pic-wrapper  {
+    width:75%;
 }
+
+.modes-pic  {
+    height: auto;
+    width:100%;
+}
+
 
 /*---------------------------- Media Queries  -- */
 

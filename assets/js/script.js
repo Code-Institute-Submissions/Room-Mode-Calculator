@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    
+
     //---------------------Define Variables --------------//
     let dimensions = []; //dimensions array - replace with user input
 
@@ -10,7 +10,7 @@ $(document).ready(function() {
 
 
     //Remove selected class from dim-boxes when dimensions are being entered
-    $(".input-box").click(function()  {
+    $(".input-box").click(function() {
         $(".dim-box").removeClass("dim-selected");
     })
 
@@ -51,7 +51,7 @@ $(document).ready(function() {
 
     //Display error at entry of invalid dimensions 
     $(".input-box").blur(inputError);
-    
+
     function inputError() {
         if (isNaN($(this).val()) || $(this).val() <= 0) {
             invalidDimensionsError();
@@ -178,7 +178,7 @@ $(document).ready(function() {
         //derive the  to maximise diagram size based on room x-axis and y-axis
 
         //Remove the sine wave if it was previously on screen  
-        $(".sine-wave").attr({d: "" });
+        $(".sine-wave").attr({ d: "" });
 
 
         let baseProportion;
@@ -307,149 +307,153 @@ $(document).ready(function() {
 
     $(".dim-button").on("click", axisFocus);
 
+
     function axisFocus() {
 
-        //calculate positions of nodes and antinodes for each room mode
-        let nodes = dimensions.map(d => d / 2);
-        let nodeValue;
-        let axisName;
-        $(".dim-box").removeClass("dim-selected");
-        
-        if ($(this).attr("id") === "lenBtn") {
-            nodeValue = nodes[0];
-            axisName = "length"
-            $(this).closest(".dim-box").addClass("dim-selected");
+        if (dimensions.length === 0) {
+            invalidDimensionsError();
         }
-        else if ($(this).attr("id") === "widBtn") {
-            nodeValue = nodes[1];
-            axisName = "width";
-            $(this).closest(".dim-box").addClass("dim-selected");
-        }
+
         else {
-            nodeValue = nodes[2];
-            axisName = "height";
-            $(this).closest(".dim-box").addClass("dim-selected");
-        }
 
-        console.log(nodeValue);
+            function initialiseAxisFocus() {
+                $(".line").addClass("d-none"); //remove the main room drawing
+                $(".sine-wave").attr({ d: "" }); //clear the sine wav from screen
+            }
 
+            //calculate positions of nodes and antinodes for each room mode
+            let nodes = dimensions.map(d => d / 2);
+            let nodeValue;
+            let axisName;
+            $(".dim-box").removeClass("dim-selected");
 
-        //display the axis information
-        $("#axisInfo").removeClass("d-none");
-        $("#problemDistances").text(`Node at: ${nodeValue} meter/s for ${axisName} of room`)
+            if ($(this).attr("id") === "lenBtn") {
+                nodeValue = nodes[0];
+                axisName = "length"
+                $(this).closest(".dim-box").addClass("dim-selected");
+            }
+            else if ($(this).attr("id") === "widBtn") {
+                nodeValue = nodes[1];
+                axisName = "width";
+                $(this).closest(".dim-box").addClass("dim-selected");
+            }
+            else {
+                nodeValue = nodes[2];
+                axisName = "height";
+                $(this).closest(".dim-box").addClass("dim-selected");
+            }
 
-
-        initialiseAxisFocus();
-
-        //variables for drawing sine waves
-        let xStart = drawAreaWidth * 0.1;
-        let yStart = drawAreaHeight * 0.1;
-        let xEnd = drawAreaWidth * 0.9;
-        let yEnd = drawAreaHeight * 0.8;
-        let xSize = drawAreaWidth - (xStart * 2); // multiply by two so that is xStart changes length remains centered
-        let ySize = drawAreaHeight - (yStart * 2); // multiply by two so that is xStart changes length remains centered
-        let xHalf = xStart + xSize / 2;
-        let yHalf = yStart + ySize / 2;
-        let xControl = xSize / 4;
-        let yControl = ySize / 4;
-
-        if ($(this).attr("id") === "lenBtn") {
-            xAxisFocus();
-        }
-        else if ($(this).attr("id") === "widBtn") {
-            yAxisFocus();
-        }
-        else if ($(this).attr("id") === "heiBtn") {
-            zAxisFocus();
-        }
+            //display the axis information
+            $("#axisInfo").removeClass("d-none");
+            $("#problemDistances").text(`Node at: ${nodeValue} meter/s for ${axisName} of room`)
 
 
-        //View the x-axis only
-        function xAxisFocus() {
+            initialiseAxisFocus();
 
-            //Draw x-axis on left side  of screen
-            $("#xAxis").attr({
-                x1: drawAreaWidth * 0.1,
-                y1: drawAreaHeight * 0.1,
-                x2: drawAreaWidth * 0.1,
-                y2: drawAreaHeight * 0.8
-            });
+            //variables for drawing sine waves
+            let xStart = drawAreaWidth * 0.1;
+            let yStart = drawAreaHeight * 0.1;
+            let xEnd = drawAreaWidth * 0.9;
+            let yEnd = drawAreaHeight * 0.8;
+            let xSize = drawAreaWidth - (xStart * 2); // multiply by two so that is xStart changes length remains centered
+            let ySize = drawAreaHeight - (yStart * 2); // multiply by two so that is xStart changes length remains centered
+            let xHalf = xStart + xSize / 2;
+            let yHalf = yStart + ySize / 2;
+            let xControl = xSize / 4;
+            let yControl = ySize / 4;
 
-            $("#xAxis").removeClass("d-none");
+            if ($(this).attr("id") === "lenBtn") {
+                xAxisFocus();
+            }
+            else if ($(this).attr("id") === "widBtn") {
+                yAxisFocus();
+            }
+            else if ($(this).attr("id") === "heiBtn") {
+                zAxisFocus();
+            }
 
 
-            //Draw Sine Wav
-            $("#sineWaveOne").attr({
-                d: `M${xStart} ${yStart}  
+            //View the x-axis only
+            function xAxisFocus() {
+
+                //Draw x-axis on left side  of screen
+                $("#xAxis").attr({
+                    x1: drawAreaWidth * 0.1,
+                    y1: drawAreaHeight * 0.1,
+                    x2: drawAreaWidth * 0.1,
+                    y2: drawAreaHeight * 0.8
+                });
+
+                $("#xAxis").removeClass("d-none");
+
+
+                //Draw Sine Wav
+                $("#sineWaveOne").attr({
+                    d: `M${xStart} ${yStart}  
                 Q ${xStart + xControl} ${yStart}, ${xHalf} ${yHalf} 
                 Q ${xHalf + xControl} ${yEnd}, ${xEnd} ${yEnd}`
-            });
+                });
 
 
-            $("#sineWaveTwo").attr({
-                d: `M${xStart} ${yEnd}  
+                $("#sineWaveTwo").attr({
+                    d: `M${xStart} ${yEnd}  
                 Q ${xStart + xControl} ${yEnd}, ${xHalf} ${yHalf} 
                 Q ${xHalf + xControl} ${yStart}, ${xEnd} ${yStart}`
-            });
-        }
+                });
+            }
 
 
-        //View the y-axis only
-        function yAxisFocus() {
-            //Draw y-axis on right side of screen
-            $("#yAxis").attr({
-                x1: drawAreaWidth * 0.9,
-                y1: drawAreaHeight * 0.1,
-                x2: drawAreaWidth * 0.9,
-                y2: drawAreaHeight * 0.8
-            });
+            //View the y-axis only
+            function yAxisFocus() {
+                //Draw y-axis on right side of screen
+                $("#yAxis").attr({
+                    x1: drawAreaWidth * 0.9,
+                    y1: drawAreaHeight * 0.1,
+                    x2: drawAreaWidth * 0.9,
+                    y2: drawAreaHeight * 0.8
+                });
 
-            $("#yAxis").removeClass("d-none");
+                $("#yAxis").removeClass("d-none");
 
 
-            //Draw Sine Wav
-            $("#sineWaveOne").attr({
-                d: `M${xStart} ${yStart}  
+                //Draw Sine Wav
+                $("#sineWaveOne").attr({
+                    d: `M${xStart} ${yStart}  
                 Q ${xStart + xControl} ${yStart}, ${xHalf} ${yHalf} 
                 Q ${xHalf + xControl} ${yEnd}, ${xEnd} ${yEnd}`
-            });
+                });
 
-            $("#sineWaveTwo").attr({
-                d: `M${xStart} ${yEnd}  
+                $("#sineWaveTwo").attr({
+                    d: `M${xStart} ${yEnd}  
                 Q ${xStart + xControl} ${yEnd}, ${xHalf} ${yHalf} 
                 Q ${xHalf + xControl} ${yStart}, ${xEnd} ${yStart}`
-            });
-        }
+                });
+            }
 
-        //View the z-axis only
-        function zAxisFocus() {
+            //View the z-axis only
+            function zAxisFocus() {
 
-            $("#zAxis").attr({
-                x1: drawAreaWidth * 0.1,
-                y1: drawAreaHeight * 0.1,
-                x2: drawAreaWidth * 0.9,
-                y2: drawAreaHeight * 0.1
-            });
+                $("#zAxis").attr({
+                    x1: drawAreaWidth * 0.1,
+                    y1: drawAreaHeight * 0.1,
+                    x2: drawAreaWidth * 0.9,
+                    y2: drawAreaHeight * 0.1
+                });
 
-            $("#zAxis").removeClass("d-none"); // Show z-axis
+                $("#zAxis").removeClass("d-none"); // Show z-axis
 
-            //Draw Sine Wav
-            $("#sineWaveOne").attr({
-                d: `M${xStart} ${yStart}  
+                //Draw Sine Wav
+                $("#sineWaveOne").attr({
+                    d: `M${xStart} ${yStart}  
                 Q ${xStart} ${yStart + yControl}, ${xHalf} ${yHalf} 
                 Q ${xEnd} ${yHalf + yControl}, ${xEnd} ${yEnd}`
-            });
-            $("#sineWaveTwo").attr({
-                d: `M${xEnd} ${yStart}  
+                });
+                $("#sineWaveTwo").attr({
+                    d: `M${xEnd} ${yStart}  
                 Q ${xEnd} ${yStart + yControl}, ${xHalf} ${yHalf} 
                 Q ${xStart} ${yHalf + yControl}, ${xStart} ${yEnd}`
-            });
-
-        }
-
-        function initialiseAxisFocus() {
-            $(".line").addClass("d-none"); //remove the main room drawing
-            $(".sine-wave").attr({d: "" }); //clear the sine wav from screen
+                });
+            }
         }
     }
 
@@ -467,7 +471,6 @@ $(document).ready(function() {
         let freqIndex = parseInt($(this).attr("id").slice(7));
         let thisPlayBtn = $(this).attr("id");
         playBtnDisplay(thisPlayBtn);
-
         createNote(frequencies[freqIndex]);
     }
 
@@ -486,7 +489,6 @@ $(document).ready(function() {
         }
     }
 
-
     function createNote(frequency) {
         sound.frequency.value = frequency;
         sound.type = "sine";
@@ -494,11 +496,9 @@ $(document).ready(function() {
         volume.gain.value = 0.2;
     }
 
-
     function startPlayback() {
         volume.connect(audioCtx.destination);
     }
-
 
     function stopPlayback() {
         volume.disconnect(audioCtx.destination);
