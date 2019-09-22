@@ -1,13 +1,13 @@
 body {
-    background-color: #eeeeee;
+    background-color: #fefefe;
     font-family: Roboto, sans-serif;
     height: 100vh;
 }
 
 
 h1 {
-    background-color: #ff3070;
-    border: 1px solid #dd50a9;
+    background-color: #068ca1;
+    border: 1px solid #068ca1;
     border-radius: 10px;
     color: #fefefe;
     font-size: 1.3rem;
@@ -25,6 +25,9 @@ p {
     font-family: Roboto, sans-serif;
 }
 
+.show-explainer  {
+    font-size: 1.5em;
+}
 
 
 /* ---------------------------------- Input Form  --*/
@@ -33,33 +36,31 @@ p {
    font-size: 1.1em;
 }
 
-
 .input-box {
     margin: 0.5em 0;
 }
 
-
 .error-message {
+    background-color: #ee3333;
+    border: 0.1px solid #dd5500;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #efefef;
     display: none;
+    margin: 5px;
 }
-
-
-
 
 /* ------------------------------ Outputs Display  --*/
 
 .outputs-display {
     position: absolute;
     bottom: 0;
-
 }
 
 .outputs-wrapper {
     order: 1;
     height: 30vh;
 }
-
-
 
 .dim-box {
     background-color: #fefefe;
@@ -70,21 +71,15 @@ p {
     padding: 0.5em;
 }
 
-
-
-
-
-
-
-
 /* -------------------------------Graphics Area  ----*/
 
 .graphics {
-    max-height: 60vh;
+    min-height: 35vh;
+    max-height: 50vh;
 }
 
 .drawing-wrapper {
-    background-color: #efefef;
+    background-color: #f9f9f9;
     border: 1px solid #bababa;
     box-sizing: border-box;
     height: 100%;
@@ -111,7 +106,6 @@ p {
     position:absolute;
     z-index: 1;
 }
-
 
 .prob-dist-para  {
     font-size:75%;
@@ -176,8 +170,6 @@ p {
     width: 2em;
 }
 
-
-
 /*---------------------------- Media Queries  -- */
 
 @media (min-width:992px) {
@@ -201,5 +193,9 @@ p {
     .para-dim {
         font-size: 0.8em;
     }
-
+    
+    
+    .prob-dist-para  {
+        font-size:100%;
+    }
 }

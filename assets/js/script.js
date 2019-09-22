@@ -1,7 +1,5 @@
 $(document).ready(function() {
-
-
-
+    
     //---------------------Define Variables --------------//
     let dimensions = []; //dimensions array - replace with user input
 
@@ -9,7 +7,6 @@ $(document).ready(function() {
     //return the dimensions of drawing area for currently selected 
     let drawAreaHeight = $("#drawingArea").height();
     let drawAreaWidth = $("#drawingArea").width();
-
 
     //--------------------------Input Functions-----------//
 
@@ -45,25 +42,20 @@ $(document).ready(function() {
         }
     }
 
-    //Display error if invalid dimensions are entered
-    $(".input-box").blur(inputError)
-
-
+    //Display error at entry of invalid dimensions 
+    $(".input-box").blur(inputError);
+    
     function inputError() {
         if (isNaN($(this).val()) || $(this).val() <= 0) {
             invalidDimensionsError();
-            $(".input-box").attr("disabled", true);
-            $("#dimensionForm").trigger("reset");
         }
     }
 
     //Error to display if invalid dimensions are entered
     function invalidDimensionsError() {
         $("#dimensionsError").show();
-        //Dismiss error on click of X
         $("#dimensionsError").click(function() {
             $("#dimensionsError").hide();
-            $(".input-box").attr("disabled", false);
         });
     }
 
@@ -237,7 +229,6 @@ $(document).ready(function() {
 
 
         //Draw background, grey axes
-
         $("#backPath").attr("d", `M ${originX - xLength},${originY - angleUp} 
                            v${zLength}
                            l${xLength}, ${angleUp}
@@ -247,8 +238,6 @@ $(document).ready(function() {
                            l${-yLength}, ${angleUp}
                   
         `);
-
-
 
         // Animate --------------------------- //
 
@@ -260,7 +249,6 @@ $(document).ready(function() {
         //Animate drawing of x-axis
         function xAxisDraw() {
             let posX = originX;
-            let posY = originY;
             let id = setInterval(frame, 0.1);
 
             function frame() {
@@ -269,7 +257,6 @@ $(document).ready(function() {
                 }
                 else {
                     posX--;
-                    posY--;
                     $("#xAxis").attr("x2", posX);
                 }
             }
@@ -310,10 +297,6 @@ $(document).ready(function() {
         }
     }
 
-
-
-
-
     // -------------------------- Axes Focus ---------------------//
 
     $(".dim-button").on("click", axisFocus);
@@ -322,11 +305,9 @@ $(document).ready(function() {
 
         //calculate positions of nodes and antinodes for each room mode
         let nodes = dimensions.map(d => d / 2);
-        console.log(nodes);
-
-    
         let nodeValue;
         let axisName;
+        
         if ($(this).attr("id") === "lenBtn") {
             nodeValue = nodes[0];
             axisName = "length"
@@ -340,7 +321,7 @@ $(document).ready(function() {
             axisName = "height"
         }
 
-        console.log(nodeValue);        
+        console.log(nodeValue);
 
 
         //display the axis information
@@ -400,14 +381,11 @@ $(document).ready(function() {
                 Q ${xStart + xControl} ${yEnd}, ${xHalf} ${yHalf} 
                 Q ${xHalf + xControl} ${yStart}, ${xEnd} ${yStart}`
             });
-
         }
 
 
         //View the y-axis only
         function yAxisFocus() {
-
-
             //Draw y-axis on right side of screen
             $("#yAxis").attr({
                 x1: drawAreaWidth * 0.9,
@@ -461,7 +439,7 @@ $(document).ready(function() {
 
         function initialiseAxisFocus() {
             $(".line").addClass("d-none"); //remove the main room drawing
-            $(".sine-wave").attr({ d: "" }); //clear the sine wav from screen
+            $(".sine-wave").attr({d: "" }); //clear the sine wav from screen
         }
     }
 
@@ -508,7 +486,6 @@ $(document).ready(function() {
     }
 
 
-
     function startPlayback() {
         volume.connect(audioCtx.destination);
         setTimeout(stopPlayback, 10000);
@@ -518,7 +495,6 @@ $(document).ready(function() {
     function stopPlayback() {
         volume.disconnect(audioCtx.destination);
     }
-
 
     //end of code
 });
