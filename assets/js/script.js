@@ -3,8 +3,8 @@ $(document).ready(function() {
 
 
     //---------------------Define Variables --------------//
-
     let dimensions = []; //dimensions array - replace with user input
+
 
     //return the dimensions of drawing area for currently selected 
     let drawAreaHeight = $("#drawingArea").height();
@@ -18,11 +18,11 @@ $(document).ready(function() {
     $("#submitBtn").on("click", addDimensions);
 
     function addDimensions() {
-        
+
         //hide axis info if this is currently displayed 
         $("#axisInfo").addClass("d-none");
-        
-        
+
+
         //change input values to numbers
         let xIn = parseFloat($("#xInput").val());
         let yIn = parseFloat($("#yInput").val());
@@ -47,7 +47,7 @@ $(document).ready(function() {
 
     //Display error if invalid dimensions are entered
     $(".input-box").blur(inputError)
- 
+
 
     function inputError() {
         if (isNaN($(this).val()) || $(this).val() <= 0) {
@@ -65,8 +65,6 @@ $(document).ready(function() {
             $("#dimensionsError").hide();
             $(".input-box").attr("disabled", false);
         });
-
-
     }
 
 
@@ -172,9 +170,9 @@ $(document).ready(function() {
     $("#modalDismiss").click(function() {
         $("#explainerModal").addClass("d-none");
     });
-    
-    
-    $("#explainerModal").click(function()  {
+
+
+    $("#explainerModal").click(function() {
         $(this).addClass("d-none");
     })
 
@@ -188,8 +186,9 @@ $(document).ready(function() {
         //derive the  to maximise diagram size based on room x-axis and y-axis
 
         //Remove the sine wave if it was previously on screen  
-        $("#sineWave").attr({ d: "" });
-
+        $(".sine-wave").attr({ d: "" });
+        
+     
         let baseProportion;
         let scaleQ = xDim + yDim;
         if (Math.max(...dimensions) === zDim) {
@@ -327,18 +326,17 @@ $(document).ready(function() {
     $(".dim-button").on("click", axisFocus);
 
     function axisFocus() {
-        
+
+        //calculate positions of nodes and antinodes for each room mode
+        let nodes = dimensions.map(d => d / 2);
+        let antinodes = dimensions.map(d => d / 4);
+
+
         //display the axis information
         $("#axisInfo").removeClass("d-none");
-        //calculate the distances that will cause issues if a listening or mic position
-        getProblemDistances();
-        
-        
-        function getProblemDistances()  {
-            
-        }
-        
-        
+
+
+
         initialiseAxisFocus();
 
         //variables for drawing sine waves
@@ -379,11 +377,19 @@ $(document).ready(function() {
 
 
             //Draw Sine Wav
-            $("#sineWave").attr({
-                d: `M${xStart} ${yHalf}  
+            $("#sineWaveOne").attr({
+                d: `M${xStart} ${yStart}  
                 Q ${xStart + xControl} ${yStart}, ${xHalf} ${yHalf} 
-                Q ${xHalf + xControl} ${yEnd}, ${xEnd} ${yHalf} Z`
+                Q ${xHalf + xControl} ${yEnd}, ${xEnd} ${yEnd}`
             });
+
+
+            $("#sineWaveTwo").attr({
+                d: `M${xStart} ${yEnd}  
+                Q ${xStart + xControl} ${yEnd}, ${xHalf} ${yHalf} 
+                Q ${xHalf + xControl} ${yStart}, ${xEnd} ${yStart}`
+            });
+
         }
 
 
@@ -403,11 +409,19 @@ $(document).ready(function() {
 
 
             //Draw Sine Wav
-            $("#sineWave").attr({
-                d: `M${xStart} ${yHalf}  
+            $("#sineWaveOne").attr({
+                d: `M${xStart} ${yStart}  
                 Q ${xStart + xControl} ${yStart}, ${xHalf} ${yHalf} 
-                Q ${xHalf + xControl} ${yEnd}, ${xEnd} ${yHalf} Z`
+                Q ${xHalf + xControl} ${yEnd}, ${xEnd} ${yEnd}`
             });
+            
+             $("#sineWaveTwo").attr({
+                d: `M${xStart} ${yEnd}  
+                Q ${xStart + xControl} ${yEnd}, ${xHalf} ${yHalf} 
+                Q ${xHalf + xControl} ${yStart}, ${xEnd} ${yStart}`
+            });
+            
+            
         }
 
         //View the z-axis only
@@ -423,18 +437,26 @@ $(document).ready(function() {
             $("#zAxis").removeClass("d-none"); // Show z-axis
 
             //Draw Sine Wav
-            $("#sineWave").attr({
-                d: `M${xHalf} ${yStart}  
+            $("#sineWaveOne").attr({
+                d: `M${xStart} ${yStart}  
                 Q ${xStart} ${yStart + yControl}, ${xHalf} ${yHalf} 
-                Q ${xEnd} ${yHalf + yControl}, ${xHalf} ${yEnd} Z`
+                Q ${xEnd} ${yHalf + yControl}, ${xEnd} ${yEnd}`
             });
+            $("#sineWaveTwo").attr({
+                d: `M${xEnd} ${yStart}  
+                Q ${xEnd} ${yStart + yControl}, ${xHalf} ${yHalf} 
+                Q ${xStart} ${yHalf + yControl}, ${xStart} ${yEnd}`
+            });
+            
         }
 
         function initialiseAxisFocus() {
             $(".line").addClass("d-none");
-            $("#sineWave").attr({ d: "" }); //clear the sine wav from screen
+            $(".sine-wave").attr({ d: "" }); //clear the sine wav from screen
+            
+            
+          
         }
-
     }
 
     //---------------------------Audio Code  ---------------------//
@@ -446,8 +468,8 @@ $(document).ready(function() {
     sound.start();
 
     $(".play-button").click(playBtnActions);
-    
-   function playBtnActions() {
+
+    function playBtnActions() {
         let freqIndex = parseInt($(this).attr("id").slice(7));
         let thisPlayBtn = $(this).attr("id");
         playBtnDisplay(thisPlayBtn);

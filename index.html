@@ -63,9 +63,6 @@
 
             <!--  Outputs and Drawing Row  -->
             <div class="row">
-
-
-
                 <!-- Graphics  -->
                 <div class="graphics col-12 col-lg-10 order-lg-1">
                     <div class="drawing-wrapper d-flex align-items-center justify-content-center">
@@ -87,21 +84,19 @@
                         -->
                         
                         <!-- Sine Wave -->
-                        <path id="sineWave" class="sine-wave"/>
+                        <path id="sineWaveOne" class="sine-wave"/>
+                        <path id="sineWaveTwo" class="sine-wave"/>
                         
                         </svg>
                         <div id="axisInfo" class="axis-info col-12 d-none w-75">
                             <p>Problem Positions: 
-                                <span class = "problemDistance">Antinode: ></span>
-                                <span class = "problemDistance">Node: </span>
-                                <span class = "problemDistance">Antinode: </span>
+                                <span id="antiNode" class = "problemDistance">Antinode: ></span>
+                                <span id="node" class = "problemDistance">Node: </span>
                             </p>
                         </div>
                     </div>
 
                 </div>
-
-
 
 
                 <!-- Outputs  Display -->
@@ -163,11 +158,6 @@
                             </div>
                         </div>
 
-                        <!-- Add this only when it works
-                        <div class="dim-box">
-                            <button type="button" id="roomBtn" class="btn-primary btn-sm dim-button">View Room</button>
-                        </div>
-                        -->
                     </div>
                 </div>
 
