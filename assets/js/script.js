@@ -45,10 +45,11 @@ $(document).ready(function() {
         }
     }
 
-    //blur Function
-    $(".input-box").blur(blurFunc)
+    //Display error if invalid dimensions are entered
+    $(".input-box").blur(inputError)
+ 
 
-    function blurFunc() {
+    function inputError() {
         if (isNaN($(this).val()) || $(this).val() <= 0) {
             invalidDimensionsError();
             $(".input-box").attr("disabled", true);
@@ -56,13 +57,11 @@ $(document).ready(function() {
         }
     }
 
-
-
     //Error to display if invalid dimensions are entered
     function invalidDimensionsError() {
         $("#dimensionsError").show();
         //Dismiss error on click of X
-        $("#dismissError").click(function() {
+        $("#dimensionsError").click(function() {
             $("#dimensionsError").hide();
             $(".input-box").attr("disabled", false);
         });
