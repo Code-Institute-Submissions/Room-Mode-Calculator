@@ -67,11 +67,6 @@ $(document).ready(function() {
         });
     }
 
-
-
-
-
-
     //function to display dimension outputs
     function dimensionOutputs(x, y, z) {
 
@@ -99,8 +94,6 @@ $(document).ready(function() {
         $("#noteHei").text(`Note: ${notes[2]}`);
 
     }
-
-
 
     //calculate frequency based on dimension
     function freqCalc(dimen) {
@@ -187,8 +180,8 @@ $(document).ready(function() {
 
         //Remove the sine wave if it was previously on screen  
         $(".sine-wave").attr({ d: "" });
-        
-     
+
+
         let baseProportion;
         let scaleQ = xDim + yDim;
         if (Math.max(...dimensions) === zDim) {
@@ -329,12 +322,30 @@ $(document).ready(function() {
 
         //calculate positions of nodes and antinodes for each room mode
         let nodes = dimensions.map(d => d / 2);
-        let antinodes = dimensions.map(d => d / 4);
+        console.log(nodes);
+
+    
+        let nodeValue;
+        let axisName;
+        if ($(this).attr("id") === "lenBtn") {
+            nodeValue = nodes[0];
+            axisName = "length"
+        }
+        else if ($(this).attr("id") === "widBtn") {
+            nodeValue = nodes[1];
+            axisName = "width"
+        }
+        else {
+            nodeValue = nodes[2];
+            axisName = "height"
+        }
+
+        console.log(nodeValue);        
 
 
         //display the axis information
         $("#axisInfo").removeClass("d-none");
-
+        $("#problemDistances").text(`Node at: ${nodeValue} meter/s for ${axisName} of room`)
 
 
         initialiseAxisFocus();
@@ -343,7 +354,7 @@ $(document).ready(function() {
         let xStart = drawAreaWidth * 0.1;
         let yStart = drawAreaHeight * 0.1;
         let xEnd = drawAreaWidth * 0.9;
-        let yEnd = drawAreaHeight * 0.9;
+        let yEnd = drawAreaHeight * 0.8;
         let xSize = drawAreaWidth - (xStart * 2); // multiply by two so that is xStart changes length remains centered
         let ySize = drawAreaHeight - (yStart * 2); // multiply by two so that is xStart changes length remains centered
         let xHalf = xStart + xSize / 2;
@@ -370,7 +381,7 @@ $(document).ready(function() {
                 x1: drawAreaWidth * 0.1,
                 y1: drawAreaHeight * 0.1,
                 x2: drawAreaWidth * 0.1,
-                y2: drawAreaHeight * 0.9
+                y2: drawAreaHeight * 0.8
             });
 
             $("#xAxis").removeClass("d-none");
@@ -402,7 +413,7 @@ $(document).ready(function() {
                 x1: drawAreaWidth * 0.9,
                 y1: drawAreaHeight * 0.1,
                 x2: drawAreaWidth * 0.9,
-                y2: drawAreaHeight * 0.9
+                y2: drawAreaHeight * 0.8
             });
 
             $("#yAxis").removeClass("d-none");
@@ -414,14 +425,12 @@ $(document).ready(function() {
                 Q ${xStart + xControl} ${yStart}, ${xHalf} ${yHalf} 
                 Q ${xHalf + xControl} ${yEnd}, ${xEnd} ${yEnd}`
             });
-            
-             $("#sineWaveTwo").attr({
+
+            $("#sineWaveTwo").attr({
                 d: `M${xStart} ${yEnd}  
                 Q ${xStart + xControl} ${yEnd}, ${xHalf} ${yHalf} 
                 Q ${xHalf + xControl} ${yStart}, ${xEnd} ${yStart}`
             });
-            
-            
         }
 
         //View the z-axis only
@@ -447,15 +456,12 @@ $(document).ready(function() {
                 Q ${xEnd} ${yStart + yControl}, ${xHalf} ${yHalf} 
                 Q ${xStart} ${yHalf + yControl}, ${xStart} ${yEnd}`
             });
-            
+
         }
 
         function initialiseAxisFocus() {
-            $(".line").addClass("d-none");
+            $(".line").addClass("d-none"); //remove the main room drawing
             $(".sine-wave").attr({ d: "" }); //clear the sine wav from screen
-            
-            
-          
         }
     }
 

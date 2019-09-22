@@ -106,13 +106,17 @@ p {
 
 
 .axis-info  {
-    background-color: rgba(200,200,0,0.1);
+    background-color: rgba(0,0,0,0);
     bottom:0;
     position:absolute;
     z-index: 1;
 }
 
 
+
+.prob-dist-para  {
+    font-size:75%;
+}
 
 
 /* -----------------------------line classes ---- */
