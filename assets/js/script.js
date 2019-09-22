@@ -8,6 +8,13 @@ $(document).ready(function() {
     let drawAreaHeight = $("#drawingArea").height();
     let drawAreaWidth = $("#drawingArea").width();
 
+
+    //Remove selected class from dim-boxes when dimensions are being entered
+    $(".input-box").click(function()  {
+        $(".dim-box").removeClass("dim-selected");
+    })
+
+
     //--------------------------Input Functions-----------//
 
     //On submit the inputs will be assigned to the dimension boxes and [dimensions] array
@@ -171,7 +178,7 @@ $(document).ready(function() {
         //derive the  to maximise diagram size based on room x-axis and y-axis
 
         //Remove the sine wave if it was previously on screen  
-        $(".sine-wave").attr({ d: "" });
+        $(".sine-wave").attr({d: "" });
 
 
         let baseProportion;
@@ -201,7 +208,6 @@ $(document).ready(function() {
 
 
         //---------------------------------------------------------------------//
-
 
 
         //Draw main, coloured axes
@@ -307,18 +313,22 @@ $(document).ready(function() {
         let nodes = dimensions.map(d => d / 2);
         let nodeValue;
         let axisName;
+        $(".dim-box").removeClass("dim-selected");
         
         if ($(this).attr("id") === "lenBtn") {
             nodeValue = nodes[0];
             axisName = "length"
+            $(this).closest(".dim-box").addClass("dim-selected");
         }
         else if ($(this).attr("id") === "widBtn") {
             nodeValue = nodes[1];
-            axisName = "width"
+            axisName = "width";
+            $(this).closest(".dim-box").addClass("dim-selected");
         }
         else {
             nodeValue = nodes[2];
-            axisName = "height"
+            axisName = "height";
+            $(this).closest(".dim-box").addClass("dim-selected");
         }
 
         console.log(nodeValue);
@@ -478,7 +488,6 @@ $(document).ready(function() {
 
 
     function createNote(frequency) {
-
         sound.frequency.value = frequency;
         sound.type = "sine";
         sound.connect(volume);

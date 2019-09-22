@@ -1,5 +1,5 @@
 body {
-    background-color: #fefefe;
+    background-color: #eefcff;
     font-family: Roboto, sans-serif;
     height: 100vh;
 }
@@ -31,6 +31,10 @@ p {
 
 
 /* ---------------------------------- Input Form  --*/
+
+.dimension-form  {
+    background-color: #dde9ff;
+}
 
 .input-request {
    font-size: 1.1em;
@@ -70,6 +74,13 @@ p {
     margin: 0.1em 0;
     padding: 0.5em;
 }
+
+.dim-selected {
+    background-color: #f00;
+    color: white;
+    font-weight: 700;
+}
+
 
 /* -------------------------------Graphics Area  ----*/
 
@@ -196,6 +207,6 @@ p {
     
     
     .prob-dist-para  {
-        font-size:100%;
+        font-size:1.3em;
     }
 }
