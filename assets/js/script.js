@@ -4,45 +4,25 @@ $(document).ready(function() {
 
     //---------------------Define Variables --------------//
 
-
-    const speedOfSound = 344; //speed of sound in air in meters per second (21 degrees celsius)
-    const wavelengthConstant = 1.059463; //multiplier to be used for calculating frequencies/wavelengths relative to the next frequency/wavelength 
-    const baseWavelength = 24.94545455; // base wavelength to be used to fill [wavelengths] array - this corresponds to the first "A note" below the threshold of human hearing  
-
-    const noteNames = ["A", "A#/Bb", "B", "C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab"];
     let dimensions = []; //dimensions array - replace with user input
-    let frequencies = [];
-    let notes = [];
-    let wavelengths = [baseWavelength];
 
     //return the dimensions of drawing area for currently selected 
     let drawAreaHeight = $("#drawingArea").height();
     let drawAreaWidth = $("#drawingArea").width();
 
 
-
-    //return the array of wavelengths corresponding to musical notes in range
-    function generateWavelengths() {
-        for (i = 1; i < 100; i++) {
-            wavelengths.push(wavelengths[i - 1] / wavelengthConstant);
-        }
-    }
-    generateWavelengths();
-
-
-
-
-
-
     //--------------------------Input Functions-----------//
-
 
     //On submit the inputs will be assigned to the dimension boxes and [dimensions] array
 
     $("#submitBtn").on("click", addDimensions);
 
     function addDimensions() {
-
+        
+        //hide axis info if this is currently displayed 
+        $("#axisInfo").addClass("d-none");
+        
+        
         //change input values to numbers
         let xIn = parseFloat($("#xInput").val());
         let yIn = parseFloat($("#yInput").val());
@@ -92,10 +72,7 @@ $(document).ready(function() {
 
 
 
-    //calculate frequency based on dimension
-    function freqCalc(dimen) {
-        return Math.round(speedOfSound / dimen);
-    }
+
 
 
     //function to display dimension outputs
@@ -109,8 +86,6 @@ $(document).ready(function() {
         $("#titleLen").text(`Length: ${x}m`);
         $("#titleWid").text(`Width: ${y}m`);
         $("#titleHei").text(`Height: ${z}m`);
-
-
 
         //Frequencies outputs
         frequencies = dimensions.map(freqCalc);
@@ -129,16 +104,38 @@ $(document).ready(function() {
     }
 
 
+
+    //calculate frequency based on dimension
+    function freqCalc(dimen) {
+        const speedOfSound = 344; //speed of sound in air in meters per second (21 degrees celsius)
+        return Math.round(speedOfSound / dimen);
+    }
+
     // Determine the closest musicalnote based on the room dimension (wavelength);
     function notesCalc(dimen) {
-        //Generate array whoch subtracts the room dimension from the wavelengths array
 
+        const wavelengthConstant = 1.059463; //multiplier to be used for calculating frequencies/wavelengths relative to the next frequency/wavelength 
+        const baseWavelength = 24.94545455; // base wavelength to be used to fill [wavelengths] array - this corresponds to the first "A note" below the threshold of human hearing  
+        const noteNames = ["A", "A#/Bb", "B", "C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab"];
+        let frequencies = [];
+        let notes = [];
+        let wavelengths = [baseWavelength];
+        //return the array of wavelengths corresponding to musical notes in range
+        function generateWavelengths() {
+            for (i = 1; i < 100; i++) {
+                wavelengths.push(wavelengths[i - 1] / wavelengthConstant);
+            }
+        }
+        generateWavelengths();
+
+
+
+        //Generate array whoch subtracts the room dimension from the wavelengths array
         let compareArray = wavelengths.map(n => n - dimen);
 
 
         // find first wavelength with a negative value and last wavelength with positive value in compareArray
         // whichever of these wavelengths is closest to zero corresponds to the wavelngth of the closest musical note
-
         let firstNegative = compareArray.find(findNegative);
         let firstNegativeIndex = compareArray.indexOf(compareArray.find(findNegative)); //find the index of the first item in compareArray with a negative value 
         let lastPositiveIndex = firstNegativeIndex - 1; //get last item in compareArray with positive value
@@ -176,6 +173,11 @@ $(document).ready(function() {
     $("#modalDismiss").click(function() {
         $("#explainerModal").addClass("d-none");
     });
+    
+    
+    $("#explainerModal").click(function()  {
+        $(this).addClass("d-none");
+    })
 
     //------------------------------------- Display Functions -----------------//
 
@@ -257,9 +259,6 @@ $(document).ready(function() {
 
 
 
-
-
-
         // Animate --------------------------- //
 
         //Main axes
@@ -329,7 +328,18 @@ $(document).ready(function() {
     $(".dim-button").on("click", axisFocus);
 
     function axisFocus() {
-
+        
+        //display the axis information
+        $("#axisInfo").removeClass("d-none");
+        //calculate the distances that will cause issues if a listening or mic position
+        getProblemDistances();
+        
+        
+        function getProblemDistances()  {
+            
+        }
+        
+        
         initialiseAxisFocus();
 
         //variables for drawing sine waves
@@ -428,11 +438,6 @@ $(document).ready(function() {
 
     }
 
-
-
-
-
-
     //---------------------------Audio Code  ---------------------//
 
     //Establish the audio context
@@ -442,11 +447,8 @@ $(document).ready(function() {
     sound.start();
 
     $(".play-button").click(playBtnActions);
-
-
-
-
-    function playBtnActions() {
+    
+   function playBtnActions() {
         let freqIndex = parseInt($(this).attr("id").slice(7));
         let thisPlayBtn = $(this).attr("id");
         playBtnDisplay(thisPlayBtn);
@@ -482,7 +484,7 @@ $(document).ready(function() {
 
     function startPlayback() {
         volume.connect(audioCtx.destination);
-        setTimeout(stopPlayback,10000);
+        setTimeout(stopPlayback, 10000);
     }
 
 

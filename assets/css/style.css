@@ -83,7 +83,6 @@ p {
     max-height: 60vh;
 }
 
-
 .drawing-wrapper {
     background-color: #efefef;
     border: 1px solid #bababa;
@@ -100,11 +99,17 @@ p {
     width: 95%;
 }
 
-
-
 .sine-wave {
     fill-opacity: 0;
     stroke: #000;
+}
+
+
+.axis-info  {
+    background-color: rgba(200,200,0,0.1);
+    bottom:0;
+    position:absolute;
+    z-index: 1;
 }
 
 
