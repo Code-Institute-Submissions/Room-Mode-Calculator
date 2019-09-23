@@ -448,7 +448,9 @@ $(document).ready(function() {
     }
 
     //---------------------------Audio Code  ---------------------//
-
+    // Audio Context code modified from https://www.toptal.com/web/web-audio-api-tutorial
+    
+    
     //Establish the audio context
     let audioCtx = new(window.AudioContext);
     let sound = audioCtx.createOscillator();
@@ -473,7 +475,6 @@ $(document).ready(function() {
             startPlayback();
         } else {
             $(`#${actBtn}`).addClass("btn-success").removeClass("btn-danger").text("Play");
-
             stopPlayback();
         }
     }
@@ -492,6 +493,4 @@ $(document).ready(function() {
     function stopPlayback() {
         volume.disconnect(audioCtx.destination);
     }
-
-    //end of code
 });

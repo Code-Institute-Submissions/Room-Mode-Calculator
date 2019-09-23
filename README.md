@@ -15,19 +15,44 @@ The upshot of this is that in typical domestic rooms, with parallel surfaces, th
 these room mode frequencies (and their harmonics) at the room mode frequencies.
 Given the ever increasing popularity of home recording this can be a particular issue that can be overlooked by musicians/sound engineers working at home.
 Room modes can cause significant problems when trying to balance and equalise music recorded in domestic rooms and this can be mitigated, to some degree, by adjusting listening and/or microphone position away from points where the effects of room modes are prevalent. 
-In other words - away from the node points where that frequency is inherently quieter or cancelled. Also away from the antinode points where that frequency is inherently louder.
+In other words - away from the node points where that frequency is inherently quieter or cancelled. Also, away from the antinode points where that frequency is inherently louder.
 
 
-The aims of this applicaiton are:
+The aims of this application are:
 
 On input of room dimensions to provide insight into:
 * Problematic distances on each room axis (nodes and antnodes).
 * The frequency of the room mode for each room dimension .
 * The corresponding musical note for each of the room nodes.
 
+This can help when working with music to determine positioning. In addition to this, for a sound engineer that finds themselves consistently applying large scale EQ cuts or boosts at similar frequencies this tool can help identify if room modes may be a contributing factor.  
+
 Further information can be found here:
 https://en.wikipedia.org/wiki/Room_modes
 
+
+## Features
+### Existing Features
+On submitting room dimensions the application will:
+* Display a graphical representation of the room.
+* Display the specified dimensions within the dimension buttons.
+* Display the room mode frequency for each dimension.
+* Display the closest musical that corresponds to that frequency (the frequencies returned will very likely not correspond directly to a musical note and will lie between two notes. The closest note to the frequency selected)
+
+
+On pressing a dimension button (Length, Width, Height)
+* This will give a view for the relevant room dimension displaying room mode nodes and antinodes.
+* The distance from the wall for the node for the fundamental frequency is displayed.
+
+On pressing the question mark at the top of the screen a basic explanation of room modes is given
+
+
+
+### Features to be implemented
+* Add button to revert to fulll room view from axis view
+* Functionality to select harmonics for room nodes in addition to fundamental frequency with corresponding wave display and node/antinode readout in axis focus view   
+* Add dimension labels to axes when the full room is viewed 
+* Improved visual aesthetics
 
 
 ## Technologies used
@@ -39,13 +64,9 @@ https://en.wikipedia.org/wiki/Room_modes
 * Web Audio API https://www.w3.org/TR/webaudio/
 
 
-
-## Future Development
-* Functionality to select harmonics for room nodes in addition to fundamental frequency  
-* Improved visual aesthetics
-
-
-
+## Bugs/Issues
+* In desktop view - when the y-axis is the smallest dimension the room doesnt fully render within the drawing area.
+This doesnt occur on mobille view.
 
 
 # References
