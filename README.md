@@ -64,6 +64,11 @@ On pressing the question mark at the top of the screen a basic explanation of ro
 * Web Audio API https://www.w3.org/TR/webaudio/
 
 
+## Testing
+Testing Results, and wireframe here:
+https://drive.google.com/drive/folders/129n2Yw-C3wSzYJ-RsGNcb2YjVr17Ew2j?usp=sharing
+
+
 ## Bugs/Issues
 * In desktop view - when the y-axis is the smallest dimension the room doesnt fully render within the drawing area.
 This doesnt occur on mobille view.
