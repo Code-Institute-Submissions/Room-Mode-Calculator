@@ -3,53 +3,46 @@ $(document).ready(function() {
     //---------------------Define Variables --------------//
     let dimensions = []; //dimensions array - replace with user input
 
-
     //return the dimensions of drawing area for currently selected 
     let drawAreaHeight = $("#drawingArea").height();
     let drawAreaWidth = $("#drawingArea").width();
-
 
     //Remove selected class from dim-boxes when dimensions are being entered
     $(".input-box").click(function() {
         $(".dim-box").removeClass("dim-selected");
     })
 
-
     //--------------------------Input Functions-----------//
-
-    //On submit the inputs will be assigned to the dimension boxes and [dimensions] array
-
+    //On submit the inputs will be assigned to the dimension boxes a
+    //nd [dimensions] array
     $("#submitBtn").on("click", addDimensions);
 
     function addDimensions() {
-
         //hide axis info if this is currently displayed 
         $("#axisInfo").addClass("d-none");
-
 
         //change input values to numbers
         let xIn = parseFloat($("#xInput").val());
         let yIn = parseFloat($("#yInput").val());
         let zIn = parseFloat($("#zInput").val());
 
-        if (isNaN(xIn) === true || isNaN(yIn) === true || isNaN(zIn) === true ||
+        if (isNaN(xIn) === true || 
+            isNaN(yIn) === true || 
+            isNaN(zIn) === true ||
             xIn <= 0 || yIn <= 0 || zIn <= 0) {
             invalidDimensionsError();
         } else {
-
             //Remove "d-none" class from svg elements"
             $(".line").removeClass("d-none");
-
-            dimensionOutputs(xIn, yIn, zIn); // call function to fill the output display on left
+            //call function to fill the output display
+            dimensionOutputs(xIn, yIn, zIn);
             drawRoom(xIn, yIn, zIn); // call function to draw the room
-
             $("#dimensionForm").trigger("reset");
         }
     }
 
     //Display error at entry of invalid dimensions 
     $(".input-box").blur(inputError);
-
     function inputError() {
         if (isNaN($(this).val()) || $(this).val() <= 0) {
             invalidDimensionsError();
@@ -66,7 +59,6 @@ $(document).ready(function() {
 
     //function to display dimension outputs
     function dimensionOutputs(x, y, z) {
-
         //Dimension outputs
         //clear dimensions array and push user inputs to dimensions array 
         dimensions.length = 0;
@@ -83,31 +75,36 @@ $(document).ready(function() {
         $("#freqWid").text(`Frequency: ${frequencies[1]}Hz`);
         $("#freqHei").text(`Frequency: ${frequencies[2]}Hz`);
 
-
         //Notes outputs
         notes = dimensions.map(notesCalc);
         $("#noteLen").text(`Note: ${notes[0]}`);
         $("#noteWid").text(`Note: ${notes[1]}`);
         $("#noteHei").text(`Note: ${notes[2]}`);
-
     }
 
     //calculate frequency based on dimension
     function freqCalc(dimen) {
-        const speedOfSound = 344; //speed of sound in air in meters per second (21 degrees celsius)
+        //speed of sound in air in meters per second (21 degrees celsius)
+        const speedOfSound = 344;
         return Math.round(speedOfSound / dimen);
     }
 
-    // Determine the closest musicalnote based on the room dimension (wavelength);
+    // Determine the closest musicalnote based on 
+    //the room dimension (wavelength);
     function notesCalc(dimen) {
-
-        const wavelengthConstant = 1.059463; //multiplier to be used for calculating frequencies/wavelengths relative to the next frequency/wavelength 
-        const baseWavelength = 24.94545455; // base wavelength to be used to fill [wavelengths] array - this corresponds to the first "A note" below the threshold of human hearing  
+        
+        //multiplier to be used for calculating frequencies/wavelengths 
+        //relative to the next frequency/wavelength
+        const wavelengthConstant = 1.059463;
+        
+        // base wavelength to be used to fill [wavelengths] array - 
+        //this corresponds to the first "A note" below the threshold of human hearing
+        const baseWavelength = 24.94545455; 
         const noteNames = ["A", "A#/Bb", "B", "C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab"];
         let frequencies = [];
         let notes = [];
         let wavelengths = [baseWavelength];
-        //return the array of wavelengths corresponding to musical notes in range
+        //return the array of wavelengths linked to musical notes
         function generateWavelengths() {
             for (i = 1; i < 100; i++) {
                 wavelengths.push(wavelengths[i - 1] / wavelengthConstant);
@@ -115,19 +112,21 @@ $(document).ready(function() {
         }
         generateWavelengths();
 
-
-
-        //Generate array whoch subtracts the room dimension from the wavelengths array
+        //Generate array whoch subtracts the room dimension 
+        //from the wavelengths array
         let compareArray = wavelengths.map(n => n - dimen);
-
-
-        // find first wavelength with a negative value and last wavelength with positive value in compareArray
-        // whichever of these wavelengths is closest to zero corresponds to the wavelngth of the closest musical note
+        
+        // find first wavelength with a negative value and 
+        //last wavelength with positive value in compareArray
+        // whichever of these wavelengths is closest to zero corresponds 
+        //to the wavelngth of the closest musical note
         let firstNegative = compareArray.find(findNegative);
-        let firstNegativeIndex = compareArray.indexOf(compareArray.find(findNegative)); //find the index of the first item in compareArray with a negative value 
-        let lastPositiveIndex = firstNegativeIndex - 1; //get last item in compareArray with positive value
+        
+        //find the index of the first item in compareArray with a negative value 
+        let firstNegativeIndex = compareArray.indexOf(compareArray.find(findNegative));         
+        //get last item in compareArray with positive value
+        let lastPositiveIndex = firstNegativeIndex - 1; 
         let lastPositive = compareArray[lastPositiveIndex];
-
 
         function findNegative(n) {
             return n <= 0;
@@ -148,36 +147,26 @@ $(document).ready(function() {
         return noteOutput;
     }
 
-
     //------------------------------------- Modal -----------------------------//
     $("#showExplainer").click(function() {
         $("#explainerModal").removeClass("d-none");
     });
-
-
     $("#modalDismiss").click(function() {
         $("#explainerModal").addClass("d-none");
     });
-
-
     $("#explainerModal").click(function() {
         $(this).addClass("d-none");
     })
 
     //------------------------------------- Display Functions -----------------//
-
-
-
     function drawRoom(xDim, yDim, zDim) {
-        //If the z-axis is equal to or larger than other x-axes the room will be
-        //too large for the drawing area. This derives a scale to reduce the overall size
-        //derive the  to maximise diagram size based on room x-axis and y-axis
-
+        //If the z-axis is equal to or larger than other x-axes the room 
+        //will bet oo large for the drawing area. This derives a scale to 
+        //to maximise diagram size based on room x-axis and y-axis
         //Remove the sine wave if it was previously on screen  
         $(".sine-wave").attr({
             d: ""
         });
-
 
         let baseProportion;
         let scaleQ = xDim + yDim;
@@ -186,26 +175,19 @@ $(document).ready(function() {
         } else {
             baseProportion = Math.round(drawAreaWidth / scaleQ) * 0.8;
         }
-
-        let posQ = drawAreaWidth / (xDim + yDim) * xDim; //x position of origin is based on length of x-axis (red)
-
-
+        
+        //x position of origin is based on length of x-axis (red)
+        let posQ = drawAreaWidth / (xDim + yDim) * xDim; 
         //lengths Are dimension * baseProportion * value in [dimensions] array
         let xLength = Math.round(baseProportion * xDim);
         let yLength = Math.round(baseProportion * yDim);
         let zLength = Math.round(baseProportion * zDim);
-
-
-
         //set origin point - the point where the three main axes meet
         // Test with one third from left [x,y] and 90% from top
         let originX = Math.round(posQ);
         let originY = Math.round(drawAreaHeight) - zLength;
-        let angleUp = Math.round(drawAreaHeight * 0.1); //angle x and y axes up by 10% draw area height
-
-
-        //---------------------------------------------------------------------//
-
+        //angle x and y axes up by 10% draw area height
+        let angleUp = Math.round(drawAreaHeight * 0.1); 
 
         //Draw main, coloured axes
         $("#xAxis").attr({
@@ -230,7 +212,6 @@ $(document).ready(function() {
 
         });
 
-
         //Draw background, grey axes
         $("#backPath").attr("d", `M ${originX - xLength},${originY - angleUp} 
                            v${zLength}
@@ -243,7 +224,6 @@ $(document).ready(function() {
         `);
 
         // Animate --------------------------- //
-
         //Main axes
         xAxisDraw();
         yAxisDraw();
@@ -264,7 +244,6 @@ $(document).ready(function() {
             }
         }
 
-
         //Animate drawing of y-axis
         function yAxisDraw() {
             let pos = originX;
@@ -279,7 +258,6 @@ $(document).ready(function() {
                 }
             }
         }
-
 
         //Animate drawing of z-axis
         function zAxisDraw() {
@@ -298,24 +276,21 @@ $(document).ready(function() {
     }
 
     // -------------------------- Axes Focus ---------------------//
-
     $(".dim-button").on("click", axisFocus);
-
-
     function axisFocus() {
-
         if (dimensions.length === 0) {
             invalidDimensionsError();
         } else {
-
             function initialiseAxisFocus() {
-                $(".line").addClass("d-none"); //remove the main room drawing
+                //remove the main room drawing
+                $(".line").addClass("d-none");
                 $(".sine-wave").attr({
                     d: ""
                 }); //clear the sine wav from screen
             }
 
-            //calculate positions of nodes and antinodes for each room mode
+            //calculate positions of nodes and antinodes 
+            //for each room mode
             let nodes = dimensions.map(d => d / 2);
             let nodeValue;
             let axisName;
@@ -337,8 +312,8 @@ $(document).ready(function() {
 
             //display the axis information
             $("#axisInfo").removeClass("d-none");
-            $("#problemDistances").text(`Node at: ${nodeValue} meter/s for ${axisName} of room`)
-
+            $("#problemDistances").text(`Node at: ${nodeValue} 
+                                        meter/s for ${axisName} of room`)
 
             initialiseAxisFocus();
 
@@ -347,8 +322,12 @@ $(document).ready(function() {
             let yStart = drawAreaHeight * 0.1;
             let xEnd = drawAreaWidth * 0.9;
             let yEnd = drawAreaHeight * 0.8;
-            let xSize = drawAreaWidth - (xStart * 2); // multiply by two so that is xStart changes length remains centered
-            let ySize = drawAreaHeight - (yStart * 2); // multiply by two so that is xStart changes length remains centered
+            
+            //multiply by two so that is xStart changes length remains centered
+            let xSize = drawAreaWidth - (xStart * 2); 
+            
+            //multiply by two so that is xStart changes length remains centered
+            let ySize = drawAreaHeight - (yStart * 2); 
             let xHalf = xStart + xSize / 2;
             let yHalf = yStart + ySize / 2;
             let xControl = xSize / 4;
@@ -362,10 +341,8 @@ $(document).ready(function() {
                 zAxisFocus();
             }
 
-
             //View the x-axis only
             function xAxisFocus() {
-
                 //Draw x-axis on left side  of screen
                 $("#xAxis").attr({
                     x1: drawAreaWidth * 0.1,
@@ -376,7 +353,6 @@ $(document).ready(function() {
 
                 $("#xAxis").removeClass("d-none");
 
-
                 //Draw Sine Wav
                 $("#sineWaveOne").attr({
                     d: `M${xStart} ${yStart}  
@@ -384,14 +360,12 @@ $(document).ready(function() {
                 Q ${xHalf + xControl} ${yEnd}, ${xEnd} ${yEnd}`
                 });
 
-
                 $("#sineWaveTwo").attr({
                     d: `M${xStart} ${yEnd}  
                 Q ${xStart + xControl} ${yEnd}, ${xHalf} ${yHalf} 
                 Q ${xHalf + xControl} ${yStart}, ${xEnd} ${yStart}`
                 });
             }
-
 
             //View the y-axis only
             function yAxisFocus() {
@@ -404,7 +378,6 @@ $(document).ready(function() {
                 });
 
                 $("#yAxis").removeClass("d-none");
-
 
                 //Draw Sine Wav
                 $("#sineWaveOne").attr({
@@ -446,11 +419,9 @@ $(document).ready(function() {
             }
         }
     }
-
     //---------------------------Audio Code  ---------------------//
-    // Audio Context code modified from https://www.toptal.com/web/web-audio-api-tutorial
-    
-    
+    // Audio Context code modified from 
+    //https://www.toptal.com/web/web-audio-api-tutorial
     //Establish the audio context
     let audioCtx = new(window.AudioContext);
     let sound = audioCtx.createOscillator();
@@ -469,12 +440,15 @@ $(document).ready(function() {
     //Change the display of the play buttons     
     function playBtnDisplay(actBtn) {
         if ($(`#${actBtn}`).text() === "Play") {
-            $(".play-button").removeClass("btn-danger").addClass("btn-success");
+            $(".play-button").removeClass("btn-danger")
+                                .addClass("btn-success");
             $(".play-button").text("Play");
-            $(`#${actBtn}`).addClass("btn-danger").removeClass("btn-success").text("Stop");
+            $(`#${actBtn}`).addClass("btn-danger")
+                            .removeClass("btn-success").text("Stop");
             startPlayback();
         } else {
-            $(`#${actBtn}`).addClass("btn-success").removeClass("btn-danger").text("Play");
+            $(`#${actBtn}`).addClass("btn-success")
+                            .removeClass("btn-danger").text("Play");
             stopPlayback();
         }
     }
