@@ -15,7 +15,7 @@ h1 {
     margin: 0;
 }
 
-
+s
 h3 {
     font-size: 1.2em;
     margin: 0;
@@ -25,12 +25,20 @@ p {
     font-family: Roboto, sans-serif;
 }
 
+
+/*----------------------------------  Explainer Button --*/
+
 .show-explainer  {
     font-size: 1.5em;
+    transition: color 0.2s ease;
+}
+
+.show-explainer :hover  {
+    color: #ff8ca1;
 }
 
 
-/* ---------------------------------- Input Form  --*/
+/* ---------------------------------- Input Form  -------*/
 
 .dimension-form  {
     background-color: #dde9ff;
