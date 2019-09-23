@@ -35,9 +35,7 @@ $(document).ready(function() {
         if (isNaN(xIn) === true || isNaN(yIn) === true || isNaN(zIn) === true ||
             xIn <= 0 || yIn <= 0 || zIn <= 0) {
             invalidDimensionsError();
-        }
-
-        else {
+        } else {
 
             //Remove "d-none" class from svg elements"
             $(".line").removeClass("d-none");
@@ -137,16 +135,14 @@ $(document).ready(function() {
         let noteIndex;
         if (Math.abs(firstNegative) < Math.abs(lastPositive)) {
             noteIndex = firstNegativeIndex;
-        }
-        else {
+        } else {
             noteIndex = lastPositiveIndex;
         }
         let noteOutput;
         //Lookup up the correct note from noteNames array 
         if (noteIndex < 12) {
             noteOutput = noteNames[noteIndex];
-        }
-        else {
+        } else {
             noteOutput = noteNames[noteIndex % 12];
         }
         return noteOutput;
@@ -178,15 +174,16 @@ $(document).ready(function() {
         //derive the  to maximise diagram size based on room x-axis and y-axis
 
         //Remove the sine wave if it was previously on screen  
-        $(".sine-wave").attr({ d: "" });
+        $(".sine-wave").attr({
+            d: ""
+        });
 
 
         let baseProportion;
         let scaleQ = xDim + yDim;
         if (Math.max(...dimensions) === zDim) {
             baseProportion = Math.round(drawAreaHeight / scaleQ) * 0.8;
-        }
-        else {
+        } else {
             baseProportion = Math.round(drawAreaWidth / scaleQ) * 0.8;
         }
 
@@ -260,8 +257,7 @@ $(document).ready(function() {
             function frame() {
                 if (posX == originX - xLength) {
                     clearInterval(id);
-                }
-                else {
+                } else {
                     posX--;
                     $("#xAxis").attr("x2", posX);
                 }
@@ -277,8 +273,7 @@ $(document).ready(function() {
             function frame() {
                 if (pos == originX + yLength) {
                     clearInterval(id);
-                }
-                else {
+                } else {
                     pos++;
                     $("#yAxis").attr("x2", pos);
                 }
@@ -294,8 +289,7 @@ $(document).ready(function() {
             function frame() {
                 if (pos == originY + zLength) {
                     clearInterval(id);
-                }
-                else {
+                } else {
                     pos++;
                     $("#zAxis").attr("y2", pos);
                 }
@@ -312,13 +306,13 @@ $(document).ready(function() {
 
         if (dimensions.length === 0) {
             invalidDimensionsError();
-        }
-
-        else {
+        } else {
 
             function initialiseAxisFocus() {
                 $(".line").addClass("d-none"); //remove the main room drawing
-                $(".sine-wave").attr({ d: "" }); //clear the sine wav from screen
+                $(".sine-wave").attr({
+                    d: ""
+                }); //clear the sine wav from screen
             }
 
             //calculate positions of nodes and antinodes for each room mode
@@ -331,13 +325,11 @@ $(document).ready(function() {
                 nodeValue = nodes[0];
                 axisName = "length"
                 $(this).closest(".dim-box").addClass("dim-selected");
-            }
-            else if ($(this).attr("id") === "widBtn") {
+            } else if ($(this).attr("id") === "widBtn") {
                 nodeValue = nodes[1];
                 axisName = "width";
                 $(this).closest(".dim-box").addClass("dim-selected");
-            }
-            else {
+            } else {
                 nodeValue = nodes[2];
                 axisName = "height";
                 $(this).closest(".dim-box").addClass("dim-selected");
@@ -364,11 +356,9 @@ $(document).ready(function() {
 
             if ($(this).attr("id") === "lenBtn") {
                 xAxisFocus();
-            }
-            else if ($(this).attr("id") === "widBtn") {
+            } else if ($(this).attr("id") === "widBtn") {
                 yAxisFocus();
-            }
-            else if ($(this).attr("id") === "heiBtn") {
+            } else if ($(this).attr("id") === "heiBtn") {
                 zAxisFocus();
             }
 
@@ -481,8 +471,7 @@ $(document).ready(function() {
             $(".play-button").text("Play");
             $(`#${actBtn}`).addClass("btn-danger").removeClass("btn-success").text("Stop");
             startPlayback();
-        }
-        else {
+        } else {
             $(`#${actBtn}`).addClass("btn-success").removeClass("btn-danger").text("Play");
 
             stopPlayback();

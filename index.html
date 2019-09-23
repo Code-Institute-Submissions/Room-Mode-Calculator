@@ -1,168 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-12/css/all.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/litera/bootstrap.min.css" rel="stylesheet" integrity="sha384-D/7uAka7uwterkSxa2LwZR7RJqH2X6jfmhkJ0vFPGUtPyBMF2WMq9S+f9Ik5jJu1" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
-    <title>Room Mode Calculator</title>
-</head>
-
-<body>
-    <div class="container body-container">
-        <div class="header">
-            <div class="row">
-                <div class="col">
-                    <h1 class="d-flex justify-content-between align-items-center px-3">
-                        <span>Room Mode Calculator</span>
-                        <span id="showExplainer" class="far fa-question-circle " role="button" aria-pressed="false"></span>
-                    </h1>
-                </div>
-            </div>
-        </div>
-
-
-        <main>
-            <!--Input Form  -->
-            <div class="row no-gutters align-items-center border border-info rounded my-1">
-                <div class="col">
-                    <form id="dimensionForm" class="dimension-form">
-                        <div class="form-row form-inline no-gutters justify-content-around p-2">
-                            <div class="col-12 col-lg-2">
-                                <h2 class="input-request text-center mb-0">Enter dimensions: </h2>
-                            </div>
-                            <div class="col-4 col-lg-3">
-                                <label for="xInput" class="sr-only">X-Axis</label>
-                                <input type="number" id="xInput" class="form-control input-box" placeholder="X-Axis" />
-                            </div>
-                            <div class="col-4 col-lg-3">
-                                <label for="yInput" class="sr-only">Y-Axis</label>
-                                <input type="number" id="yInput" class="form-control input-box" placeholder="Y-Axis" />
-                            </div>
-                            <div class="col-4 col-lg-3">
-                                <label for="zInput" class="sr-only">Z-Axis</label>
-                                <input type="number" id="zInput" class="form-control input-box" placeholder="Z-Axis" />
-                            </div>
-                            <div class="col-12 col-lg-1">
-                                <button type="button" id="submitBtn" class="btn btn-success w-100">Go!</button>
-                            </div>
-                        </div>
-                    </form>
-                    <div id="dimensionsError" class="error-message text-center">
-                        <span>Please enter valid room dimensions</span>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-12/css/all.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/litera/bootstrap.min.css" rel="stylesheet" integrity="sha384-D/7uAka7uwterkSxa2LwZR7RJqH2X6jfmhkJ0vFPGUtPyBMF2WMq9S+f9Ik5jJu1" crossorigin="anonymous">
+        <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+        <title>Room Mode Calculator</title>
+    </head>
+    <body>
+        <div class="container body-container">
+            <div class="header">
+                <div class="row">
+                    <div class="col">
+                        <h1 class="d-flex justify-content-between align-items-center px-3">
+                            <span>Room Mode Calculator</span>
+                            <span id="showExplainer" class="far fa-question-circle " role="button" aria-pressed="false"></span>
+                        </h1>
                     </div>
                 </div>
             </div>
-
-            <!--  Outputs and Drawing Row  -->
-            <div class="row">
-                <!-- Graphics  -->
-                <div class="graphics col-12 col-lg-10 order-lg-1">
-                    <div class="drawing-wrapper d-flex align-items-center justify-content-center">
-                        <svg id="drawingArea" class="drawing-area">
-                            <!-- JS will determine the position/dimensions of the lines  -->
-                            <line id="xAxis" class="d-none line line-main line-x"/>
-                            <line id="yAxis" class="d-none line line-main line-y"/>
-                            <line id="zAxis" class="d-none line line-main line-z"/>
-                            
-                            <!-- Path to draw the background axes  -->
-                            <path id="backPath" class="d-none line line-back"></path>
-                        
-                            <!-- Sine Wave -->
-                            <path id="sineWaveOne" class="sine-wave"/>
-                            <path id="sineWaveTwo" class="sine-wave"/>
-                        </svg>
-
-                        <div id="axisInfo" class="axis-info col-12 d-none w-75">
-                            <p id="problemDistances" class="prob-dist-para text-center"></p>
+            <main>
+                <!--Input Form  -->
+                <div class="row no-gutters align-items-center border border-info rounded my-1">
+                    <div class="col">
+                        <form id="dimensionForm" class="dimension-form">
+                            <div class="form-row form-inline no-gutters justify-content-around p-2">
+                                <div class="col-12 col-lg-2">
+                                    <h2 class="input-request text-center mb-0">Enter dimensions: </h2>
+                                </div>
+                                <div class="col-4 col-lg-3">
+                                    <label for="xInput" class="sr-only">X-Axis</label>
+                                    <input type="number" id="xInput" class="form-control input-box" placeholder="X-Axis" />
+                                </div>
+                                <div class="col-4 col-lg-3">
+                                    <label for="yInput" class="sr-only">Y-Axis</label>
+                                    <input type="number" id="yInput" class="form-control input-box" placeholder="Y-Axis" />
+                                </div>
+                                <div class="col-4 col-lg-3">
+                                    <label for="zInput" class="sr-only">Z-Axis</label>
+                                    <input type="number" id="zInput" class="form-control input-box" placeholder="Z-Axis" />
+                                </div>
+                                <div class="col-12 col-lg-1">
+                                    <button type="button" id="submitBtn" class="btn btn-success w-100">Go!</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="dimensionsError" class="error-message text-center">
+                            <span>Please enter valid room dimensions</span>
                         </div>
                     </div>
-
                 </div>
-
-                <!-- Outputs  Display -->
-                <div class="outputs-wrapper order-lg-0 col-12 col-lg-2">
-                    <div class="d-flex flex-column justify-content-around">
-                        <div class="dim-box row no-gutters">
-                            <div class="col-9 col-lg-12">
-                                <button type="button" id="lenBtn" class="dim-button btn btn-primary btn-sm btn-block">
-                                    <h3 id="titleLen">Length: </h3>
-                                </button>
+                <!--  Outputs and Drawing Row  -->
+                <div class="row">
+                    <!-- Graphics  -->
+                    <div class="graphics col-12 col-lg-10 order-lg-1">
+                        <div class="drawing-wrapper d-flex align-items-center justify-content-center">
+                            <svg id="drawingArea" class="drawing-area">
+                                <!-- JS will determine the position/dimensions of the lines  -->
+                                <line id="xAxis" class="d-none line line-main line-x"/>
+                                <line id="yAxis" class="d-none line line-main line-y"/>
+                                <line id="zAxis" class="d-none line line-main line-z"/>
+                                <!-- Path to draw the background axes  -->
+                                <path id="backPath" class="d-none line line-back"></path>
+                                <!-- Sine Wave -->
+                                <path id="sineWaveOne" class="sine-wave"/>
+                                <path id="sineWaveTwo" class="sine-wave"/>
+                            </svg>
+                            <div id="axisInfo" class="axis-info col-12 d-none w-75">
+                                <p id="problemDistances" class="prob-dist-para text-center"></p>
                             </div>
-                            <div class="col-3 col-lg-12 order-lg-4">
-                                <button type="button" id="playBtn0" class="play-button btn btn-success btn-sm btn-block">
+                        </div>
+                    </div>
+                    <!-- Outputs  Display -->
+                    <div class="outputs-wrapper order-lg-0 col-12 col-lg-2">
+                        <div class="d-flex flex-column justify-content-around">
+                            <div class="dim-box row no-gutters">
+                                <div class="col-9 col-lg-12">
+                                    <button type="button" id="lenBtn" class="dim-button btn btn-primary btn-sm btn-block">
+                                        <h3 id="titleLen">Length: </h3>
+                                    </button>
+                                </div>
+                                <div class="col-3 col-lg-12 order-lg-4">
+                                    <button type="button" id="playBtn0" class="play-button btn btn-success btn-sm btn-block">
                                     Play
-                                </button>
+                                    </button>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col-6 col-lg-12">
+                                    <p id="freqLen" class="para-dim my-1">Frequency: </p>
+                                </div>
+                                <div class="col-6 col-lg-12">
+                                    <p id="noteLen" class="para-dim my-1">Note: </p>
+                                </div>
                             </div>
-
-                            <div class="w-100"></div>
-                            <div class="col-6 col-lg-12">
-                                <p id="freqLen" class="para-dim my-1">Frequency: </p>
+                            <div class="dim-box row no-gutters">
+                                <div class="col-9 col-lg-12">
+                                    <button type="button" id="widBtn" class="dim-button btn btn-primary btn-sm btn-block">
+                                        <h3 id="titleWid">Width: </h3>
+                                    </button>
+                                </div>
+                                <div class="col-3 col-lg-12 order-lg-4">
+                                    <button type="button" id="playBtn1" class="play-button order-lg-4 btn btn-success btn-sm btn-block">Play</button>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col-6 col-lg-12">
+                                    <p id="freqWid" class="para-dim my-1">Frequency: </p>
+                                </div>
+                                <div class="col-6 col-lg-12">
+                                    <p id="noteWid" class="para-dim my-1">Note: </p>
+                                </div>
                             </div>
-                            <div class="col-6 col-lg-12">
-                                <p id="noteLen" class="para-dim my-1">Note: </p>
-                            </div>
-                        </div>
-                        <div class="dim-box row no-gutters">
-                            <div class="col-9 col-lg-12">
-                                <button type="button" id="widBtn" class="dim-button btn btn-primary btn-sm btn-block">
-                                <h3 id="titleWid">Width: </h3>
-                            </button>
-                            </div>
-                            <div class="col-3 col-lg-12 order-lg-4">
-                                <button type="button" id="playBtn1" class="play-button order-lg-4 btn btn-success btn-sm btn-block">Play</button>
-                            </div>
-                            <div class="w-100"></div>
-                            <div class="col-6 col-lg-12">
-                                <p id="freqWid" class="para-dim my-1">Frequency: </p>
-                            </div>
-                            <div class="col-6 col-lg-12">
-                                <p id="noteWid" class="para-dim my-1">Note: </p>
-                            </div>
-                        </div>
-                        <div class="dim-box row no-gutters">
-                            <div class="col-9 col-lg-12">
-                                <button type="button" id="heiBtn" class="dim-button btn btn-primary btn-sm btn-block">
-                                <h3 id="titleHei">Height: </h3>
-                            </button>
-                            </div>
-                            <div class="col-3 col-lg-12 order-lg-4">
-                                <button type="button" id="playBtn2" class="play-button order-lg-4 btn btn-success btn-sm btn-block">Play</button>
-                            </div>
-                            <div class="w-100"></div>
-                            <div class="col-6 col-lg-12">
-                                <p id="freqHei" class="para-dim my-1">Frequency: </p>
-                            </div>
-                            <div class="col-6 col-lg-12">
-                                <p id="noteHei" class="para-dim my-1">Note: </p>
+                            <div class="dim-box row no-gutters">
+                                <div class="col-9 col-lg-12">
+                                    <button type="button" id="heiBtn" class="dim-button btn btn-primary btn-sm btn-block">
+                                        <h3 id="titleHei">Height: </h3>
+                                    </button>
+                                </div>
+                                <div class="col-3 col-lg-12 order-lg-4">
+                                    <button type="button" id="playBtn2" class="play-button order-lg-4 btn btn-success btn-sm btn-block">Play</button>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col-6 col-lg-12">
+                                    <p id="freqHei" class="para-dim my-1">Frequency: </p>
+                                </div>
+                                <div class="col-6 col-lg-12">
+                                    <p id="noteHei" class="para-dim my-1">Note: </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div id="explainerModal" class="explainer-modal d-none">
-                <div class="explainer-inner d-flex flex-column align-items-center justify-content-center">
-                    <h2 class="modal-title ">Room Modes Explained</h2>
-                    <p>Text</p>
-                    <div class="modes-pic-wrapper">
-                        <img src="assets/images/330px-Onde_stationnaire_vitesse_tuyau_ouvert_trois_modes.svg.png" alt="Room modes of fundamental frequency, first harmonic and second harmonc" class="modes-pic">
+                <div id="explainerModal" class="explainer-modal d-none">
+                    <div class="explainer-inner d-flex flex-column align-items-center justify-content-center">
+                        <h2 class="modal-title ">Room Modes Explained</h2>
+                        <p>Text</p>
+                        <div class="modes-pic-wrapper">
+                            <img src="assets/images/330px-Onde_stationnaire_vitesse_tuyau_ouvert_trois_modes.svg.png" alt="Room modes of fundamental frequency, first harmonic and second harmonc" class="modes-pic">
+                        </div>
+                        <p>Text</p>
                     </div>
-                    <p>Text</p>
                 </div>
-            </div>
-        </main>
-    </div>
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="assets/js/script.js"></script>
-</body>
+            </main>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="assets/js/script.js"></script>
+    </body>
 </html>
