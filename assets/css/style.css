@@ -1,165 +1,208 @@
 body {
-     background-color: #eefcff;
-     font-family: Roboto, sans-serif;
-     height: 100vh;
+ background-color: #eefcff;
+ font-family: Roboto, sans-serif;
+ height: 100vh;
 }
- h1 {
-     background-color: #068ca1;
-     border: 1px solid #068ca1;
-     border-radius: 10px;
-     color: #fefefe;
-     font-size: 1.3rem;
-     height: 10vh;
-     margin: 0;
+
+h1 {
+ background-color: #068ca1;
+ border: 1px solid #068ca1;
+ border-radius: 10px;
+ color: #fefefe;
+ font-size: 1.3rem;
+ height: 10vh;
+ margin: 0;
 }
- h3 {
-     font-size: 1.2em;
-     margin: 0;
+
+h3 {
+ font-size: 1.2em;
+ margin: 0;
 }
- p {
-     font-family: Roboto, sans-serif;
+
+p {
+ font-family: Roboto, sans-serif;
 }
+
 /*---------------------------------- Explainer Button --*/
- .show-explainer {
-     font-size: 1.5em;
-     transition: color 0.2s ease;
+
+.show-explainer {
+ font-size: 1.5em;
+ transition: color 0.2s ease;
 }
- .show-explainer :hover {
-     color: #ff8ca1;
+
+.show-explainer :hover {
+ color: #ff8ca1;
 }
+
 /* ---------------------------------- Input Form -------*/
- .dimension-form {
-     background-color: #dde9ff;
+
+.dimension-form {
+ background-color: #dde9ff;
 }
- .input-request {
-     font-size: 1.1em;
+
+.input-request {
+ font-size: 1.1em;
 }
- .input-box {
-     margin: 0.5em 0;
+
+.input-box {
+ margin: 0.5em 0;
 }
- .error-message {
-     background-color: #ee3333;
-     border: 0.1px solid #dd5500;
-     border-radius: 5px;
-     box-sizing: border-box;
-     color: #efefef;
-     display: none;
-     margin: 5px;
+
+.error-message {
+ background-color: #ee3333;
+ border: 0.1px solid #dd5500;
+ border-radius: 5px;
+ box-sizing: border-box;
+ color: #efefef;
+ display: none;
+ margin: 5px;
 }
+
 /* ------------------------------ Outputs Display --*/
- .outputs-display {
-     position: absolute;
-     bottom: 0;
+
+.outputs-display {
+ position: absolute;
+ bottom: 0;
 }
- .outputs-wrapper {
-     order: 1;
-     height: 30vh;
+
+.outputs-wrapper {
+ order: 1;
+ height: 30vh;
 }
- .dim-box {
-     background-color: #fefefe;
-     border: 1px solid #bababa;
-     border-radius: 5px;
-     box-sizing: border-box;
-     margin: 0.1em 0;
-     padding: 0.5em;
+
+.dim-box {
+ background-color: #fefefe;
+ border: 1px solid #bababa;
+ border-radius: 5px;
+ box-sizing: border-box;
+ margin: 0.1em 0;
+ padding: 0.5em;
 }
- .dim-selected {
-     background-color: rgba(220,0,100,0.3);
-     color: white;
-     font-weight: 700;
+
+.dim-selected {
+ background-color: rgba(220, 0, 100, 0.3);
+ color: white;
+ font-weight: 700;
 }
+
 /* -------------------------------Graphics Area ----*/
- .graphics {
-     min-height: 35vh;
-     max-height: 50vh;
+
+.graphics {
+ min-height: 35vh;
+ max-height: 50vh;
 }
- .drawing-wrapper {
-     background-color: #f9f9f9;
-     border: 1px solid #bababa;
-     box-sizing: border-box;
-     height: 100%;
-     position: relative;
-     width: 100% 
+
+.drawing-wrapper {
+ background-color: #f9f9f9;
+ border: 1px solid #bababa;
+ box-sizing: border-box;
+ height: 100%;
+ position: relative;
+ width: 100%
 }
- .drawing-area {
-     box-sizing: border-box;
-     height: 95%;
-     padding: 1%;
-     width: 95%;
+
+.drawing-area {
+ box-sizing: border-box;
+ height: 95%;
+ padding: 1%;
+ width: 95%;
 }
- .sine-wave {
-     fill-opacity: 0;
-     stroke: #000;
+
+.sine-wave {
+ fill-opacity: 0;
+ stroke: #000;
 }
- .axis-info {
-     background-color: rgba(0,0,0,0);
-     bottom:0;
-     position:absolute;
-     z-index: 1;
+
+.axis-info {
+ background-color: rgba(0, 0, 0, 0);
+ bottom: 0;
+ position: absolute;
+ z-index: 1;
 }
- .prob-dist-para {
-     font-size:75%;
+
+.prob-dist-para {
+ font-size: 75%;
 }
+
 /* -----------------------------line classes ---- */
- .line-main {
-     stroke-linecap: round;
-     stroke-width: 5px;
+
+.line-main {
+ stroke-linecap: round;
+ stroke-width: 5px;
 }
- .line-back {
-     fill-opacity: 0;
-     stroke: #bebebe;
-     stroke-width: 1px;
+
+.line-back {
+ fill-opacity: 0;
+ stroke: #bebebe;
+ stroke-width: 1px;
 }
- .line-x {
-     stroke: #ff0000;
+
+.line-x {
+ stroke: #ff0000;
 }
- .line-y {
-     stroke: #00ff00;
+
+.line-y {
+ stroke: #00ff00;
 }
- .line-z {
-     stroke: #0000ff;
+
+.line-z {
+ stroke: #0000ff;
 }
+
 /*------------------------------- Modal ------------*/
- .explainer-modal {
-     align-items: center;
-     background-color: rgba(0, 0, 0, 0.2);
-     display: flex;
-     left: 0;
-     height: 100vh;
-     justify-content: center;
-     position: absolute;
-     top: 0;
-     width: 100vw;
+
+.explainer-modal {
+ align-items: center;
+ background-color: rgba(0, 0, 0, 0.2);
+ display: flex;
+ left: 0;
+ height: 100vh;
+ justify-content: center;
+ position: absolute;
+ top: 0;
+ width: 100vw;
 }
- .explainer-inner {
-     background-color: #f1f1f1;
-     height: 95%;
-     position: relative;
-     width: 80%;
+
+.explainer-inner {
+ background-color: #fafafa;
+ height: 95%;
+ position: relative;
+ width: 80%;
 }
- .modes-pic-wrapper {
-     width:75%;
+
+
+h2 {
+ font-size: 2em;
 }
- .modes-pic {
-     height: auto;
-     width:100%;
+
+
+.modes-pic-wrapper {
+ height: 20%;
+ width: 75%;
 }
+
+.modes-pic {
+ height: 100%;
+ width: 100%;
+}
+
 /*---------------------------- Media Queries -- */
- @media (min-width:992px) {
-     h1 {
-         font-size: 1.5rem;
-    }
-     .graphics {
-         min-height: 70vh;
-         max-height: 70vh;
-    }
-     .outputs-wrapper {
-         order: 0;
-    }
-     .para-dim {
-         font-size: 0.8em;
-    }
-     .prob-dist-para {
-         font-size:1.3em;
-    }
+
+@media (min-width:992px) {
+ h1 {
+  font-size: 1.5rem;
+ }
+ .graphics {
+  min-height: 70vh;
+  max-height: 70vh;
+ }
+ .outputs-wrapper {
+  order: 0;
+ }
+ .para-dim {
+  font-size: 0.8em;
+ }
+ .prob-dist-para {
+  font-size: 1.3em;
+ }
 }
