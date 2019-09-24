@@ -73,7 +73,7 @@ This doesnt occur on mobille view.
   cloned to published repository (https://github.com/Echoic88/room-mode-calculator.git)
 * Website deployed from Master Branch of cloned repository (https://github.com/Echoic88/room-mode-calculator.git)
 * Deployed url: 
-    https://echoic88.github.io/room-mode-calculator/
+    https://echoic88.github.io/room-mode-calculator2/
     
 
 # References
