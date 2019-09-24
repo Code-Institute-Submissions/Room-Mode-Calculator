@@ -72,6 +72,7 @@ https://drive.google.com/drive/folders/129n2Yw-C3wSzYJ-RsGNcb2YjVr17Ew2j?usp=sha
 ## Bugs/Issues
 * In desktop view - when the y-axis is the smallest dimension the room doesnt fully render within the drawing area.
 This doesnt occur on mobille view.
+* Play buttons do not repond on first click after submitting dimensions and return console error.
 
 
 # References

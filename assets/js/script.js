@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 $(document).ready(function() {
     //---------------------Define Variables --------------//
     let dimensions = []; //dimensions array - replace with user input
@@ -316,11 +317,12 @@ $(document).ready(function() {
 
             //display the axis information
             $("#axisInfo").removeClass("d-none");
-            $("#problemDistances").text(`Node at: ${nodeValue} meter/s for ${axisName} of room`)
+            $("#problemDistances").text(`Node at: ${nodeValue} meter/s for ${axisName} of room`);
 
             initialiseAxisFocus();
-
-            //variables for drawing sine waves
+        }
+        
+           //variables for drawing sine waves
             let xStart = drawAreaWidth * 0.1;
             let yStart = drawAreaHeight * 0.1;
             let xEnd = drawAreaWidth * 0.9;
@@ -341,90 +343,89 @@ $(document).ready(function() {
             else if ($(this).attr("id") === "heiBtn") {
                 zAxisFocus();
             }
+        
+        //View the x-axis only
+        function xAxisFocus() {
 
-            //View the x-axis only
-            function xAxisFocus() {
+            //Draw x-axis on left side  of screen
+            $("#xAxis").attr({
+                x1: drawAreaWidth * 0.1,
+                y1: drawAreaHeight * 0.1,
+                x2: drawAreaWidth * 0.1,
+                y2: drawAreaHeight * 0.8
+            });
 
-                //Draw x-axis on left side  of screen
-                $("#xAxis").attr({
-                    x1: drawAreaWidth * 0.1,
-                    y1: drawAreaHeight * 0.1,
-                    x2: drawAreaWidth * 0.1,
-                    y2: drawAreaHeight * 0.8
-                });
+            $("#xAxis").removeClass("d-none");
 
-                $("#xAxis").removeClass("d-none");
-
-                //Draw Sine Wav
-                $("#sineWaveOne").attr({
-                    d: `M${xStart} ${yStart}  
+            //Draw Sine Wav
+            $("#sineWaveOne").attr({
+                d: `M${xStart} ${yStart}  
                 Q ${xStart + xControl} ${yStart}, ${xHalf} ${yHalf} 
                 Q ${xHalf + xControl} ${yEnd}, ${xEnd} ${yEnd}`
-                });
+            });
 
-                $("#sineWaveTwo").attr({
-                    d: `M${xStart} ${yEnd}  
+            $("#sineWaveTwo").attr({
+                d: `M${xStart} ${yEnd}  
                 Q ${xStart + xControl} ${yEnd}, ${xHalf} ${yHalf} 
                 Q ${xHalf + xControl} ${yStart}, ${xEnd} ${yStart}`
-                });
-            }
+            });
+        }
 
-            //View the y-axis only
-            function yAxisFocus() {
-                //Draw y-axis on right side of screen
-                $("#yAxis").attr({
-                    x1: drawAreaWidth * 0.9,
-                    y1: drawAreaHeight * 0.1,
-                    x2: drawAreaWidth * 0.9,
-                    y2: drawAreaHeight * 0.8
-                });
+        //View the y-axis only
+        function yAxisFocus() {
+            //Draw y-axis on right side of screen
+            $("#yAxis").attr({
+                x1: drawAreaWidth * 0.9,
+                y1: drawAreaHeight * 0.1,
+                x2: drawAreaWidth * 0.9,
+                y2: drawAreaHeight * 0.8
+            });
 
-                $("#yAxis").removeClass("d-none");
+            $("#yAxis").removeClass("d-none");
 
-                //Draw Sine Wav
-                $("#sineWaveOne").attr({
-                    d: `M${xStart} ${yStart}  
+            //Draw Sine Wav
+            $("#sineWaveOne").attr({
+                d: `M${xStart} ${yStart}  
                 Q ${xStart + xControl} ${yStart}, ${xHalf} ${yHalf} 
                 Q ${xHalf + xControl} ${yEnd}, ${xEnd} ${yEnd}`
-                });
+            });
 
-                $("#sineWaveTwo").attr({
-                    d: `M${xStart} ${yEnd}  
+            $("#sineWaveTwo").attr({
+                d: `M${xStart} ${yEnd}  
                 Q ${xStart + xControl} ${yEnd}, ${xHalf} ${yHalf} 
                 Q ${xHalf + xControl} ${yStart}, ${xEnd} ${yStart}`
-                });
-            }
+            });
+        }
 
-            //View the z-axis only
-            function zAxisFocus() {
+        //View the z-axis only
+        function zAxisFocus() {
 
-                $("#zAxis").attr({
-                    x1: drawAreaWidth * 0.1,
-                    y1: drawAreaHeight * 0.1,
-                    x2: drawAreaWidth * 0.9,
-                    y2: drawAreaHeight * 0.1
-                });
+            $("#zAxis").attr({
+                x1: drawAreaWidth * 0.1,
+                y1: drawAreaHeight * 0.1,
+                x2: drawAreaWidth * 0.9,
+                y2: drawAreaHeight * 0.1
+            });
 
-                $("#zAxis").removeClass("d-none"); // Show z-axis
+            $("#zAxis").removeClass("d-none"); // Show z-axis
 
-                //Draw Sine Wav
-                $("#sineWaveOne").attr({
-                    d: `M${xStart} ${yStart}  
+            //Draw Sine Wav
+            $("#sineWaveOne").attr({
+                d: `M${xStart} ${yStart}  
                 Q ${xStart} ${yStart + yControl}, ${xHalf} ${yHalf} 
                 Q ${xEnd} ${yHalf + yControl}, ${xEnd} ${yEnd}`
-                });
-                $("#sineWaveTwo").attr({
-                    d: `M${xEnd} ${yStart}  
+            });
+            $("#sineWaveTwo").attr({
+                d: `M${xEnd} ${yStart}  
                 Q ${xEnd} ${yStart + yControl}, ${xHalf} ${yHalf} 
                 Q ${xStart} ${yHalf + yControl}, ${xStart} ${yEnd}`
-                });
-            }
+            });
         }
     }
 
     //---------------------------Audio Code  ---------------------//
     //Establish the audio context
-    let audioCtx = new(window.AudioContext);
+    let audioCtx = new window.AudioContext();
     let sound = audioCtx.createOscillator();
     let volume = audioCtx.createGain();
     sound.start();
@@ -448,7 +449,6 @@ $(document).ready(function() {
         }
         else {
             $(`#${actBtn}`).addClass("btn-success").removeClass("btn-danger").text("Play");
-
             stopPlayback();
         }
     }
