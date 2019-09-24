@@ -1,4 +1,3 @@
-/*jshint esversion: 6 */
 $(document).ready(function() {
     //---------------------Define Variables --------------//
     let dimensions = []; //dimensions array - replace with user input

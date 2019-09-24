@@ -161,6 +161,7 @@ p {
  position: absolute;
  top: 0;
  width: 100vw;
+ z-index: 2;
 }
 
 .explainer-inner {
@@ -170,11 +171,9 @@ p {
  width: 80%;
 }
 
-
 h2 {
  font-size: 2em;
 }
-
 
 .modes-pic-wrapper {
  height: 20%;
