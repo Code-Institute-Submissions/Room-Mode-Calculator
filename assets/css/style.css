@@ -58,6 +58,10 @@ p {
  margin: 5px;
 }
 
+
+
+
+
 /* ------------------------------ Outputs Display --*/
 
 .outputs-display {
@@ -83,6 +87,12 @@ p {
  background-color: rgba(150, 0, 50, 0.6);
  color: white;
  font-weight: 700;
+}
+
+
+.stop-button {
+ display:none;
+ font-size: 95%;
 }
 
 /* -------------------------------Graphics Area ----*/

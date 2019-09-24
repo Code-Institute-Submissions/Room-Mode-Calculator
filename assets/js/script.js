@@ -320,29 +320,29 @@ $(document).ready(function() {
 
             initialiseAxisFocus();
         }
-        
-           //variables for drawing sine waves
-            let xStart = drawAreaWidth * 0.1;
-            let yStart = drawAreaHeight * 0.1;
-            let xEnd = drawAreaWidth * 0.9;
-            let yEnd = drawAreaHeight * 0.8;
-            let xSize = drawAreaWidth - (xStart * 2); // multiply by two so that is xStart changes length remains centered
-            let ySize = drawAreaHeight - (yStart * 2); // multiply by two so that is xStart changes length remains centered
-            let xHalf = xStart + xSize / 2;
-            let yHalf = yStart + ySize / 2;
-            let xControl = xSize / 4;
-            let yControl = ySize / 4;
 
-            if ($(this).attr("id") === "lenBtn") {
-                xAxisFocus();
-            }
-            else if ($(this).attr("id") === "widBtn") {
-                yAxisFocus();
-            }
-            else if ($(this).attr("id") === "heiBtn") {
-                zAxisFocus();
-            }
-        
+        //variables for drawing sine waves
+        let xStart = drawAreaWidth * 0.1;
+        let yStart = drawAreaHeight * 0.1;
+        let xEnd = drawAreaWidth * 0.9;
+        let yEnd = drawAreaHeight * 0.8;
+        let xSize = drawAreaWidth - (xStart * 2); // multiply by two so that is xStart changes length remains centered
+        let ySize = drawAreaHeight - (yStart * 2); // multiply by two so that is xStart changes length remains centered
+        let xHalf = xStart + xSize / 2;
+        let yHalf = yStart + ySize / 2;
+        let xControl = xSize / 4;
+        let yControl = ySize / 4;
+
+        if ($(this).attr("id") === "lenBtn") {
+            xAxisFocus();
+        }
+        else if ($(this).attr("id") === "widBtn") {
+            yAxisFocus();
+        }
+        else if ($(this).attr("id") === "heiBtn") {
+            zAxisFocus();
+        }
+
         //View the x-axis only
         function xAxisFocus() {
 
@@ -429,28 +429,38 @@ $(document).ready(function() {
     let volume = audioCtx.createGain();
     sound.start();
 
-    $(".play-button").click(playBtnActions);
+    $(".play-button").click(playBtnNote);
+    $(".stop-button").click(stopBtnNote);
 
-    function playBtnActions() {
+    function playBtnNote() {
         let freqIndex = parseInt($(this).attr("id").slice(7));
         let thisPlayBtn = $(this).attr("id");
-        playBtnDisplay(thisPlayBtn);
         createNote(frequencies[freqIndex]);
+        playBtnActions(thisPlayBtn);
+    }
+    
+    function stopBtnNote() {
+        let thisStopBtn = $(this).attr("id");
+        stopBtnActions(thisStopBtn);
     }
 
-    //Change the display of the play buttons     
-    function playBtnDisplay(actBtn) {
-        if ($(`#${actBtn}`).text() === "Play") {
-            $(".play-button").removeClass("btn-danger").addClass("btn-success");
-            $(".play-button").text("Play");
-            $(`#${actBtn}`).addClass("btn-danger").removeClass("btn-success").text("Stop");
-            startPlayback();
-        }
-        else {
-            $(`#${actBtn}`).addClass("btn-success").removeClass("btn-danger").text("Play");
-            stopPlayback();
-        }
+    function playBtnActions(actBtn) {
+        let thisBtn= $(`#${actBtn}`);
+        $(".play-button").show();
+        $(thisBtn).hide();
+        $(".stop-button").hide();
+        $(thisBtn).siblings(".stop-button").show();
+        startPlayback();
     }
+    
+    function stopBtnActions(actBtn) {
+        let thisBtn= $(`#${actBtn}`);
+        //$(".stop-button").hide();
+        $(thisBtn).hide();
+        $(thisBtn).siblings(".play-button").show();
+        stopPlayback();
+    }
+
 
     function createNote(frequency) {
         sound.frequency.value = frequency;
