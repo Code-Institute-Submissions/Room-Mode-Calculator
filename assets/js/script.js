@@ -455,7 +455,6 @@ $(document).ready(function() {
     
     function stopBtnActions(actBtn) {
         let thisBtn= $(`#${actBtn}`);
-        //$(".stop-button").hide();
         $(thisBtn).hide();
         $(thisBtn).siblings(".play-button").show();
         stopPlayback();

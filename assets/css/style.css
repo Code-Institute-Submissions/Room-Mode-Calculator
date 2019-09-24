@@ -14,7 +14,7 @@ h1 {
  margin: 0;
 }
 
-button > span {
+button>span {
  font-size: 1.2em;
  margin: 0;
 }
@@ -91,8 +91,11 @@ p {
 
 
 .stop-button {
- display:none;
- font-size: 95%;
+ border-radius: 0.75rem;
+ display: none;
+ font-size: 0.75rem;
+ line-height: 1.5;
+ padding: 0.25rem 0.5rem;
 }
 
 /* -------------------------------Graphics Area ----*/
