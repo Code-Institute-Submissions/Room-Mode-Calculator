@@ -17,18 +17,23 @@ Given the ever increasing popularity of home recording this can be a particular 
 Room modes can cause significant problems when trying to balance and equalise music recorded in domestic rooms and this can be mitigated, to some degree, by adjusting listening and/or microphone position away from points where the effects of room modes are prevalent. 
 In other words - away from the node points where that frequency is inherently quieter or cancelled. Also, away from the antinode points where that frequency is inherently louder.
 
+Further information can be found here:
+https://en.wikipedia.org/wiki/Room_modes
 
-The aims of this application are:
+
+
+## UX Design
 
 On input of room dimensions to provide insight into:
 * Problematic distances on each room axis (nodes and antnodes).
-* The frequency of the room mode for each room dimension .
+  Displayed when individual room dimensions are selected.
+* The frequency of the room mode for each room dimension.
 * The corresponding musical note for each of the room nodes.
 
-This can help when working with music to determine positioning. In addition to this, for a sound engineer that finds themselves consistently applying large scale EQ cuts or boosts at similar frequencies this tool can help identify if room modes may be a contributing factor.  
+This can help when working with music to determine positioning. In addition to this, for a sound engineer that finds themselves consistently applying large scale EQ cuts or boosts at similar frequencies this tool can help identify if room modes may be a contributing factor.
+Conversely for musicians/sound engineers that find themselves consistently fins themselves making EQ boosts/cuts at similar frequencies - this tool can aid in identifying if room modes are a contributing factor.
 
-Further information can be found here:
-https://en.wikipedia.org/wiki/Room_modes
+
 
 
 ## Features
@@ -48,11 +53,14 @@ On pressing the question mark at the top of the screen a basic explanation of ro
 
 
 
+
 ### Features to be implemented
 * Add button to revert to fulll room view from axis view
 * Functionality to select harmonics for room nodes in addition to fundamental frequency with corresponding wave display and node/antinode readout in axis focus view   
 * Add dimension labels to axes when the full room is viewed 
 * Improved visual aesthetics
+
+
 
 
 ## Technologies used
@@ -64,15 +72,21 @@ On pressing the question mark at the top of the screen a basic explanation of ro
 * Web Audio API https://www.w3.org/TR/webaudio/
 
 
+
+
 ## Testing
 Testing Results, and wireframe here:
-https://drive.google.com/drive/folders/129n2Yw-C3wSzYJ-RsGNcb2YjVr17Ew2j?usp=sharing
+https://drive.google.com/open?id=1wlheOZaZroJo9TtYVRehKNxVWaDsw-0k
+
+
 
 
 ## Bugs/Issues
 * In desktop view - when the y-axis is the smallest dimension the room doesnt fully render within the drawing area.
 This doesnt occur on mobille view.
 * Play buttons do not repond on first click after submitting dimensions and return console error.
+
+
 
 
 # References
@@ -83,6 +97,8 @@ This doesnt occur on mobille view.
 * https://www.html5rocks.com/en/tutorials/webaudio/intro/
 * https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API 
 * https://developer.mozilla.org/en-US/docs/Web/Accessibility
+
+
 
 
 # Credits

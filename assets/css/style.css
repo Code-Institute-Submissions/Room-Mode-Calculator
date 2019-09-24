@@ -14,7 +14,7 @@ h1 {
  margin: 0;
 }
 
-h3 {
+button > span {
  font-size: 1.2em;
  margin: 0;
 }
