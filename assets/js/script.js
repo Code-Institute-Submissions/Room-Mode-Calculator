@@ -101,7 +101,7 @@ $(document).ready(function() {
         let wavelengths = [baseWavelength];
         //return the array of wavelengths corresponding to musical notes in range
         function generateWavelengths() {
-            for (i = 1; i < 100; i++) {
+            for (let i = 1; i < 100; i++) {
                 wavelengths.push(wavelengths[i - 1] / wavelengthConstant);
             }
         }
@@ -424,7 +424,7 @@ $(document).ready(function() {
 
     //---------------------------Audio Code  ---------------------//
     //Establish the audio context
-    let audioCtx = new window.AudioContext() || webkitAudioContext();
+    let audioCtx = new window.AudioContext() || new window.webkitAudioContext();
     let sound = audioCtx.createOscillator();
     let volume = audioCtx.createGain();
     sound.start();
