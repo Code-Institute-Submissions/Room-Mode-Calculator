@@ -425,7 +425,7 @@ $(document).ready(function() {
     //---------------------------Audio Code  ---------------------//
     //Establish the audio context
 
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext);
+    const audioCtx = new AudioContext();
     let sound = audioCtx.createOscillator();
     let volume = audioCtx.createGain();
     sound.start();
