@@ -425,13 +425,21 @@ $(document).ready(function() {
     //---------------------------Audio Code  ---------------------//
     //Establish the audio context
 
-    const audioCtx = new AudioContext();
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext);
     let sound = audioCtx.createOscillator();
     let volume = audioCtx.createGain();
     sound.start();
-
+    
+    $(".transport").click(checkAudioCtx);
     $(".play-button").click(playBtnNote);
     $(".stop-button").click(stopBtnNote);
+
+    function checkAudioCtx()  {
+        if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+        }
+    }
+
 
     function playBtnNote() {
         let freqIndex = parseInt($(this).attr("id").slice(7));
