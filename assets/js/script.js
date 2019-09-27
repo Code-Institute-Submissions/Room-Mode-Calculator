@@ -28,7 +28,8 @@ $(document).ready(function() {
 
         if (isNaN(xIn) === true || isNaN(yIn) === true || isNaN(zIn) === true ||
             xIn <= 0 || yIn <= 0 || zIn <= 0) {
-            invalidDimensionsError();
+            
+            invalidDimensionsErrorGoBtn();
         }
         else {
             //Remove "d-none" class from svg elements"
@@ -46,17 +47,29 @@ $(document).ready(function() {
 
     function inputError() {
         if (isNaN($(this).val()) || $(this).val() <= 0) {
-            invalidDimensionsError();
+            let thisInput = $(this);
+            invalidDimensionsErrorInputs(thisInput);
         }
     }
 
     //Error to display if invalid dimensions are entered
-    function invalidDimensionsError() {
+    function invalidDimensionsErrorInputs(errInput) {
         $("#dimensionsError").show();
+        $("#dimensionsError").text(`Please enter valid dimensions for ${errInput.attr("placeholder")}`);
         $("#dimensionsError").click(function() {
             $("#dimensionsError").hide();
         });
     }
+    
+
+     function invalidDimensionsErrorGoBtn() {
+        $("#dimensionsError").show();
+        $("#dimensionsError").text(`Please enter valid dimensions for all three dimensions`);
+        $("#dimensionsError").click(function() {
+            $("#dimensionsError").hide();
+        });
+    }
+    
 
     //function to display dimension outputs
     function dimensionOutputs(x, y, z) {
