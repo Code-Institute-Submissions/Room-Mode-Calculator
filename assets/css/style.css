@@ -1,220 +1,177 @@
 body {
- background-color: #eefcff;
- font-family: Roboto, sans-serif;
- height: 100vh;
+     background-color: #eefcff;
+     font-family: Roboto, sans-serif;
+     height: 100vh;
 }
-
-h1 {
- background-color: #068ca1;
- border: 1px solid #068ca1;
- border-radius: 10px;
- color: #fefefe;
- font-size: 1.3rem;
- height: 10vh;
- margin: 0;
-}
-
-button>span {
- font-size: 1.2em;
- margin: 0;
-}
-
-p {
- font-family: Roboto, sans-serif;
-}
-
-/*---------------------------------- Explainer Button --*/
-
-.show-explainer {
- font-size: 1.5em;
- transition: color 0.1s ease;
-}
-
-.show-explainer:hover {
- color: #ff8ca1;
-}
-
-/* ---------------------------------- Input Form -------*/
-
-.dimension-form {
- background-color: #dde9ff;
-}
-
-.input-request {
- font-size: 1.1em;
-}
-
-.input-box {
- margin: 0.5em 0;
-}
-
-.error-message {
- background-color: #ee3333;
- border: 0.1px solid #dd5500;
- border-radius: 5px;
- box-sizing: border-box;
- color: #efefef;
- display: none;
- margin: 5px;
-}
-
-
-
-
-
-/* ------------------------------ Outputs Display --*/
-
-.outputs-display {
- position: absolute;
- bottom: 0;
-}
-
-.outputs-wrapper {
- order: 1;
- height: 30vh;
-}
-
-.dim-box {
- background-color: #fefefe;
- border: 1px solid #bababa;
- border-radius: 5px;
- box-sizing: border-box;
- margin: 0.1em 0;
- padding: 0.5em;
-}
-
-.dim-selected {
- background-color: rgba(150, 0, 50, 0.6);
- color: white;
- font-weight: 700;
-}
-
-
-.stop-button {
- border-radius: 0.75rem;
- display: none;
- font-size: 0.75rem;
- line-height: 1.5;
- padding: 0.25rem 0.5rem;
-}
-
-/* -------------------------------Graphics Area ----*/
-
-.graphics {
- min-height: 35vh;
- max-height: 50vh;
-}
-
-.drawing-wrapper {
- background-color: #f9f9f9;
- border: 1px solid #bababa;
- box-sizing: border-box;
- height: 100%;
- position: relative;
- width: 100%
-}
-
-.drawing-area {
- box-sizing: border-box;
- height: 95%;
- padding: 1%;
- width: 95%;
-}
-
-.sine-wave {
- fill-opacity: 0;
- stroke: #000;
-}
-
-.axis-info {
- background-color: rgba(0, 0, 0, 0);
- bottom: 0;
- position: absolute;
- z-index: 1;
-}
-
-.prob-dist-para {
- font-size: 75%;
-}
-
-/* -----------------------------line classes ---- */
-
-.line-main {
- stroke-linecap: round;
- stroke-width: 5px;
-}
-
-.line-back {
- fill-opacity: 0;
- stroke: #bebebe;
- stroke-width: 1px;
-}
-
-.line-x {
- stroke: #ff0000;
-}
-
-.line-y {
- stroke: #00ff00;
-}
-
-.line-z {
- stroke: #0000ff;
-}
-
-/*------------------------------- Modal ------------*/
-
-.explainer-modal {
- align-items: center;
- background-color: rgba(0, 0, 0, 0.2);
- display: flex;
- left: 0;
- height: 100vh;
- justify-content: center;
- position: absolute;
- top: 0;
- width: 100vw;
- z-index: 2;
-}
-
-.explainer-inner {
- background-color: #fafafa;
- height: 95%;
- position: relative;
- width: 80%;
-}
-
-h2 {
- font-size: 2em;
-}
-
-.modes-pic-wrapper {
- height: 20%;
- width: 75%;
-}
-
-.modes-pic {
- height: 100%;
- width: 100%;
-}
-
-/*---------------------------- Media Queries -- */
-
-@media (min-width:992px) {
  h1 {
-  font-size: 1.5rem;
- }
- .graphics {
-  min-height: 70vh;
-  max-height: 70vh;
- }
+     background-color: #068ca1;
+     border: 1px solid #068ca1;
+     border-radius: 10px;
+     color: #fefefe;
+     font-size: 1.3rem;
+     height: 10vh;
+     margin: 0;
+}
+ button>span {
+     font-size: 1.2em;
+     margin: 0;
+}
+ p {
+     font-family: Roboto, sans-serif;
+}
+/*---------------------------------- Explainer Button --*/
+ .show-explainer {
+     font-size: 1.5em;
+     transition: color 0.1s ease;
+}
+ .show-explainer:hover {
+     color: #ff8ca1;
+}
+/* ---------------------------------- Input Form -------*/
+ .dimension-form {
+     background-color: #dde9ff;
+}
+ .input-request {
+     font-size: 1.1em;
+}
+ .input-box {
+     margin: 0.5em 0;
+}
+ .error-message {
+     background-color: #ee3333;
+     border: 0.1px solid #dd5500;
+     border-radius: 5px;
+     box-sizing: border-box;
+     color: #efefef;
+     display: none;
+     margin: 5px;
+}
+/* ------------------------------ Outputs Display --*/
+ .outputs-display {
+     position: absolute;
+     bottom: 0;
+}
  .outputs-wrapper {
-  order: 0;
- }
- .para-dim {
-  font-size: 0.8em;
- }
+     order: 1;
+     height: 30vh;
+}
+ .dim-box {
+     background-color: #fefefe;
+     border: 1px solid #bababa;
+     border-radius: 5px;
+     box-sizing: border-box;
+     margin: 0.1em 0;
+     padding: 0.5em;
+}
+ .dim-selected {
+     background-color: rgba(150, 0, 50, 0.6);
+     color: white;
+     font-weight: 700;
+}
+ .stop-button {
+     border-radius: 0.75rem;
+     display: none;
+     font-size: 0.75rem;
+     line-height: 1.5;
+     padding: 0.25rem 0.5rem;
+}
+/* -------------------------------Graphics Area ----*/
+ .graphics {
+     min-height: 35vh;
+     max-height: 50vh;
+}
+ .drawing-wrapper {
+     background-color: #f9f9f9;
+     border: 1px solid #bababa;
+     box-sizing: border-box;
+     height: 100%;
+     position: relative;
+     width: 100% 
+}
+ .drawing-area {
+     box-sizing: border-box;
+     height: 95%;
+     padding: 1%;
+     width: 95%;
+}
+ .sine-wave {
+     fill-opacity: 0;
+     stroke: #000;
+}
+ .axis-info {
+     background-color: rgba(0, 0, 0, 0);
+     bottom: 0;
+     position: absolute;
+     z-index: 1;
+}
  .prob-dist-para {
-  font-size: 1.3em;
- }
+     font-size: 75%;
+}
+/* -----------------------------line classes ---- */
+ .line-main {
+     stroke-linecap: round;
+     stroke-width: 5px;
+}
+ .line-back {
+     fill-opacity: 0;
+     stroke: #bebebe;
+     stroke-width: 1px;
+}
+ .line-x {
+     stroke: #ff0000;
+}
+ .line-y {
+     stroke: #00ff00;
+}
+ .line-z {
+     stroke: #0000ff;
+}
+/*------------------------------- Modal ------------*/
+ .explainer-modal {
+     align-items: center;
+     background-color: rgba(0, 0, 0, 0.2);
+     display: flex;
+     left: 0;
+     height: 100vh;
+     justify-content: center;
+     position: absolute;
+     top: 0;
+     width: 100vw;
+     z-index: 2;
+}
+ .explainer-inner {
+     background-color: #fafafa;
+     height: 95%;
+     position: relative;
+     width: 80%;
+}
+ h2 {
+     font-size: 2em;
+}
+ .modes-pic-wrapper {
+     height: 20%;
+     width: 75%;
+}
+ .modes-pic {
+     height: 100%;
+     width: 100%;
+}
+/*---------------------------- Media Queries -- */
+ @media (min-width:992px) {
+     h1 {
+         font-size: 1.5rem;
+    }
+     .graphics {
+         min-height: 70vh;
+         max-height: 70vh;
+    }
+     .outputs-wrapper {
+         order: 0;
+    }
+     .para-dim {
+         font-size: 0.8em;
+    }
+     .prob-dist-para {
+         font-size: 1.3em;
+    }
 }

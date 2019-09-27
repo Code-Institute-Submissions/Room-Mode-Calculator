@@ -6,12 +6,12 @@ This application is to calculate room modes based on user input of room dimensio
 Room modes are the natural frequencies at which a room with parallel surfaces resonates (i.e. most domestic rooms). 
 This can cause uneven response at these frequencies at different listening positions. 
 When listening or recording at a node positions (zero point of wave) the relevant room mode frequency is significantly weaker.
-Correspondingly - at the the node points (point of greatest amplitude of the wave) the frequency is significantly boosted. 
-To a diminishing degree the same effect is also true for harmonics (mulitples) for each room mode.
+Correspondingly - at the node points (point of greatest amplitude of the wave) the frequency is significantly boosted. 
+To a diminishing degree the same effect is also true for harmonics (multiples) for each room mode.
 
 Why does this matter?
 
-The upshot of this is that in typical domestic rooms, with parallel surfaces, there will be an inherent unevenness in the frequency reponse of 
+The upshot of this is that in typical domestic rooms, with parallel surfaces, there will be an inherent unevenness in the frequency response of 
 these room mode frequencies (and their harmonics) at the room mode frequencies.
 Given the ever increasing popularity of home recording this can be a particular issue that can be overlooked by musicians/sound engineers working at home.
 Room modes can cause significant problems when trying to balance and equalise music recorded in domestic rooms and this can be mitigated, to some degree, by adjusting listening and/or microphone position away from points where the effects of room modes are prevalent. 
@@ -23,7 +23,7 @@ https://en.wikipedia.org/wiki/Room_modes
 ## UX Design
 
 On input of room dimensions to provide insight into:
-* Problematic distances on each room axis (nodes and antnodes).
+* Problematic distances on each room axis (nodes and antinodes).
   Displayed when individual room dimensions are selected.
 * The frequency of the room mode for each room dimension.
 * The corresponding musical note for each of the room nodes.
@@ -46,11 +46,12 @@ On pressing a dimension button (Length, Width, Height)
 On pressing the question mark at the top of the screen a basic explanation of room modes is given
 
 ### Features to be implemented
-* Add button to revert to fulll room view from axis view.
+* Add button to revert to full room view from axis view.
 * Functionality to select harmonics for room nodes in addition to fundamental frequency with corresponding wave display and node/antinode readout in axis focus view.
 * Add dimension labels to axes when the full room is viewed.
 * Add volume control.
 * Improved visual aesthetics and animation.
+* Timeout of audio after a set period of time.
 
 ## Technologies used
 * HTML https://www.w3.org/html/
@@ -65,17 +66,25 @@ On pressing the question mark at the top of the screen a basic explanation of ro
 Testing Results, and wireframe here:
 https://drive.google.com/drive/folders/1wlheOZaZroJo9TtYVRehKNxVWaDsw-0k?usp=sharing
 
+Testing performed on:
+* Chrome - Windows
+* Firefox - Windows
+* Chrome - Android
+* Firefox Android
+* Safari - iOS
+
 ## Bugs/Issues
-* In desktop view - when the y-axis is the smallest dimension the room doesnt fully render within the drawing area.
-This doesnt occur on mobile view.
-* Clicking on a dimensions button (e.g.) without valid dimensions returns an error but stills draw a view of the wave. This needs to be removed.
+* In desktop view - when the y-axis is the smallest dimension the room does not fully render within the drawing area.
+This does not occur on mobile view.
+* Clicking on a dimensions button (e.g.) without valid dimensions returns an error but stills draw a view of the wave. Remove this wave when no valid dimensions.
+* Issue where wudio on mobile devices only if headphones are plugged in. 
 
 ## Deployment
 * The development repository (https://github.com/Echoic88/milestone2-interactive-frontend) 
   cloned to published repository (https://github.com/Echoic88/room-mode-calculator.git)
-* Website deployed from Master Branch of cloned repository (https://github.com/Echoic88/room-mode-calculator.git)
+* Website deployed from master branch of cloned repository (https://github.com/Echoic88/room-mode-calculator.git)
 * Deployed url: 
-    https://echoic88.github.io/room-mode-calculator2/
+    https://echoic88.github.io/room-mode-calculator/
     
 
 # References
