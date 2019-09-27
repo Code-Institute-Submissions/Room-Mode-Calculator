@@ -300,7 +300,8 @@ $(document).ready(function() {
 
     function axisFocus() {
         if (dimensions.length === 0) {
-            invalidDimensionsError();
+            initialiseAxisFocus();
+            invalidDimensionsErrorGoBtn();
         }
         else {
             initialiseAxisFocus();
@@ -455,10 +456,16 @@ $(document).ready(function() {
 
 
     function playBtnNote() {
+        //If frequencies array is empty there is nothing for the oscillator to displlay
+        // Display error in this instance
+        if (frequencies.length === 0)  {
+            invalidDimensionsErrorGoBtn();
+        } else  {
         let freqIndex = parseInt($(this).attr("id").slice(7));
         let thisPlayBtn = $(this).attr("id");
         createNote(frequencies[freqIndex]);
         playBtnActions(thisPlayBtn);
+        }
     }
     
     function stopBtnNote() {

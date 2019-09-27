@@ -62,12 +62,12 @@ On pressing the question mark at the top of the screen a basic explanation of ro
 
 ## Testing
 Testing Results, and wireframe here:
-https://drive.google.com/open?id=1wlheOZaZroJo9TtYVRehKNxVWaDsw-0k
+https://drive.google.com/drive/folders/1wlheOZaZroJo9TtYVRehKNxVWaDsw-0k?usp=sharing
 
 ## Bugs/Issues
 * In desktop view - when the y-axis is the smallest dimension the room doesnt fully render within the drawing area.
-This doesnt occur on mobille view.
-* Play buttons do not repond on first click after submitting dimensions and return console error.
+This doesnt occur on mobile view.
+* Clicking on a dimensions button (e.g.) without valid dimensions returns an error but stills draw a view of the wave. This needs to be removed.
 
 ## Deployment
 * The development repository (https://github.com/Echoic88/milestone2-interactive-frontend) 
