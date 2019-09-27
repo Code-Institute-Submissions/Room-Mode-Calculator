@@ -1,4 +1,4 @@
-# Milestone 2 - Interactive Frontend Development
+# Room Mode Calculator
 ## Objective
 
 This application is to calculate room modes based on user input of room dimensions (length, width, height) and provide audio, graphical and numerical feedback.
@@ -46,10 +46,11 @@ On pressing a dimension button (Length, Width, Height)
 On pressing the question mark at the top of the screen a basic explanation of room modes is given
 
 ### Features to be implemented
-* Add button to revert to fulll room view from axis view
-* Functionality to select harmonics for room nodes in addition to fundamental frequency with corresponding wave display and node/antinode readout in axis focus view   
-* Add dimension labels to axes when the full room is viewed 
-* Improved visual aesthetics
+* Add button to revert to fulll room view from axis view.
+* Functionality to select harmonics for room nodes in addition to fundamental frequency with corresponding wave display and node/antinode readout in axis focus view.
+* Add dimension labels to axes when the full room is viewed.
+* Add volume control.
+* Improved visual aesthetics and animation.
 
 ## Technologies used
 * HTML https://www.w3.org/html/

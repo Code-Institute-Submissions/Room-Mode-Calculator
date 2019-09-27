@@ -494,7 +494,7 @@ $(document).ready(function() {
         sound.frequency.value = frequency;
         sound.type = "sine";
         sound.connect(volume);
-        volume.gain.value = 0.2;
+        volume.gain.value = 0.5;
     }
 
     function startPlayback() {
